@@ -329,7 +329,44 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 .rh2-card-val{font-family:'Manrope',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#fff;margin-bottom:4px}
 .rh2-card-sub{font-size:12px;color:rgba(255,255,255,.6)}
 
-/* New flat comparison table */
+/* ══ PROVIDER LOGOS ══ */
+.prov-logo{width:36px;height:36px;border-radius:var(--r2);overflow:hidden;flex-shrink:0;background:var(--surface2);display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
+.prov-logo img{width:36px;height:36px;object-fit:contain}
+.prov-logo-init{font-size:13px;font-weight:700;color:var(--text-3)}
+
+/* ══ COMPARISON CARDS ══ */
+.cmp-hdr{margin-bottom:16px}
+.cmp-hdr h3{font-family:'Manrope',sans-serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px}
+.cmp-hdr p{font-size:13px;color:var(--text-3);line-height:1.5}
+.cmp-cards{display:flex;flex-direction:column;gap:12px;margin-bottom:8px}
+.cmp-card{background:#fff;border-radius:var(--r5);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden}
+.cmp-card.card-curr{border-color:#FCD34D;background:#FFFBF0}
+.cmp-card.card-best{border-color:#6EE7B7;background:var(--green-bg)}
+.cmp-card-top{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:16px 20px}
+.cmp-card-name{font-size:15px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cmp-card-fund{font-size:12px;color:var(--text-4);margin-top:2px}
+.cmp-card-saving{text-align:right;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end}
+.cmp-save-amt{font-family:'Manrope',sans-serif;font-size:22px;font-weight:800}
+.cmp-save-amt.pos{color:var(--green)}
+.cmp-save-amt.neg{color:var(--red)}
+.cmp-save-amt.base{color:var(--text-3);font-size:14px;font-weight:600}
+.cmp-save-pct{font-size:12px;font-weight:500;margin-top:1px}
+.cmp-save-pct.pos{color:var(--green)}
+.cmp-save-pct.neg{color:var(--red)}
+.cmp-card-fees{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--border);padding:12px 20px;background:rgba(0,0,0,.015)}
+.cmp-card.card-curr .cmp-card-fees{background:rgba(251,191,36,.04)}
+.cmp-card.card-best .cmp-card-fees{background:rgba(5,150,105,.03)}
+.cmp-fee-item{padding:0 12px 0 0}
+.cmp-fee-item:first-child{padding-left:0}
+.cmp-fee-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-4);margin-bottom:3px}
+.cmp-fee-val{font-size:14px;font-weight:600;color:var(--text)}
+.cmp-fee-sub{font-size:11px;color:var(--text-4);margin-top:1px}
+.cmp-fee-total{font-size:14px;font-weight:700;color:var(--red)}
+.cmp-card-action{display:flex;align-items:center;justify-content:flex-end;padding:0 20px 0 0}
+@media(max-width:600px){
+  .cmp-card-fees{grid-template-columns:1fr 1fr;gap:10px}
+  .cmp-card-action{padding:0 0 12px 20px;justify-content:flex-start}
+}
 .tbl-card2{background:#fff;border-radius:var(--r5);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden;margin-bottom:16px}
 .tbl-hdr2{padding:18px 22px 14px;border-bottom:1px solid var(--border)}
 .tbl-hdr2 h3{font-family:'Manrope',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:3px}
@@ -766,30 +803,12 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
       </div>
     </div>
 
-    <!-- COMPARISON TABLE -->
-    <div class="tbl-card2">
-      <div class="tbl-hdr2">
-        <h3>Full comparison - fees broken out</h3>
-        <p>Sorted by how much you could save. Figures are illustrative - based on historical returns, not a forecast.</p>
-      </div>
-      <div class="tbl-scroll">
-        <table class="ctbl2">
-          <thead>
-            <tr>
-              <th>Provider</th>
-              <th>% Annual Fee</th>
-              <th>£ Fixed Annual Fee</th>
-              <th>% Contribution Fee</th>
-              <th>Projected Fees by Retirement</th>
-              <th>Projected Pot at Retirement</th>
-              <th>You Could Save</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="ctbody"></tbody>
-        </table>
-      </div>
+    <!-- COMPARISON CARDS -->
+    <div class="cmp-hdr">
+      <h3>How much could you save by switching?</h3>
+      <p>We've compared your current provider against every other provider in our database. Your current provider is highlighted. All fee information is shown for each provider.</p>
     </div>
+    <div id="ctbody" class="cmp-cards"></div>
 
     <!-- DISCLAIMER -->
     <p style="font-size:12px;color:var(--text-4);text-align:center;padding:16px 20px 32px;line-height:1.6;max-width:740px;margin:0 auto">These figures are illustrative and based on assumed investment growth of <span id="res-growth-lbl">9.1%</span> per year, shown in today's money using <span id="res-inf-lbl">2.0%</span> inflation. Your actual returns will depend on how your investments perform. Past performance is not a guide to the future. Always do your own research before switching, and consider speaking to a financial adviser if you're unsure.</p>
@@ -1200,62 +1219,97 @@ function runCalc(){
   document.getElementById('res-growth-lbl').textContent=(GROWTH*100).toFixed(1)+'%';
   document.getElementById('res-inf-lbl').textContent=(INFLATION*100).toFixed(1)+'%';
 
-  // Build new flat table
+  // Build comparison cards
   const tb=document.getElementById('ctbody');tb.innerHTML='';
   const d=PFEES[pName];
-  const cm=CMETA[pName]||{tp:null,tpc:'-'};
 
-  // Current provider row
-  const cr=document.createElement('tr');cr.className='row-curr2';
-  cr.innerHTML=`
-    <td>
-      <div class="t2-pname">${pName}<span class="t2-bdg t2-curr">Current</span></div>
-      <div class="t2-fund">${d?.fund||''}</div>
-    </td>
-    <td>
-      <div class="t2-amc">${fmtPct(fees.amc)}</div>
-      ${fees.add>0?`<div class="t2-amc-sub">+${fmtPct(fees.add)}</div>`:''}
-    </td>
-    <td class="t2-fee-norm">${fees.flat>0?fmt(fees.flat*years/years):'£0'}</td>
-    <td class="t2-amc">${fmtPct(fees.cc)}</td>
-    <td class="t2-fee-red">${fmt(currTotal)}</td>
-    <td class="t2-pot">${fmt(currPot)}</td>
-    <td><div class="sv-pill sv-base"><span class="sv-label">+ Baseline</span></div></td>
-    <td><button class="btn-switch outline" onclick="showPage('form-page')">Current</button></td>
-  `;
-  tb.appendChild(cr);
+  const PROVIDER_DOMAINS={
+    'Nest':'www.nestpensions.org.uk',
+    'Aviva':'www.aviva.co.uk',
+    'Legal and General':'www.legalandgeneral.com',
+    'Legal & General':'www.legalandgeneral.com',
+    'Scottish Widows':'www.scottishwidows.co.uk',
+    'Royal London':'www.royallondon.com',
+    'Aegon':'www.aegon.co.uk',
+    'Standard Life':'www.standardlife.co.uk',
+    'The People\'s Pension':'thepeoplespension.co.uk',
+    'NOW: Pensions':'www.nowpensions.com',
+    'Smart Pension':'www.smartpension.co.uk',
+    'NatWest Cushon':'www.cushon.co.uk',
+    'Freetrade':'freetrade.io',
+    'PensionBee':'www.pensionbee.com',
+    'Vanguard':'www.vanguard.co.uk',
+    'Nutmeg':'www.nutmeg.com',
+    'Moneyfarm':'www.moneyfarm.com',
+  };
 
+  function provLogo(name){
+    const domain=PROVIDER_DOMAINS[name];
+    const initials=name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+    if(!domain) return `<div class="prov-logo"><span class="prov-logo-init">${initials}</span></div>`;
+    return `<div class="prov-logo">
+      <img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" alt="${name} logo"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        onload="if(this.naturalWidth<=16){this.style.display='none';this.nextElementSibling.style.display='flex'}">
+      <span class="prov-logo-init" style="display:none">${initials}</span>
+    </div>`;
+  }
+
+  function makeCard(name,fund,amcPct,addPct,flatAnn,ccPct,totalFees,projPot,saving,isCurr,isBest){
+    const card=document.createElement('div');
+    card.className='cmp-card'+(isCurr?' card-curr':isBest?' card-best':'');
+    const pctDiff=currTotal>0?Math.abs(Math.round((saving/currTotal)*100)):0;
+    const pillAmt=isCurr?'':(saving>0?`-${fmt(saving)}`:saving<0?`+${fmt(Math.abs(saving))}`:'Same');
+    const pillPct=isCurr?'':(saving>0?`${pctDiff}% less in fees`:saving<0?`${pctDiff}% more in fees`:'');
+    const amtClass=isCurr?'base':saving>0?'pos':saving<0?'neg':'base';
+    const badges=(isCurr?`<span class="t2-bdg t2-curr">Current</span>`:'')+(isBest?`<span class="t2-bdg" style="background:#D1FAE5;color:#065F46;border:1px solid #6EE7B7">Best saving</span>`:'');
+    card.innerHTML=`
+      <div class="cmp-card-top">
+        <div style="display:flex;align-items:center;gap:12px">
+          ${provLogo(name)}
+          <div>
+            <div class="cmp-card-name">${name} ${badges}</div>
+            <div class="cmp-card-fund">${fund||''}</div>
+          </div>
+        </div>
+        <div class="cmp-card-saving">
+          ${isCurr
+            ?`<div class="cmp-save-amt base">Your current plan</div>
+              <button class="btn-switch outline" style="margin-top:8px" onclick="showPage('form-page')">Edit details</button>`
+            :`<div class="cmp-save-amt ${amtClass}">${pillAmt}</div>
+              <div class="cmp-save-pct ${amtClass}">${pillPct}</div>
+              <button class="btn-switch${isBest?' ':' '}" style="margin-top:8px">Switch</button>`
+          }
+        </div>
+      </div>
+      <div class="cmp-card-fees">
+        <div class="cmp-fee-item">
+          <div class="cmp-fee-lbl">Annual fee</div>
+          <div class="cmp-fee-val">${fmtPct(amcPct)}</div>
+          ${addPct>0?`<div class="cmp-fee-sub">+${fmtPct(addPct)} fund fee</div>`:''}
+          ${ccPct>0?`<div class="cmp-fee-sub">+${fmtPct(ccPct)} on payments</div>`:''}
+        </div>
+        <div class="cmp-fee-item">
+          <div class="cmp-fee-lbl">Fixed yearly fee</div>
+          <div class="cmp-fee-val">${flatAnn>0?fmt(flatAnn):'£0'}</div>
+        </div>
+        <div class="cmp-fee-item">
+          <div class="cmp-fee-lbl">Projected fees by retirement</div>
+          <div class="cmp-fee-total">${fmt(totalFees)}</div>
+        </div>
+        <div class="cmp-fee-item">
+          <div class="cmp-fee-lbl">Projected pot at retirement</div>
+          <div class="cmp-fee-val">${fmt(projPot)}</div>
+        </div>
+      </div>`;
+    return card;
+  }
+
+  tb.appendChild(makeCard(pName,d?.fund||'',fees.amc,fees.add,fees.flat||0,fees.cc,currTotal,currPot,0,true,false));
   alts.forEach((p,i)=>{
     const best=i===0&&p.saving>0;
-    const isSaving=p.saving>0;
-    const pctDiff=currTotal>0?Math.abs(Math.round((p.saving/currTotal)*100)):0;
-    const pillClass=isSaving?'sv-pos':p.saving<0?'sv-neg':'sv-base';
-    const pillAmt=isSaving?`-${fmt(Math.abs(p.saving))}`:(p.saving<0?`+${fmt(Math.abs(p.saving))}`:'Same');
-    const pillPct=isSaving?`${pctDiff}% less`:(p.saving<0?`${pctDiff}% more`:'');
-    const row=document.createElement('tr');if(best)row.className='row-best2';
     const sheetD=PFEES[p.name]||{};
-    row.innerHTML=`
-      <td>
-        <div class="t2-pname">${p.name}</div>
-        <div class="t2-fund">${p.fund||sheetD.fund||''}</div>
-      </td>
-      <td>
-        <div class="t2-amc">${fmtPct(p.amc)}</div>
-        ${(p.effPct-p.amc)>0?`<div class="t2-amc-sub">+${fmtPct(p.effPct-p.amc)}</div>`:''}
-      </td>
-      <td class="t2-fee-norm">${sheetD.flat>0?fmt(sheetD.flat):'£0'}</td>
-      <td class="t2-amc">${fmtPct(p.ccPct)}</td>
-      <td class="t2-fee-norm">${fmt(p.altTotal)}</td>
-      <td class="t2-pot">${fmt(p.altPot)}</td>
-      <td>
-        <div class="sv-pill ${pillClass}">
-          <span class="sv-amt">${pillAmt}</span>
-          ${pillPct?`<span class="sv-pct">${pillPct}</span>`:''}
-        </div>
-      </td>
-      <td>${p.url?`<a href="${p.url}" target="_blank" rel="noopener noreferrer"><button class="btn-switch">Switch</button></a>`:'<button class="btn-switch">Switch</button>'}</td>
-    `;
-    tb.appendChild(row);
+    tb.appendChild(makeCard(p.name,p.fund||sheetD.fund||'',p.amc,p.effPct-p.amc,sheetD.flat||0,p.ccPct,p.altTotal,p.altPot,p.saving,false,best));
   });
 
   showPage('results-page');window.scrollTo({top:0,behavior:'smooth'});
