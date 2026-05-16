@@ -389,7 +389,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
       </div>
       <span class="nav-logo-txt">illdoitlater</span>
     </div>
-    <ul class="nav-links">
+    <ul class="nav-links" style="display:none">
       <li><a href="#hiw">How it works</a></li>
       <li><a href="#calc-section">Fee Impact</a></li>
       <li><a href="#calc-section">Calculator</a></li>
@@ -408,8 +408,8 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
       <svg viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4l-3.2 2.4 1.2 4L6.5 9 3.2 11.4l1.2-4L1 5h4z" fill="currentColor"/></svg>
       Trusted by UK's most prolific procrastinators
     </div>
-    <h1>See what <span class="accent">fees really cost</span> you</h1>
-    <p class="hero-sub">Small fees compound into <strong>massive losses</strong> over time. UK pension holders lose an average of <strong>£27,000</strong> by retirement because they don't understand the real impact. Find out yours in under 2 minutes.</p>
+    <h1>Your future self called.<br>They're <span class="accent">furious about the fees.</span></h1>
+    <p class="hero-sub">The average UK saver pays <strong>£27,000</strong> in fees by retirement. Taking two minutes to switch now could leave you with tens of thousands more in retirement.</p>
   </section>
 
   <!-- CALCULATOR -->
@@ -432,7 +432,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
                   <div class="sw"><select id="prov" onchange="prefillFees()">
                     <option value="">Select a provider…</option>
                   </select></div>
-                  <span id="sheet-status" class="hint">Loading providers…</span>
+                  <span id="sheet-status" class="hint" style="display:none"></span>
                 </div>
 
                 <div class="fg">
