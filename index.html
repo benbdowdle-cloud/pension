@@ -643,11 +643,11 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
                 </button>
                 <div class="ass-panel" id="ass-panel">
                   <table class="ass-table">
-                    <tr><td>Investment growth</td><td id="ass-growth-lbl">9.1%/yr - the 20-year average annual return of a globally diversified 70/30 portfolio (2005–2024). Historical average, not a forecast.</td></tr>
-                    <tr><td>Contributions</td><td>Fixed in today's money - no automatic annual increase applied.</td></tr>
-                    <tr><td>Inflation</td><td id="ass-inf-lbl">2% per year - the Bank of England's target rate. Used to show all values in today's money.</td></tr>
-                    <tr><td>Tax relief</td><td>Assumed already included in your monthly contribution figure.</td></tr>
-                    <tr><td>Retirement age</td><td id="ass-ret-lbl">67 - the current UK state pension age.</td></tr>
+                    <tr><td>Investment growth</td><td id="ass-growth-lbl">How much we assume your pension investments grow each year. The default of 9.1% is based on the 20-year average annual return of a globally diversified balanced portfolio between 2005 and 2024. This is a historical average only and is not a guarantee of future returns.</td></tr>
+                    <tr><td>Contributions</td><td>We assume you keep contributing the same amount throughout your working life and do not assume your contributions increase over time. If your salary grows, your actual pot will likely be higher than shown here - but the fee savings between providers will be proportionally similar.</td></tr>
+                    <tr><td>Inflation</td><td id="ass-inf-lbl">We use inflation to show your final pot in today's money, so the figures feel meaningful rather than inflated. The default of 2% is the Bank of England's official inflation target.</td></tr>
+                    <tr><td>Tax relief</td><td>The government adds tax relief to your pension contributions. Basic rate taxpayers receive 20% added automatically. We assume this is already included in the monthly contribution figure you entered above.</td></tr>
+                    <tr><td>Retirement age</td><td id="ass-ret-lbl">The age we project your pension pot to. This defaults to 67, which is the current UK state pension age. You can adjust this using the slider below.</td></tr>
                   </table>
                   <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px">
                     <div class="sl-row"><div class="sl-hdr"><span>Annual Growth Rate</span><span id="sl-growth-val">9.1%</span></div><input type="range" id="sl-growth" min="3" max="15" step="0.1" value="9.1" oninput="updateSlider()"></div>
@@ -743,7 +743,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
     <!-- CYAN HERO BLOCK -->
     <div class="res-hero2">
       <div class="rh2-top">
-        <div class="rh2-lbl">BEST POTENTIAL SAVING BY SWITCHING</div>
+        <div class="rh2-lbl">SAVE UP TO</div>
         <div class="rh2-amt" id="rh-amt">-</div>
         <div class="rh2-tag">vs staying with <strong id="rh-prov">your current provider</strong></div>
       </div>
@@ -770,20 +770,19 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
     <div class="tbl-card2">
       <div class="tbl-hdr2">
         <h3>Full comparison - fees broken out</h3>
-        <p>Sorted by potential savings vs your current provider. Forecasted returns are illustrative only based on historical assumptions</p>
+        <p>Sorted by how much you could save. Figures are illustrative - based on historical returns, not a forecast.</p>
       </div>
       <div class="tbl-scroll">
         <table class="ctbl2">
           <thead>
             <tr>
               <th>Provider</th>
-              <th>Annual Fee %</th>
-              <th>Monthly Fee £</th>
-              <th>Contrib Fee %</th>
-              <th>Total Fees Paid</th>
-              <th>Final Pot Value</th>
-              <th>Saving vs Current</th>
-              <th>Rating</th>
+              <th>% Annual Fee</th>
+              <th>£ Fixed Annual Fee</th>
+              <th>% Contribution Fee</th>
+              <th>Projected Fees by Retirement</th>
+              <th>Projected Pot at Retirement</th>
+              <th>You Could Save</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -793,10 +792,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
     </div>
 
     <!-- DISCLAIMER -->
-    <div class="res-banner2">
-      <span style="font-size:14px;flex-shrink:0;color:var(--amber)">ℹ</span>
-      <div><strong>Illustrative only.</strong> Projections assume <span id="res-growth-lbl">9.1%</span> annual growth, deflated at <span id="res-inf-lbl">2.0%</span> inflation to show values in today's money. Contributions are fixed in real terms. Always consult a regulated financial adviser before switching. Past performance is not a guide to future returns.</div>
-    </div>
+    <p style="font-size:12px;color:var(--text-4);text-align:center;padding:16px 20px 32px;line-height:1.6;max-width:740px;margin:0 auto">These figures are illustrative and based on assumed investment growth of <span id="res-growth-lbl">9.1%</span> per year, shown in today's money using <span id="res-inf-lbl">2.0%</span> inflation. Your actual returns will depend on how your investments perform. Past performance is not a guide to the future. Always do your own research before switching, and consider speaking to a financial adviser if you're unsure.</p>
   </div>
 
   <!-- FOOTER (results page) -->
@@ -1125,9 +1121,9 @@ function updateSlider(){
   document.getElementById('sl-growth-val').textContent=g.toFixed(1)+'%';
   document.getElementById('sl-inf-val').textContent=inf.toFixed(1)+'%';
   document.getElementById('sl-ret-val').textContent=ret;
-  document.getElementById('ass-growth-lbl').textContent=g.toFixed(1)+'%/yr - the 20-year average annual return of a globally diversified 70/30 portfolio (2005–2024). Historical average, not a forecast.';
-  document.getElementById('ass-inf-lbl').textContent=inf.toFixed(1)+'% per year'+(inf===2.0?' - the Bank of England\'s target rate':'')+'. Used to show values in today\'s money.';
-  document.getElementById('ass-ret-lbl').textContent=ret+(ret===67?' - the current UK state pension age':'')+'. Adjustable above.';
+  document.getElementById('ass-growth-lbl').textContent='How much we assume your pension investments grow each year. The current setting of '+g.toFixed(1)+'% is based on long-term historical averages. This is not a guarantee of future returns.';
+  document.getElementById('ass-inf-lbl').textContent='We use inflation to show your final pot in today\'s money. The current setting of '+inf.toFixed(1)+'%'+(inf===2.0?' is the Bank of England\'s official inflation target':'')+'.';
+  document.getElementById('ass-ret-lbl').textContent='The age we project your pension pot to. Currently set to '+ret+(ret===67?', the current UK state pension age':'')+'. You can adjust this using the slider below.';
   GROWTH=g/100;
   INFLATION=inf/100;
 }
@@ -1137,11 +1133,16 @@ function addPot(){
   const c=document.getElementById('opots');
   const r=document.createElement('div');r.className='op-row';r.id='op'+opCount;
   const ps=Object.keys(PFEES).concat(['Other']);
-  r.innerHTML=`<div style="position:relative"><select style="height:34px;padding:0 9px;border:1.5px solid var(--border);border-radius:var(--r3);font-size:12px;width:100%;appearance:none;-webkit-appearance:none;background:#fff;color:var(--text);outline:none;font-family:'Inter',sans-serif"><option>Provider…</option>${ps.map(p=>`<option>${p}</option>`).join('')}</select></div><div class="ip" style="position:relative;width:100%"><input type="number" id="opv${opCount}" placeholder="Pot value" min="0" step="100" style="height:34px;padding:0 9px 0 22px;border:1.5px solid var(--border);border-radius:var(--r3);font-size:12px;width:100%;outline:none;background:#fff;color:var(--text);font-family:'Inter',sans-serif"></div><button class="btn-rm" onclick="rmPot(${opCount})">×</button>`;
+  r.innerHTML=`<div style="position:relative"><select style="height:34px;padding:0 9px;border:1.5px solid var(--border);border-radius:var(--r3);font-size:12px;width:100%;appearance:none;-webkit-appearance:none;background:#fff;color:var(--text);outline:none;font-family:'Inter',sans-serif"><option>Provider…</option>${ps.map(p=>`<option>${p}</option>`).join('')}</select></div><div style="position:relative;width:100%"><span style="position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--text-4);pointer-events:none">£</span><input type="text" id="opv${opCount}" placeholder="e.g. 25,000" inputmode="numeric" autocomplete="off" oninput="formatOldPot(this)" style="height:34px;padding:0 9px 0 22px;border:1.5px solid var(--border);border-radius:var(--r3);font-size:12px;width:100%;outline:none;background:#fff;color:var(--text);font-family:'Inter',sans-serif"></div><button class="btn-rm" onclick="rmPot(${opCount})">×</button>`;
   c.appendChild(r);
   if(opCount>=2)document.getElementById('add-btn').style.display='none';
 }
 function rmPot(id){const el=document.getElementById('op'+id);if(el)el.remove();opCount--;document.getElementById('add-btn').style.display='';}
+
+function formatOldPot(el){
+  const raw=el.value.replace(/[^0-9]/g,'');
+  el.value=raw?parseInt(raw,10).toLocaleString('en-GB'):'';
+}
 
 function toggleAss(){const t=document.getElementById('ass-toggle');const p=document.getElementById('ass-panel');t.classList.toggle('open');p.classList.toggle('open');}
 function toggleFaq(btn){btn.closest('.faq-item').classList.toggle('open');}
@@ -1167,7 +1168,7 @@ function runCalc(){
   const pName=provEl.value,years=Math.max(1,ret-age);
   const monthly0=resolveMonthly();
   let totalPot=parsePot();
-  for(let i=1;i<=2;i++){const v=document.getElementById('opv'+i);if(v)totalPot+=(parseFloat(v.value)||0);}
+  for(let i=1;i<=2;i++){const v=document.getElementById('opv'+i);if(v){const raw=(v.value||'').replace(/[^0-9]/g,'');totalPot+=(parseFloat(raw)||0);}}
 
   const sheetData=PFEES[pName]||{};
   const fees={
@@ -1220,12 +1221,6 @@ function runCalc(){
     <td class="t2-fee-red">${fmt(currTotal)}</td>
     <td class="t2-pot">${fmt(currPot)}</td>
     <td><div class="sv-pill sv-base"><span class="sv-label">+ Baseline</span></div></td>
-    <td>
-      <div class="t2-rating">
-        <div class="t2-stars">${stars(cm.tp)}<span class="t2-score">${cm.tp?cm.tp.toFixed(1):''}</span></div>
-        <div class="t2-count">${cm.tpc}</div>
-      </div>
-    </td>
     <td><button class="btn-switch outline" onclick="showPage('form-page')">Current</button></td>
   `;
   tb.appendChild(cr);
@@ -1256,12 +1251,6 @@ function runCalc(){
         <div class="sv-pill ${pillClass}">
           <span class="sv-amt">${pillAmt}</span>
           ${pillPct?`<span class="sv-pct">${pillPct}</span>`:''}
-        </div>
-      </td>
-      <td>
-        <div class="t2-rating">
-          <div class="t2-stars">${stars(p.tp)}<span class="t2-score">${p.tp?p.tp.toFixed(1):''}</span></div>
-          <div class="t2-count">${p.tpc}</div>
         </div>
       </td>
       <td>${p.url?`<a href="${p.url}" target="_blank" rel="noopener noreferrer"><button class="btn-switch">Switch</button></a>`:'<button class="btn-switch">Switch</button>'}</td>
