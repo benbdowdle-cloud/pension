@@ -291,6 +291,74 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 .cta-curr{font-size:11px;color:var(--text-4);font-style:italic}
 .res-banner{background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:var(--r4);padding:10px 14px;display:flex;gap:8px;font-size:12px;color:var(--amber);line-height:1.5}
 
+/* ══ RESULTS PAGE v2 ══ */
+.res-wrap{max-width:1140px;margin:0 auto;padding:24px 20px 0}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--border);color:var(--text-3);border-radius:var(--r3);padding:7px 13px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;cursor:pointer;margin-bottom:18px;transition:all .15s}
+.back-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* Cyan gradient hero */
+.res-hero2{background:linear-gradient(135deg,var(--cyan-dk),var(--cyan));border-radius:var(--r5);padding:40px 28px 28px;margin-bottom:20px;text-align:center}
+.rh2-top{margin-bottom:28px}
+.rh2-lbl{font-size:11px;font-weight:700;letter-spacing:1.2px;color:rgba(255,255,255,.7);margin-bottom:10px;text-transform:uppercase}
+.rh2-amt{font-family:'Manrope',sans-serif;font-size:clamp(44px,8vw,72px);font-weight:800;color:#fff;line-height:1;margin-bottom:8px}
+.rh2-tag{font-size:15px;color:rgba(255,255,255,.85);font-weight:400}
+.rh2-tag strong{color:#fff;font-weight:700}
+.rh2-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rh2-card{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:var(--r4);padding:18px 16px;text-align:center}
+.rh2-card-lbl{font-size:10px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px}
+.rh2-card-val{font-family:'Manrope',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#fff;margin-bottom:4px}
+.rh2-card-sub{font-size:12px;color:rgba(255,255,255,.6)}
+
+/* New flat comparison table */
+.tbl-card2{background:#fff;border-radius:var(--r5);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden;margin-bottom:16px}
+.tbl-hdr2{padding:18px 22px 14px;border-bottom:1px solid var(--border)}
+.tbl-hdr2 h3{font-family:'Manrope',sans-serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:3px}
+.tbl-hdr2 p{font-size:12px;color:var(--text-3)}
+.ctbl2{width:100%;border-collapse:collapse;min-width:800px}
+.ctbl2 thead tr{background:var(--cyan)}
+.ctbl2 thead th{padding:11px 14px;text-align:left;font-size:11px;font-weight:700;letter-spacing:.4px;color:#fff;white-space:nowrap}
+.ctbl2 thead th:first-child{min-width:180px}
+.ctbl2 tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+.ctbl2 tbody tr:last-child{border-bottom:none}
+.ctbl2 tbody tr:hover{background:var(--surface)}
+.ctbl2 tbody tr.row-curr2{background:#fffbf0}
+.ctbl2 tbody tr.row-curr2:hover{background:#fef3c7}
+.ctbl2 tbody tr.row-best2{background:var(--green-bg)}
+.ctbl2 tbody tr.row-best2:hover{background:#d1fae5}
+.ctbl2 td{padding:13px 14px;font-size:13px;vertical-align:middle}
+.t2-pname{font-weight:700;color:var(--text);font-size:14px;display:flex;align-items:center;gap:7px;margin-bottom:2px}
+.t2-fund{font-size:11px;color:var(--text-4)}
+.t2-bdg{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;white-space:nowrap}
+.t2-curr{background:#FEF3C7;color:#92400E;border:1px solid #FCD34D}
+.t2-amc{font-size:14px;font-weight:600;color:var(--text)}
+.t2-amc-sub{font-size:11px;color:var(--text-4);font-weight:400;margin-top:1px}
+.t2-fee-red{color:var(--red);font-weight:700;font-size:14px}
+.t2-fee-norm{font-weight:600;font-size:13px;color:var(--text)}
+.t2-pot{font-weight:600;font-size:13px;color:var(--text)}
+
+/* Saving pill — matches design exactly */
+.sv-pill{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 12px;border-radius:var(--r3);min-width:110px;text-align:center}
+.sv-pill.sv-base{background:var(--surface2);color:var(--text-3)}
+.sv-pill.sv-base .sv-label{font-size:11px;color:var(--text-3);font-weight:500}
+.sv-pill.sv-pos{background:#d1fae5;color:#065f46;border:1px solid #6ee7b7}
+.sv-pill.sv-neg{background:#fee2e2;color:#991b1b;border:1px solid #fca5a5}
+.sv-pill .sv-amt{font-weight:700;font-size:13px}
+.sv-pill .sv-pct{font-size:11px;font-weight:500;margin-top:1px}
+
+/* Rating cell */
+.t2-rating{display:flex;flex-direction:column;gap:1px}
+.t2-stars{display:flex;align-items:center;gap:3px}
+.t2-score{font-size:12px;font-weight:600;color:var(--text)}
+.t2-count{font-size:11px;color:var(--text-4)}
+
+/* Switch button */
+.btn-switch{background:var(--cyan);color:#fff;border:none;padding:7px 16px;border-radius:var(--r3);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s;white-space:nowrap}
+.btn-switch:hover{background:var(--cyan-dk)}
+.btn-switch.outline{background:#fff;color:var(--text-3);border:1px solid var(--border)}
+.btn-switch.outline:hover{border-color:var(--text-3)}
+
+.res-banner2{background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:var(--r4);padding:12px 16px;display:flex;gap:9px;font-size:12px;color:var(--amber);line-height:1.6;margin-bottom:0}
+
 /* ══ RESPONSIVE ══ */
 @media(max-width:860px){
   .calc-grid{grid-template-columns:1fr}
@@ -298,11 +366,13 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
   .hero h1{font-size:30px}
   .footer-top{grid-template-columns:1fr 1fr}
   .hiw-steps{grid-template-columns:1fr}
-  .res-hero{flex-direction:column;padding:24px 20px}
+  .rh2-cards{grid-template-columns:1fr}
+  .res-hero2{padding:28px 20px 20px}
 }
 @media(max-width:580px){
   .frow{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr}
+  .rh2-amt{font-size:40px}
 }
 </style>
 </head>
@@ -345,7 +415,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
   <!-- CALCULATOR -->
   <section id="calc-section">
     <div class="calc-wrap">
-      <div class="calc-grid">
+      <div class="calc-grid" style="grid-template-columns:1fr">
 
         <!-- LEFT: FORM -->
         <div>
@@ -367,7 +437,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 
                 <div class="fg">
                   <label for="pot">Current Pot Value</label>
-                  <div class="ip"><input type="number" id="pot" placeholder="50000" min="0" step="100"></div>
+                  <input type="text" id="pot" placeholder="e.g. 50,000" inputmode="numeric" autocomplete="off" oninput="formatPot(this)" style="height:38px;padding:0 12px;border:1.5px solid var(--border);border-radius:var(--r3);font-family:'Inter',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;width:100%;transition:border-color .15s">
                 </div>
 
                 <div class="fg">
@@ -404,10 +474,6 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
                 <div class="fg full" style="margin-top:4px">
                   <div class="fee-hdr">
                     <span class="fee-hdr-label">Fee Structure</span>
-                    <button class="fee-edit-btn" onclick="toggleFeeEdit()">
-                      <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M7.5 1.5l2 2-6 6H1.5v-2l6-6z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      Edit
-                    </button>
                     <span class="fee-ok" id="fee-ok">✓ Auto-filled</span>
                   </div>
                   <div class="fee-rows">
@@ -439,7 +505,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
                       </div>
                     </div>
                   </div>
-                  <div class="fee-note">⚠ Some employer pensions negotiate different rates. Check your pension portal for exact figures if you want a more precise calculation.</div>
+                  <div class="fee-note" style="background:var(--surface);border:1px solid var(--border);color:var(--text-3)">⚠ Some employer pensions negotiate different rates. Check your pension portal for exact figures if you want a more precise calculation.</div>
                 </div>
 
               </div>
@@ -489,25 +555,6 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
         </div>
 
         <!-- RIGHT: SIDEBAR -->
-        <div class="side-col">
-          <div class="sc">
-            <div class="sc-title">Your Effective Annual Cost</div>
-            <div class="eff-pct" id="side-eff">—</div>
-            <div class="eff-lbl">Combined annual impact on your pension</div>
-            <button class="see-report-btn" onclick="runCalc()">See Full Impact Report →</button>
-            <div class="calc-note">Calculations use FCA-approved formulae</div>
-          </div>
-          <div class="sc">
-            <div class="sc-title">Lifetime Cost Projection</div>
-            <div class="proj-lbl">10-Year Fee Cost</div>
-            <div class="proj-val" id="side-proj">—</div>
-            <div class="save-box" id="side-save" style="display:none">
-              <div class="save-lbl">Potential savings available</div>
-              <div class="save-val" id="side-save-val">—</div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -576,69 +623,87 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 
 <!-- ═══ PAGE 2 · RESULTS ═══ -->
 <div id="results-page" class="page">
-  <nav style="background:#fff;border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100">
-    <div class="nav-in">
-      <div class="nav-logo" onclick="showPage('form-page')">
-        <div class="nav-logo-icon"><svg viewBox="0 0 20 20" fill="none" width="14" height="14"><path d="M10 2L3 7v6c0 3.3 3 6 7 6s7-2.7 7-6V7L10 2z" fill="#fff" opacity=".9"/></svg></div>
-        <span class="nav-logo-txt">illdoitlater</span>
-      </div>
-    </div>
-  </nav>
+
   <div class="res-wrap">
     <button class="back-btn" onclick="showPage('form-page')">← Edit my details</button>
-    <div class="res-hero">
-      <div>
-        <div class="rh-lbl">Best potential saving by switching</div>
-        <div class="rh-amt" id="rh-amt">—</div>
-        <div class="rh-tag">vs staying with <strong id="rh-prov">your current provider</strong></div>
+
+    <!-- CYAN HERO BLOCK -->
+    <div class="res-hero2">
+      <div class="rh2-top">
+        <div class="rh2-lbl">BEST POTENTIAL SAVING BY SWITCHING</div>
+        <div class="rh2-amt" id="rh-amt">—</div>
+        <div class="rh2-tag">vs staying with <strong id="rh-prov">your current provider</strong></div>
       </div>
-      <div class="rh-mets">
-        <div class="rh-m"><div class="rh-m-lbl">Projected pot</div><div class="rh-m-val" id="rh-pot">—</div><div class="rh-m-sub">at retirement</div></div>
-        <div class="rh-m"><div class="rh-m-lbl">Total fees</div><div class="rh-m-val" id="rh-fees">—</div><div class="rh-m-sub">by retirement</div></div>
-        <div class="rh-m"><div class="rh-m-lbl">Annual drag</div><div class="rh-m-val" id="rh-eff">—</div><div class="rh-m-sub">total %/yr</div></div>
-        <div class="rh-m"><div class="rh-m-lbl">Years to go</div><div class="rh-m-val" id="rh-yrs">—</div><div class="rh-m-sub">to retirement</div></div>
+      <div class="rh2-cards">
+        <div class="rh2-card">
+          <div class="rh2-card-lbl">PROJECTED POT</div>
+          <div class="rh2-card-val" id="rh-pot">—</div>
+          <div class="rh2-card-sub" id="rh-pot-sub">at retirement</div>
+        </div>
+        <div class="rh2-card">
+          <div class="rh2-card-lbl">EXPECTED FEES</div>
+          <div class="rh2-card-val" id="rh-fees">—</div>
+          <div class="rh2-card-sub">by retirement</div>
+        </div>
+        <div class="rh2-card">
+          <div class="rh2-card-lbl">POTENTIAL SAVING</div>
+          <div class="rh2-card-val" id="rh-saving2">—</div>
+          <div class="rh2-card-sub">by switching providers</div>
+        </div>
       </div>
     </div>
-    <div class="fbc-card">
-      <h3>How your fees break down</h3>
-      <p class="sub">All charges for <span id="fbc-prov">your current provider</span> as entered. Charges compound — small differences matter greatly over decades.</p>
-      <div class="fbc-grid" id="fbc-grid"></div>
-    </div>
-    <div class="tbl-card">
-      <div class="tbl-hdr">
+
+    <!-- COMPARISON TABLE -->
+    <div class="tbl-card2">
+      <div class="tbl-hdr2">
         <h3>Full comparison — fees broken out</h3>
-        <p>Sorted by saving vs your current provider. Growth at <span id="tbl-growth-lbl">9.1%</span>/yr with 2.5% annual contribution uplift.</p>
+        <p>Sorted by potential savings vs your current provider. Forecasted returns are illustrative only based on historical assumptions</p>
       </div>
       <div class="tbl-scroll">
-        <table class="ctbl">
+        <table class="ctbl2">
           <thead>
             <tr>
-              <th rowspan="2">Provider</th>
-              <th rowspan="2">AMC</th>
-              <th class="th-grp" colspan="4">Fees by retirement</th>
-              <th rowspan="2">Projected pot</th>
-              <th rowspan="2">Saving vs current</th>
-              <th rowspan="2">Trustpilot</th>
-              <th rowspan="2">App</th>
-              <th rowspan="2">Funds</th>
-              <th rowspan="2"></th>
-            </tr>
-            <tr class="fee-subhdr">
-              <th class="sub-grp">AMC drag</th>
-              <th>Flat fees</th>
-              <th>Contrib. charge</th>
-              <th>Total fees</th>
+              <th>Provider</th>
+              <th>Annual Fee %</th>
+              <th>Monthly Fee £</th>
+              <th>Contrib Fee %</th>
+              <th>Total Fees Paid</th>
+              <th>Final Pot Value</th>
+              <th>Saving vs Current</th>
+              <th>Rating</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody id="ctbody"></tbody>
         </table>
       </div>
     </div>
-    <div class="res-banner">
-      <span style="font-size:13px;flex-shrink:0;margin-top:1px">ℹ</span>
+
+    <!-- DISCLAIMER -->
+    <div class="res-banner2">
+      <span style="font-size:14px;flex-shrink:0;color:var(--amber)">ℹ</span>
       <div><strong>Illustrative only.</strong> Projections assume <span id="res-growth-lbl">9.1%</span> annual growth with 2.5% annual contribution increases. Always consult a regulated financial adviser before switching. Past performance is not a guide to future returns.</div>
     </div>
   </div>
+
+  <!-- FOOTER (results page) -->
+  <footer class="footer">
+    <div class="footer-in">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="fl"><div class="fl-icon"><svg viewBox="0 0 20 20" fill="none" width="14" height="14"><path d="M10 2L3 7v6c0 3.3 3 6 7 6s7-2.7 7-6V7L10 2z" fill="#fff" opacity=".9"/></svg></div><span class="fl-txt">illdoitlater</span></div>
+          <p>Transparent pension fee comparison for UK procrastinators.</p>
+        </div>
+        <div class="footer-col"><h4>Product</h4><ul><li><a href="#">How it Works</a></li><li><a href="#">Fee Calculator</a></li><li><a href="#">Providers</a></li></ul></div>
+        <div class="footer-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Disclaimer</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2024 illdoitlater.co.uk. All rights reserved.</span>
+        <div class="footer-socials"><a href="#">Twitter</a><a href="#">LinkedIn</a></div>
+      </div>
+    </div>
+  </footer>
 </div>
 
 <script>
@@ -664,6 +729,15 @@ let GROWTH = GROWTH_DEFAULT;
 let contribMode = 'pct';
 let amcMode = 'pct';
 let opCount = 0;
+
+function formatPot(el){
+  const raw = el.value.replace(/[^0-9]/g,'');
+  el.value = raw ? '£' + parseInt(raw,10).toLocaleString('en-GB') : '';
+}
+function parsePot(){
+  const raw = (document.getElementById('pot').value||'').replace(/[^0-9]/g,'');
+  return parseFloat(raw)||0;
+}
 
 function fmt(n){return'£'+Math.round(n).toLocaleString('en-GB')}
 function fmtPct(n){return parseFloat(n).toFixed(2)+'%'}
@@ -789,28 +863,27 @@ function updateEffCost(){
   const fund=parseFloat(document.getElementById('f-fund').value)||0;
   const cc=parseFloat(document.getElementById('f-cc').value)||0;
   const eff=amc+fund;
-  const e=document.getElementById('side-eff');
-  if(eff>0||cc>0){
-    e.textContent=fmtPct(eff)+(cc>0?` + ${cc.toFixed(2)}% on contribs`:'');
-    const pot=parseFloat(document.getElementById('pot').value)||0;
+  // sidebar elements removed — no-op if missing
+  const sideEff=document.getElementById('side-eff');
+  const sideProj=document.getElementById('side-proj');
+  const sideSave=document.getElementById('side-save');
+  if(sideEff) sideEff.textContent=eff>0?fmtPct(eff)+(cc>0?` + ${cc.toFixed(2)}% on contribs`:''):'—';
+  if(sideProj||sideSave){
+    const pot=parsePot();
     const mo=resolveMonthly();
     const fees={amc,add:fund,flat:0,cc};
-    const r=calcFees(pot,mo,10,fees);
-    document.getElementById('side-proj').textContent=fmt(r.total);
-    const age=parseInt(document.getElementById('cage').value)||35;
-    const ret=parseInt(document.getElementById('sl-ret').value)||67;
-    const yrs=Math.max(1,ret-age);
-    const vfees={amc:0.15,add:0,flat:0,cc:0};
-    const cur=calcFees(pot,mo,yrs,fees);
-    const van=calcFees(pot,mo,yrs,vfees);
-    const sav=Math.max(0,cur.total-van.total);
-    const sv=document.getElementById('side-save');
-    if(sav>0){sv.style.display='block';document.getElementById('side-save-val').textContent=fmt(sav);}
-    else sv.style.display='none';
-  }else{
-    e.textContent='—';
-    document.getElementById('side-proj').textContent='—';
-    document.getElementById('side-save').style.display='none';
+    if(sideProj){const r=calcFees(pot,mo,10,fees);sideProj.textContent=fmt(r.total);}
+    if(sideSave){
+      const age=parseInt(document.getElementById('cage').value)||35;
+      const ret=parseInt(document.getElementById('sl-ret').value)||67;
+      const yrs=Math.max(1,ret-age);
+      const vfees={amc:0.15,add:0,flat:0,cc:0};
+      const cur=calcFees(pot,mo,yrs,fees);
+      const van=calcFees(pot,mo,yrs,vfees);
+      const sav=Math.max(0,cur.total-van.total);
+      if(sav>0){sideSave.style.display='block';const sv=document.getElementById('side-save-val');if(sv)sv.textContent=fmt(sav);}
+      else sideSave.style.display='none';
+    }
   }
 }
 
@@ -845,12 +918,12 @@ function markErr(el,msg){el.classList.add('invalid');const d=document.createElem
 function runCalc(){
   clearErr();
   const provEl=document.getElementById('prov');
-  const potEl=document.getElementById('pot');
   const ageEl=document.getElementById('cage');
   const ret=parseInt(document.getElementById('sl-ret').value)||67;
   let ok=true;
   if(!provEl.value){markErr(provEl,'Select a provider');ok=false;}
-  const pot=parseFloat(potEl.value);
+  const pot=parsePot();
+  const potEl=document.getElementById('pot');
   if(isNaN(pot)||pot<0){markErr(potEl,'Enter a valid pot value');ok=false;}
   const age=parseInt(ageEl.value);
   if(isNaN(age)||age<18||age>66){markErr(ageEl,'Enter age 18–66');ok=false;}
@@ -859,16 +932,20 @@ function runCalc(){
 
   const pName=provEl.value,years=Math.max(1,ret-age);
   const monthly0=resolveMonthly();
-  let totalPot=pot;
+  let totalPot=parsePot();
   for(let i=1;i<=2;i++){const v=document.getElementById('opv'+i);if(v)totalPot+=(parseFloat(v.value)||0);}
 
   const sheetData=PFEES[pName]||{};
   const fees={
-    amc:resolveAmcPct(),
-    add:parseFloat(document.getElementById('f-fund').value)||0,
-    flat:sheetData.flat||0,
-    cc:parseFloat(document.getElementById('f-cc').value)||0,
+    amc: resolveAmcPct() || sheetData.amc || 0,
+    add: parseFloat(document.getElementById('f-fund').value) ?? sheetData.add ?? 0,
+    flat: sheetData.flat || 0,
+    cc:  parseFloat(document.getElementById('f-cc').value) ?? sheetData.cc ?? 0,
   };
+  // ensure NaN-safe
+  fees.amc = isNaN(fees.amc) ? (sheetData.amc||0) : fees.amc;
+  fees.add = isNaN(fees.add) ? (sheetData.add||0) : fees.add;
+  fees.cc  = isNaN(fees.cc)  ? (sheetData.cc||0)  : fees.cc;
   const effPct=fees.amc+fees.add;
   const{pot:currPot,total:currTotal,amcDrag:cAmcD,flatTotal:cFlat,ccDrag:cCcD}=calcFees(totalPot,monthly0,years,fees);
 
@@ -881,36 +958,80 @@ function runCalc(){
 
   const maxSave=Math.max(0,...alts.map(a=>a.saving));
   document.getElementById('rh-amt').textContent=fmt(maxSave);
+  document.getElementById('rh-saving2').textContent=fmt(maxSave);
   document.getElementById('rh-prov').textContent=pName;
   document.getElementById('rh-pot').textContent=fmt(currPot);
+  document.getElementById('rh-pot-sub').textContent=`at retirement with ${pName}`;
   document.getElementById('rh-fees').textContent=fmt(currTotal);
-  document.getElementById('rh-eff').textContent=fmtPct(effPct);
-  document.getElementById('rh-yrs').textContent=years;
-  document.getElementById('tbl-growth-lbl').textContent=(GROWTH*100).toFixed(1)+'%';
   document.getElementById('res-growth-lbl').textContent=(GROWTH*100).toFixed(1)+'%';
 
-  document.getElementById('fbc-prov').textContent=pName;
-  const fbcG=document.getElementById('fbc-grid');fbcG.innerHTML='';
-  const d=PFEES[pName];
-  if(d&&d.fund){const note=document.createElement('div');note.style.cssText='grid-column:1/-1;font-size:12px;color:var(--text-2);background:var(--surface);border-radius:var(--r3);padding:8px 11px;border:1px solid var(--border)';note.innerHTML=`<strong>${pName} — ${d.fund}</strong>${d.last_verified?' · verified '+d.last_verified:''}${d.source?' · '+d.source:''}`;fbcG.appendChild(note);}
-  [{l:'Total annual drag',v:fmtPct(effPct),n:'% removed from fund annually',hl:true},{l:'AMC cost (£)',v:fmt(cAmcD),n:'Compounded opportunity cost',hl:true},{l:'Flat fees',v:cFlat>0?fmt(cFlat):'None',n:`£${fees.flat}/yr × ${years} yrs`},{l:'Contribution charge',v:cCcD>0?fmt(cCcD):'None',n:`${fees.cc.toFixed(2)}% per payment`},{l:'Total fees',v:fmt(currTotal),n:`All charges · ${years} years`,hl:true},{l:'Projected pot',v:fmt(currPot),n:`After all fees at ${(GROWTH*100).toFixed(1)}% growth`,hl:true}].forEach(it=>{
-    const el=document.createElement('div');el.className='fbc-it'+(it.hl?' hl':'');
-    el.innerHTML=`<div class="fbc-lbl">${it.l}</div><div class="fbc-val">${it.v}</div><div class="fbc-note">${it.n}</div>`;
-    fbcG.appendChild(el);
-  });
-
+  // Build new flat table
   const tb=document.getElementById('ctbody');tb.innerHTML='';
-  const cm=CMETA[pName]||{tp:null,tpc:'—',app:false,funds:'—'};
-  const cr=document.createElement('tr');cr.className='row-curr';
-  cr.innerHTML=`<td><div class="cprov"><span class="pname">${pName}</span><span class="bdg bc">Current</span></div><div class="ptype">${d?.fund||''}</div></td><td class="amc-cell">${fmtPct(fees.amc)}${fees.add>0?`<div style="font-size:11px;color:var(--text-4);font-weight:400">+${fmtPct(fees.add)} fund fee</div>`:''}</td><td class="fee-col fees-curr">${fmt(cAmcD)}</td><td class="fee-col">${cFlat>0?fmt(cFlat):'<span class="fee-nil">—</span>'}</td><td class="fee-col">${cCcD>0?fmt(cCcD):'<span class="fee-nil">—</span>'}</td><td class="fee-col fees-curr">${fmt(currTotal)}</td><td>${fmt(currPot)}</td><td><span class="pill pz">Baseline</span></td><td><div class="tp-wrap"><div class="tp-row">${stars(cm.tp)}<span class="tp-num">${cm.tp?cm.tp.toFixed(1):'—'}</span></div><span class="tp-ct">${cm.tpc}</span></div></td><td>${cm.app?'<span class="app-y">✓ Yes</span>':'<span class="app-n">No</span>'}</td><td style="font-size:12px">${cm.funds}</td><td class="cta-curr">Your provider</td>`;
+  const d=PFEES[pName];
+  const cm=CMETA[pName]||{tp:null,tpc:'—'};
+
+  // Current provider row
+  const cr=document.createElement('tr');cr.className='row-curr2';
+  cr.innerHTML=`
+    <td>
+      <div class="t2-pname">${pName}<span class="t2-bdg t2-curr">Current</span></div>
+      <div class="t2-fund">${d?.fund||''}</div>
+    </td>
+    <td>
+      <div class="t2-amc">${fmtPct(fees.amc)}</div>
+      ${fees.add>0?`<div class="t2-amc-sub">+${fmtPct(fees.add)}</div>`:''}
+    </td>
+    <td class="t2-fee-norm">${fees.flat>0?fmt(fees.flat*years/years):'£0'}</td>
+    <td class="t2-amc">${fmtPct(fees.cc)}</td>
+    <td class="t2-fee-red">${fmt(currTotal)}</td>
+    <td class="t2-pot">${fmt(currPot)}</td>
+    <td><div class="sv-pill sv-base"><span class="sv-label">+ Baseline</span></div></td>
+    <td>
+      <div class="t2-rating">
+        <div class="t2-stars">${stars(cm.tp)}<span class="t2-score">${cm.tp?cm.tp.toFixed(1):''}</span></div>
+        <div class="t2-count">${cm.tpc}</div>
+      </div>
+    </td>
+    <td><button class="btn-switch outline" onclick="showPage('form-page')">Current</button></td>
+  `;
   tb.appendChild(cr);
 
   alts.forEach((p,i)=>{
     const best=i===0&&p.saving>0;
-    const pc=p.saving>0?'pp':p.saving<0?'pn':'pz';
-    const pt=p.saving>0?`Save ${fmt(p.saving)}`:p.saving<0?`+${fmt(Math.abs(p.saving))} more`:'Same';
-    const row=document.createElement('tr');if(best)row.className='row-best';
-    row.innerHTML=`<td><div class="cprov"><span class="pname">${p.name}</span>${best?'<span class="bdg bb">Best saving</span>':''}</div><div class="ptype">${p.fund}</div></td><td class="amc-cell">${fmtPct(p.amc)}${p.effPct-p.amc>0?`<div style="font-size:11px;color:var(--text-4);font-weight:400">+${fmtPct(p.effPct-p.amc)} fund fee</div>`:''}</td><td class="fee-col">${fmt(p.aAmcD)}</td><td class="fee-col">${p.aFlatT>0?fmt(p.aFlatT):'<span class="fee-nil">—</span>'}</td><td class="fee-col">${p.aCcD>0?fmt(p.aCcD):'<span class="fee-nil">—</span>'}</td><td class="fee-col fees-alt">${fmt(p.altTotal)}</td><td>${fmt(p.altPot)}</td><td><span class="pill ${pc}">${pt}</span></td><td><div class="tp-wrap"><div class="tp-row">${stars(p.tp)}<span class="tp-num">${p.tp?p.tp.toFixed(1):'—'}</span></div><span class="tp-ct">${p.tpc}</span></div></td><td>${p.app?'<span class="app-y">✓ Yes</span>':'<span class="app-n">No</span>'}</td><td style="font-size:12px">${p.funds}</td><td><span class="cta-curr" style="font-size:11px;color:var(--text-4)">—</span></td>`;
+    const isSaving=p.saving>0;
+    const pctDiff=currTotal>0?Math.abs(Math.round((p.saving/currTotal)*100)):0;
+    const pillClass=isSaving?'sv-pos':p.saving<0?'sv-neg':'sv-base';
+    const pillAmt=isSaving?`-${fmt(Math.abs(p.saving))}`:(p.saving<0?`+${fmt(Math.abs(p.saving))}`:'Same');
+    const pillPct=isSaving?`${pctDiff}% less`:(p.saving<0?`${pctDiff}% more`:'');
+    const row=document.createElement('tr');if(best)row.className='row-best2';
+    const sheetD=PFEES[p.name]||{};
+    row.innerHTML=`
+      <td>
+        <div class="t2-pname">${p.name}</div>
+        <div class="t2-fund">${p.fund||sheetD.fund||''}</div>
+      </td>
+      <td>
+        <div class="t2-amc">${fmtPct(p.amc)}</div>
+        ${(p.effPct-p.amc)>0?`<div class="t2-amc-sub">+${fmtPct(p.effPct-p.amc)}</div>`:''}
+      </td>
+      <td class="t2-fee-norm">${sheetD.flat>0?fmt(sheetD.flat):'£0'}</td>
+      <td class="t2-amc">${fmtPct(p.ccPct)}</td>
+      <td class="t2-fee-norm">${fmt(p.altTotal)}</td>
+      <td class="t2-pot">${fmt(p.altPot)}</td>
+      <td>
+        <div class="sv-pill ${pillClass}">
+          <span class="sv-amt">${pillAmt}</span>
+          ${pillPct?`<span class="sv-pct">${pillPct}</span>`:''}
+        </div>
+      </td>
+      <td>
+        <div class="t2-rating">
+          <div class="t2-stars">${stars(p.tp)}<span class="t2-score">${p.tp?p.tp.toFixed(1):''}</span></div>
+          <div class="t2-count">${p.tpc}</div>
+        </div>
+      </td>
+      <td>${p.url?`<a href="${p.url}" target="_blank" rel="noopener noreferrer"><button class="btn-switch">Switch</button></a>`:'<button class="btn-switch">Switch</button>'}</td>
+    `;
     tb.appendChild(row);
   });
 
