@@ -203,16 +203,16 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 .hiw-step p{font-size:13px;color:var(--text-3);line-height:1.6}
 
 /* ══ FAQ ══ */
-.faq{background:var(--surface);padding:64px 20px}
+.faq{background:var(--surface);padding:72px 20px}
 .faq-in{max-width:700px;margin:0 auto;text-align:center}
 .faq-list{text-align:left;margin-top:0}
 .faq-item{border-bottom:1px solid var(--border);background:#fff;margin-bottom:1px}
 .faq-item:first-child{border-top:1px solid var(--border);border-radius:var(--r3) var(--r3) 0 0}
 .faq-item:last-child{border-radius:0 0 var(--r3) var(--r3)}
-.faq-q{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text);background:none;border:none;width:100%;text-align:left;font-family:'Inter',sans-serif;gap:10px}
+.faq-q{display:flex;align-items:center;justify-content:flex-start;padding:18px 20px;cursor:pointer;font-size:14px;font-weight:600;color:var(--text);background:none;border:none;width:100%;text-align:left;font-family:'Inter',sans-serif;gap:10px}
 .faq-q::before{content:'▸';color:var(--cyan);font-size:12px;flex-shrink:0}
 .faq-item.open .faq-q::before{content:'▾'}
-.faq-a{display:none;font-size:13px;color:var(--text-2);line-height:1.7;padding:0 16px 14px 30px}
+.faq-a{display:none;font-size:14px;color:var(--text-2);line-height:1.75;padding:0 20px 20px 36px}
 .faq-item.open .faq-a{display:block}
 
 /* ══ CTA BANNER ══ */
@@ -379,7 +379,46 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 
 .res-banner2{background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:var(--r4);padding:12px 16px;display:flex;gap:9px;font-size:12px;color:var(--amber);line-height:1.6;margin-bottom:0}
 
-/* ══ RESPONSIVE ══ */
+/* ══ ARTICLE PAGES ══ */
+.article-wrap{max-width:740px;margin:0 auto;padding:28px 20px 72px}
+.article-tag{display:inline-block;background:var(--cyan-lt);color:var(--cyan-dk);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:14px}
+.article-hero{margin-bottom:36px}
+.article-hero h1{font-family:'Manrope',sans-serif;font-size:clamp(26px,4vw,38px);font-weight:800;color:var(--text);line-height:1.15;margin-bottom:12px;letter-spacing:-.4px}
+.article-sub{font-size:16px;color:var(--text-2);line-height:1.7;max-width:620px}
+.article-body h2{font-family:'Manrope',sans-serif;font-size:20px;font-weight:700;color:var(--text);margin:36px 0 12px}
+.article-body p{font-size:15px;color:var(--text-2);line-height:1.8;margin-bottom:14px}
+.article-disclaimer{background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:var(--r3);padding:14px 16px;font-size:13px;color:var(--amber);line-height:1.6;margin-bottom:28px}
+.article-checklist{display:flex;flex-direction:column;gap:16px;margin:20px 0 28px}
+.checklist-item{display:flex;gap:16px;align-items:flex-start}
+.checklist-icon{width:28px;height:28px;background:var(--cyan);border-radius:var(--r2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px}
+.checklist-item strong{font-size:14px;font-weight:600;color:var(--text);display:block;margin-bottom:4px}
+.checklist-item p{font-size:13px;color:var(--text-3);line-height:1.6;margin:0}
+.article-steps{display:flex;flex-direction:column;gap:0;margin:20px 0 28px;border-left:2px solid var(--border);padding-left:20px}
+.step-item{display:flex;gap:16px;align-items:flex-start;padding-bottom:24px;position:relative}
+.step-item:last-child{padding-bottom:0}
+.step-n{width:28px;height:28px;background:var(--navy);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px;margin-left:-30px}
+.step-item strong{font-size:14px;font-weight:600;color:var(--text);display:block;margin-bottom:4px}
+.step-item p{font-size:13px;color:var(--text-3);line-height:1.6;margin:0}
+.article-list{padding-left:20px;margin:12px 0 16px;display:flex;flex-direction:column;gap:8px}
+.article-list li{font-size:14px;color:var(--text-2);line-height:1.6}
+.article-cta-box{background:var(--navy);border-radius:var(--r5);padding:28px 28px;margin:36px 0 28px}
+.article-cta-box h3{font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:8px}
+.article-cta-box p{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:0}
+.article-example{background:#fff;border:1px solid var(--border);border-radius:var(--r5);padding:20px;margin:20px 0 24px}
+.example-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
+.example-cell{background:var(--surface);border-radius:var(--r3);padding:14px;border:1px solid var(--border);text-align:center}
+.example-label{font-size:11px;color:var(--text-3);line-height:1.4;margin-bottom:6px}
+.example-val{font-family:'Manrope',sans-serif;font-size:22px;font-weight:800;margin-bottom:3px}
+.example-sub{font-size:11px;color:var(--text-4)}
+.example-note{font-size:11px;color:var(--text-4);line-height:1.5;margin:0}
+.fee-explainer{display:flex;flex-direction:column;gap:16px;margin:16px 0 28px}
+.fe-item{background:#fff;border:1px solid var(--border);border-radius:var(--r4);padding:18px 20px}
+.fe-hdr{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.fe-icon{width:32px;height:32px;background:var(--cyan);border-radius:var(--r2);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0}
+.fe-hdr strong{font-size:14px;font-weight:600;color:var(--text);display:block}
+.fe-tag{display:inline-block;background:var(--surface2);color:var(--text-3);font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;margin-top:3px}
+.fe-item p{font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:8px}
+.fe-example{background:var(--cyan-pale);border:1px solid rgba(14,165,233,.15);border-radius:var(--r2);padding:9px 12px;font-size:12px;color:var(--cyan-dk);margin-top:8px;font-weight:500}
 @media(max-width:860px){
   .calc-grid{grid-template-columns:1fr}
   .side-col{position:static}
@@ -412,11 +451,9 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
         <text x="0" y="22" font-family="system-ui,sans-serif" font-size="24" font-weight="800" fill="#0EA5E9" letter-spacing="-1">illdoitlater</text>
       </svg>
     </div>
-    <ul class="nav-links" style="display:none">
-      <li><a href="#hiw">How it works</a></li>
-      <li><a href="#calc-section">Fee Impact</a></li>
-      <li><a href="#calc-section">Calculator</a></li>
-      <li><a href="#faq">FAQ</a></li>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('fees-page');return false;">Understanding fees</a></li>
+      <li><a href="#" onclick="showPage('switch-page');return false;">How to switch</a></li>
     </ul>
     <button class="nav-cta" onclick="document.getElementById('calc-section').scrollIntoView({behavior:'smooth'})">Check Your Fee Impact</button>
   </div>
@@ -495,7 +532,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
                 <div class="fg full">
                   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px">
                     <label style="margin:0">
-                      What percentage of your salary goes into your pension?
+                      What is your total pension contribution rate (yours + employer)?
                       <span class="tip-icon" data-tip="Include both what you pay and what your employer adds. Your payslip will show your contribution, and your employer usually adds at least 3% on top.">ⓘ</span>
                     </label>
                     <div class="contrib-toggle-sm">
@@ -510,8 +547,8 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
                   <div id="contrib-pct-field" style="display:none">
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
                       <div class="fg">
-                        <div class="is"><input type="number" id="contrib-pct-val" placeholder="e.g. 8" min="0" max="100" step="0.5"></div>
-                        <span class="hint">Your total contribution % (yours + employer)</span>
+                        <div class="is"><input type="number" id="contrib-pct-val" placeholder="e.g. 8" value="8" min="0" max="100" step="0.5"></div>
+                        <span class="hint">The legal minimum is 8% total (5% from you + 3% from your employer). If you're unsure, 8% is a safe starting point.</span>
                       </div>
                       <div class="fg">
                         <div class="ip"><input type="number" id="contrib-salary" placeholder="e.g. 35000" min="0" step="1000"></div>
@@ -650,11 +687,12 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
   <section class="faq" id="faq">
     <div class="faq-in">
       <h2 class="sec-title">Frequently Asked Questions</h2>
-      <p class="sec-sub" style="margin-bottom:28px">Everything you need to know about pension fee impact</p>
+      <p class="sec-sub" style="margin-bottom:32px">Everything you need to know about pension fees</p>
       <div class="faq-list">
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How accurate are the calculations?</button><div class="faq-a">Our projections use a 9.1% annual growth rate (20-year historical average for a 70/30 portfolio), 2.5% annual contribution growth, and model all fee types separately. They are illustrative - your actual returns will vary. Provider fee data is sourced from IGC reports and DWP surveys.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I compare multiple pension pots?</button><div class="faq-a">Yes. You can add up to 2 additional old pension pots. Their values are combined with your main pot for projection purposes, giving you a consolidated view of your total retirement savings and fees.</div></div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What happens after I calculate my fee impact?</button><div class="faq-a">You'll see a full comparison table showing your current provider alongside all other providers in our database, with every fee type broken out separately so you can see exactly where the differences come from.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How accurate are the calculations?</button><div class="faq-a">The fee comparisons are based on real published data from pension providers. The projected pot values are illustrative - they use historical investment returns as a guide, but past performance can't predict the future. Think of the numbers as a directional estimate, not a guarantee. The important thing is the difference between providers, not the exact figures.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I compare multiple pension pots?</button><div class="faq-a">Yes - if you've had more than one job, you might have more than one pension. You can add up to 2 extra pots and we'll include them all in your total calculation.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What happens after I calculate my fee impact?</button><div class="faq-a">You'll see a table comparing your current provider against every other provider in our database. We show exactly what each one charges so you can see at a glance which ones could save you money - and how much.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What is an annual management charge?</button><div class="faq-a">It's the main yearly fee your pension provider takes - charged as a percentage of your total pot. On a £50,000 pot, a 0.5% charge costs you £250 a year. That might not sound like much, but compounded over decades it adds up to tens of thousands of pounds.</div></div>
       </div>
     </div>
   </section>
@@ -783,6 +821,110 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
       </div>
     </div>
   </footer>
+</div>
+
+<!-- ═══ PAGE 3 · HOW TO SWITCH ═══ -->
+<div id="switch-page" class="page">
+  <div class="article-wrap">
+    <button class="back-btn" onclick="showPage('form-page')">← Back to calculator</button>
+    <div class="article-hero">
+      <div class="article-tag">Guide</div>
+      <h1>How to switch your pension provider</h1>
+      <p class="article-sub">You've done the hard part - finding out what your fees are costing you. Here's how to actually do something about it.</p>
+    </div>
+    <div class="article-body">
+      <div class="article-disclaimer"><strong>This is not financial advice.</strong> This guide is designed to help you understand the process and raise awareness of your options. Everyone's situation is different - if yours is complex (multiple pots, defined benefit pension, large pot size, approaching retirement), we'd recommend speaking to a regulated financial adviser before making any changes.</div>
+
+      <h2>Before you do anything - things to check first</h2>
+      <p>Switching sounds simple, but there are a few things worth checking before you start.</p>
+      <div class="article-checklist">
+        <div class="checklist-item"><div class="checklist-icon">1</div><div><strong>Are you still contributing to this pot through your employer?</strong><p>If your current pension is a workplace pension that your employer pays into, you can't redirect future contributions to a different provider. But the pot of money already sitting in that scheme is a different story. Some providers will let you transfer your existing pot out to a lower-cost provider while keeping the scheme open for future contributions. Not all allow this, so call your provider and ask: "Can I transfer my existing pot to another provider while keeping my account open for future contributions?" Old pots from previous jobs can always be moved freely.</p></div></div>
+        <div class="checklist-item"><div class="checklist-icon">2</div><div><strong>Do you have a defined benefit (final salary) pension?</strong><p>Defined benefit pensions promise a specific income in retirement based on your salary and years of service. Transferring out can mean giving up guaranteed income. If your pot is worth more than £30,000, you're legally required to take financial advice before transferring. Don't rush this one.</p></div></div>
+        <div class="checklist-item"><div class="checklist-icon">3</div><div><strong>Check for exit fees</strong><p>Some older pension providers charge exit fees when you transfer out. These are now capped at 1% for pensions set up after 2012, but older contracts may be different. Check your policy documents or call your provider and ask directly: "Is there an exit fee if I transfer my pension?"</p></div></div>
+        <div class="checklist-item"><div class="checklist-icon">4</div><div><strong>Consider your investment funds, not just the fees</strong><p>Fees matter a lot - but so does what your money is actually invested in. A lower-fee provider with poor fund choices isn't necessarily better. When you switch, you'll need to choose where your money gets invested at the new provider. Take some time to understand your options before you commit.</p></div></div>
+        <div class="checklist-item"><div class="checklist-icon">5</div><div><strong>Your money won't be invested during the transfer</strong><p>While your pension is being transferred, it's usually held as cash - meaning it's not growing. Transfers typically take 2-6 weeks. This isn't a reason not to switch, but it's worth knowing.</p></div></div>
+      </div>
+
+      <h2>The switching process, step by step</h2>
+      <p>Once you've done your checks and chosen a new provider, the actual process is more straightforward than most people expect.</p>
+      <div class="article-steps">
+        <div class="step-item"><div class="step-n">1</div><div><strong>Open an account with your new provider</strong><p>Go to your chosen provider's website and open a pension account. Most providers have an online application that takes 10-15 minutes. You'll need your National Insurance number and bank details.</p></div></div>
+        <div class="step-item"><div class="step-n">2</div><div><strong>Gather your existing pension details</strong><p>You'll need the name of your current provider, your policy or plan number (found on any letter or statement from them), and the approximate value of your pot. If you can't find your policy number, call your provider - they'll give it to you in minutes.</p></div></div>
+        <div class="step-item"><div class="step-n">3</div><div><strong>Request a transfer through your new provider</strong><p>Most modern providers handle the transfer for you. Once your account is open, there will be a "transfer in" or "consolidate pensions" option. You provide your old provider's details and they contact them on your behalf. You don't usually need to contact your old provider yourself.</p></div></div>
+        <div class="step-item"><div class="step-n">4</div><div><strong>Choose your investments</strong><p>When the money arrives, you'll need to decide how it gets invested. Most providers offer a default fund that does this automatically based on your age - that's fine to start with. You can always change it later.</p></div></div>
+        <div class="step-item"><div class="step-n">5</div><div><strong>Wait and confirm</strong><p>Transfers typically take 2-6 weeks. Your new provider will notify you when the money arrives. Check your old account afterwards to make sure the balance has gone - and keep any final statements for your records.</p></div></div>
+      </div>
+
+      <h2>What about my ongoing employer contributions?</h2>
+      <p>If your employer currently pays into your workplace pension, you can't redirect those future contributions to a different provider. Your employer's contributions are tied to the scheme they've chosen.</p>
+      <p>However, the pot of money already sitting in that scheme is a different story. Some workplace pension providers will let you transfer your existing pot out to a lower-cost provider while keeping the scheme open for future contributions. This means you could move your accumulated savings somewhere cheaper without losing a single penny of future employer contributions.</p>
+      <p>Not all providers allow this. The best way to find out is to call your provider and ask: "Can I transfer my existing pot to another provider while keeping my account open for future contributions?"</p>
+      <p>Some people end up with two pension accounts running side by side: their workplace scheme receiving new contributions, and a personal pension holding their transferred savings. That's a completely reasonable approach and can significantly reduce the fees on the money you've already built up.</p>
+
+      <h2>Do I need a financial adviser?</h2>
+      <p>Not always - but sometimes it's worth it. Consider speaking to a regulated financial adviser if:</p>
+      <ul class="article-list">
+        <li>You have a defined benefit (final salary) pension worth more than £30,000 - it's a legal requirement</li>
+        <li>Your total pension savings are significant and you're within 10 years of retirement</li>
+        <li>Your situation is complicated - multiple employers, overseas income, large self-employed pension</li>
+        <li>You're unsure about investment choices and want personalised guidance</li>
+      </ul>
+      <p>You can find a regulated adviser at <strong>unbiased.co.uk</strong> or <strong>vouchedfor.co.uk</strong>. Initial consultations are often free.</p>
+
+      <div class="article-cta-box">
+        <h3>Not sure which provider to switch to?</h3>
+        <p>Use our fee calculator to compare providers side by side and see exactly how much you could save over your lifetime.</p>
+        <button class="btn-calc" style="max-width:280px;margin-top:4px" onclick="showPage('form-page');window.scrollTo({top:0})">Compare pension fees <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="article-disclaimer" style="margin-top:32px"><strong>Remember:</strong> illdoitlater is a fee comparison tool designed to help you understand the impact of pension charges. We do not provide financial advice. The information on this page is for educational purposes only. Always do your own research and consider speaking to a regulated financial adviser if your circumstances are complex.</div>
+    </div>
+  </div>
+  <footer class="footer"><div class="footer-in"><div class="footer-top"><div class="footer-brand"><div class="fl"><svg height="20" viewBox="0 0 220 26" fill="none"><text x="0" y="20" font-family="system-ui,sans-serif" font-size="22" font-weight="800" fill="#0EA5E9" letter-spacing="-1">illdoitlater</text></svg></div><p>Transparent pension fee comparison for UK savers.</p></div><div class="footer-col"><h4>Product</h4><ul><li><a href="#" onclick="showPage('form-page');return false">Calculator</a></li><li><a href="#" onclick="showPage('switch-page');return false">How to switch</a></li><li><a href="#" onclick="showPage('fees-page');return false">Understanding fees</a></li></ul></div><div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2024 illdoitlater.co.uk. All rights reserved.</span><div class="footer-socials"><a href="#">Twitter</a><a href="#">LinkedIn</a></div></div></div></footer>
+</div>
+
+<!-- ═══ PAGE 4 · UNDERSTANDING FEES ═══ -->
+<div id="fees-page" class="page">
+  <div class="article-wrap">
+    <button class="back-btn" onclick="showPage('form-page')">← Back to calculator</button>
+    <div class="article-hero">
+      <div class="article-tag">Education</div>
+      <h1>Understanding pension fees</h1>
+      <p class="article-sub">Your pension pot is quietly being eaten by fees you probably didn't know you were paying. Here's exactly what they are, how they work, and why they matter more than you think.</p>
+    </div>
+    <div class="article-body">
+      <h2>Why fees matter so much</h2>
+      <p>A fee of 0.5% doesn't sound like much. But pension fees compound against you in exactly the same way that investment returns compound for you - and over 30 or 40 years, the difference is enormous.</p>
+
+      <div class="article-example">
+        <div class="example-row">
+          <div class="example-cell"><div class="example-label">£50,000 pot, 30 years, 0.3% fees</div><div class="example-val" style="color:var(--green)">~£362,000</div><div class="example-sub">lower fee provider</div></div>
+          <div class="example-cell"><div class="example-label">£50,000 pot, 30 years, 0.75% fees</div><div class="example-val" style="color:var(--red)">~£313,000</div><div class="example-sub">higher fee provider</div></div>
+          <div class="example-cell" style="background:var(--cyan-pale);border-color:rgba(14,165,233,.2)"><div class="example-label">Difference</div><div class="example-val" style="color:var(--cyan-dk)">~£49,000</div><div class="example-sub">lost to a 0.45% fee gap</div></div>
+        </div>
+        <p class="example-note">Assumes 9.1% annual growth, £300/month contributions, values in today's money. Illustrative only - past performance does not predict future returns.</p>
+      </div>
+
+      <h2>The four types of pension fees</h2>
+      <div class="fee-explainer">
+        <div class="fe-item"><div class="fe-hdr"><div class="fe-icon">%</div><div><strong>Annual Management Charge (AMC)</strong><span class="fe-tag">Most common</span></div></div><p>The main fee - charged every year as a percentage of your total pot. If you have £50,000 and your AMC is 0.5%, that's £250 taken out automatically each year. As your pot grows, the fee grows with it.</p><p>Most workplace pensions charge between 0.3% and 0.75%. By law, the default fund in a workplace pension can't charge more than 0.75% (the charge cap). Some providers charge significantly less - which is where the savings opportunity lies.</p><div class="fe-example">On a £100,000 pot: 0.3% = £300/yr vs 0.75% = £750/yr. That's £450 more every single year.</div></div>
+        <div class="fe-item"><div class="fe-hdr"><div class="fe-icon">£</div><div><strong>Fixed yearly fee (platform fee)</strong><span class="fe-tag">Common with SIPPs</span></div></div><p>Some providers - particularly SIPPs - charge a flat fee each year regardless of how much is in your pot. For example, £100/yr whether your pot is £10,000 or £500,000.</p><p>For small pots, a fixed fee can actually be more expensive than a percentage fee. For large pots, it can be much cheaper. Worth doing the maths for your specific pot size.</p><div class="fe-example">£100 flat fee on a £20,000 pot = 0.5% effective rate. Same fee on a £200,000 pot = just 0.05% effective rate.</div></div>
+        <div class="fe-item"><div class="fe-hdr"><div class="fe-icon">+</div><div><strong>Investment fund fee (OCF)</strong><span class="fe-tag">Often overlooked</span></div></div><p>On top of the provider's charge, the funds your money is invested in have their own fees - called the Ongoing Charges Figure (OCF). It's built into the fund's performance - you don't see it as a separate deduction, but it's being charged.</p><p>For index-tracking funds, OCFs are typically 0.1-0.2%. For actively managed funds, they can be 0.5-1.5% or more.</p><div class="fe-example">A 1% fund fee vs a 0.15% index fund fee on a £50,000 pot costs you an extra £425/yr before compounding.</div></div>
+        <div class="fe-item"><div class="fe-hdr"><div class="fe-icon">↓</div><div><strong>Contribution charge</strong><span class="fe-tag">Less common</span></div></div><p>A small number of providers deduct a percentage from every payment before it's invested. Nest charges 1.8% on each contribution (though their AMC is lower at 0.3% to compensate).</p><p>This means if you contribute £300 this month, only £294.60 actually gets invested.</p><div class="fe-example">1.8% on £300/month contributions over 30 years = approximately £19,440 in contribution charges alone.</div></div>
+      </div>
+
+      <h2>Why don't people know about this?</h2>
+      <p>Fees are disclosed - but buried. They appear in documents written in financial jargon, sent once a year. Most people never read them. The fees are deducted automatically, silently, without a notification or reminder. You never see the money leave - you just end up with less at retirement than you would have had.</p>
+      <p>That's exactly why we built this tool. Not to alarm you - but to show you what's actually happening to your money, in plain numbers.</p>
+
+      <div class="article-cta-box">
+        <h3>See what your fees are really costing you</h3>
+        <p>Enter your pension details and we'll calculate exactly how much you're paying in fees - and show you how much you could have by switching to a lower-cost provider.</p>
+        <button class="btn-calc" style="max-width:300px;margin-top:4px" onclick="showPage('form-page');window.scrollTo({top:0})">Calculate my fee impact <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <div class="article-disclaimer" style="margin-top:32px"><strong>This is not financial advice.</strong> The examples above are illustrative and use assumed growth rates. Past performance does not predict future returns. illdoitlater is a fee comparison tool - we help you understand charges, but decisions about switching should take into account your full financial situation. Consider speaking to a regulated financial adviser if you're unsure.</div>
+    </div>
+  </div>
+  <footer class="footer"><div class="footer-in"><div class="footer-top"><div class="footer-brand"><div class="fl"><svg height="20" viewBox="0 0 220 26" fill="none"><text x="0" y="20" font-family="system-ui,sans-serif" font-size="22" font-weight="800" fill="#0EA5E9" letter-spacing="-1">illdoitlater</text></svg></div><p>Transparent pension fee comparison for UK savers.</p></div><div class="footer-col"><h4>Product</h4><ul><li><a href="#" onclick="showPage('form-page');return false">Calculator</a></li><li><a href="#" onclick="showPage('switch-page');return false">How to switch</a></li><li><a href="#" onclick="showPage('fees-page');return false">Understanding fees</a></li></ul></div><div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Disclaimer</a></li></ul></div></div><div class="footer-bottom"><span>© 2024 illdoitlater.co.uk. All rights reserved.</span><div class="footer-socials"><a href="#">Twitter</a><a href="#">LinkedIn</a></div></div></div></footer>
 </div>
 
 <script>
