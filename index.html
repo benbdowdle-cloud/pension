@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>illdoitlater — See What Fees Really Cost You</title>
+<title>illdoitlater - See What Fees Really Cost You</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <!-- Google tag (gtag.js) -->
@@ -48,16 +48,19 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;positio
 .nav-cta:hover{background:var(--cyan-dk)}
 
 /* ══ HERO ══ */
-.hero{background:var(--surface);padding:56px 20px 48px;text-align:center}
+.hero{background:var(--surface);padding:64px 20px 56px;text-align:center}
 .hero-trust{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--border);border-radius:100px;font-size:12px;color:var(--text-3);padding:4px 14px;margin-bottom:20px}
 .hero-trust svg{width:13px;height:13px;color:var(--cyan)}
 .hero h1{font-family:'Manrope',sans-serif;font-size:clamp(30px,5vw,52px);font-weight:800;color:var(--text);line-height:1.1;margin-bottom:14px;letter-spacing:-.5px}
 .hero h1 .accent{color:var(--cyan)}
-.hero-sub{font-size:15px;color:var(--text-2);max-width:520px;margin:0 auto 0;line-height:1.7}
+.hero-sub{font-size:15px;color:var(--text-2);max-width:520px;margin:0 auto 28px;line-height:1.7}
 .hero-sub strong{color:var(--text)}
+.hero-cta{background:var(--cyan);color:#fff;border:none;padding:14px 28px;border-radius:var(--r3);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .15s,transform .12s;margin-bottom:14px}
+.hero-cta:hover{background:var(--cyan-dk);transform:translateY(-1px)}
+.hero-reassure{font-size:12px;color:var(--text-4);margin-top:0}
 
 /* ══ CALCULATOR SECTION ══ */
-.calc-wrap{max-width:1140px;margin:0 auto;padding:32px 20px 72px}
+.calc-wrap{max-width:1140px;margin:0 auto;padding:28px 20px 64px}
 .calc-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
 
 /* form card */
@@ -88,11 +91,10 @@ nav{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;positio
 input.invalid,select.invalid{border-color:#EF4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.09)!important}
 .ferr{font-size:11px;color:#EF4444;margin-top:2px}
 
-/* contrib toggle */
-.contrib-toggle{display:flex;border:1.5px solid var(--border);border-radius:var(--r3);overflow:hidden;height:36px;margin-bottom:10px}
-.ct-btn{flex:1;background:none;border:none;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:var(--text-3);cursor:pointer;transition:background .12s,color .12s}
-.ct-btn.active{background:var(--cyan);color:#fff}
-.ct-divider{width:1px;background:var(--border)}
+/* compact inline contrib toggle */
+.contrib-toggle-sm{display:flex;border:1.5px solid var(--border);border-radius:100px;overflow:hidden;height:28px;flex-shrink:0}
+.ct-sm-btn{padding:0 12px;background:none;border:none;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--text-3);cursor:pointer;transition:background .12s,color .12s;white-space:nowrap}
+.ct-sm-btn.active{background:var(--cyan);color:#fff;border-radius:100px}
 
 /* fee section */
 .fee-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -109,6 +111,24 @@ input.invalid,select.invalid{border-color:#EF4444!important;box-shadow:0 0 0 3px
 .fee-row-input.ip{position:relative}
 .fee-row-input.ip::before{content:'£';position:absolute;left:7px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text-4);pointer-events:none}
 .fee-row-input.ip input{text-align:left;padding-left:18px;padding-right:8px}
+/* tooltips */
+.tip-icon{display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border-radius:50%;background:var(--surface2);color:var(--text-4);font-size:10px;font-style:normal;cursor:pointer;margin-left:4px;position:relative;vertical-align:middle;font-weight:400;flex-shrink:0}
+.tip-icon:hover{background:var(--cyan-lt);color:var(--cyan-dk)}
+.tip-icon::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:11.5px;line-height:1.5;padding:8px 12px;border-radius:var(--r3);white-space:normal;width:240px;pointer-events:none;opacity:0;transition:opacity .15s;z-index:50;font-weight:400;text-align:left}
+.tip-icon:hover::after{opacity:1}
+
+/* don't know panels */
+.dont-know-btn{background:none;border:none;font-family:'Inter',sans-serif;font-size:11.5px;color:var(--cyan);cursor:pointer;padding:4px 0;text-align:left;text-decoration:underline;margin-top:3px}
+.dont-know-btn:hover{color:var(--cyan-dk)}
+.dont-know-panel{display:none;background:var(--cyan-pale);border:1px solid rgba(14,165,233,.2);border-radius:var(--r3);padding:12px 14px;font-size:12px;color:var(--text-2);line-height:1.6;margin-top:6px}
+.dont-know-panel.open{display:block}
+.dont-know-panel strong{color:var(--text);font-weight:600;display:block;margin-bottom:6px}
+.dont-know-panel ul{padding-left:16px;display:flex;flex-direction:column;gap:3px;margin-bottom:6px}
+.dont-know-panel span{color:var(--text-3);font-size:11.5px}
+
+/* fee empty state */
+.fee-empty{display:flex;align-items:center;gap:8px;padding:12px 14px;background:var(--surface);border-radius:var(--r3);border:1px dashed var(--border-dk);font-size:12.5px;color:var(--text-4);margin-top:4px}
+
 .fee-ok{font-size:11px;color:var(--green);display:none}
 .fee-note{background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:var(--r3);padding:9px 12px;font-size:11.5px;color:var(--amber);line-height:1.5;margin-top:10px}
 
@@ -336,7 +356,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 .t2-fee-norm{font-weight:600;font-size:13px;color:var(--text)}
 .t2-pot{font-weight:600;font-size:13px;color:var(--text)}
 
-/* Saving pill — matches design exactly */
+/* Saving pill - matches design exactly */
 .sv-pill{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 12px;border-radius:var(--r3);min-width:110px;text-align:center}
 .sv-pill.sv-base{background:var(--surface2);color:var(--text-3)}
 .sv-pill.sv-base .sv-label{font-size:11px;color:var(--text-3);font-weight:500}
@@ -368,11 +388,17 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
   .hiw-steps{grid-template-columns:1fr}
   .rh2-cards{grid-template-columns:1fr}
   .res-hero2{padding:28px 20px 20px}
+  .calc-wrap{padding:24px 16px 48px}
+  .fc-body{padding:16px}
+  .frow{gap:10px 12px}
 }
 @media(max-width:580px){
   .frow{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr}
   .rh2-amt{font-size:40px}
+  .calc-wrap{padding:16px 12px 40px}
+  .fc-body{padding:14px}
+  .fee-row{grid-template-columns:1fr auto}
 }
 </style>
 </head>
@@ -410,10 +436,14 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
     </div>
     <h1>Your future self called.<br>They're <span class="accent">furious about the fees.</span></h1>
     <p class="hero-sub">The average UK saver pays <strong>£27,000</strong> in fees by retirement. Taking two minutes to switch now could leave you with tens of thousands more in retirement.</p>
+    <button class="hero-cta" onclick="document.getElementById('calc-section').scrollIntoView({behavior:'smooth'})">
+      Check my pension fees
+      <svg viewBox="0 0 14 14" fill="none" width="14" height="14"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </section>
 
   <!-- CALCULATOR -->
-  <section id="calc-section">
+  <section id="calc-section" style="padding-top:16px">
     <div class="calc-wrap">
       <div class="calc-grid" style="grid-template-columns:1fr">
 
@@ -421,127 +451,174 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
         <div>
           <div class="fc">
             <div class="fc-hdr">
-              <div class="fc-hdr-num">1</div>
-              <span class="fc-hdr-title">Primary Pension Pot</span>
+              <span class="fc-hdr-title">Your workplace pension details</span>
             </div>
             <div class="fc-body">
+              <p style="font-size:13px;color:var(--text-3);margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border)">We'll use these details to calculate the fees your workplace pension is silently charging you - and show you how much you could save by switching.</p>
               <div class="frow">
 
+                <!-- Provider -->
                 <div class="fg full">
-                  <label for="prov">Provider</label>
+                  <label for="prov">Who provides your workplace pension?</label>
                   <div class="sw"><select id="prov" onchange="prefillFees()">
                     <option value="">Select a provider…</option>
                   </select></div>
+                  <span class="hint" style="margin-top:4px">Usually shown on your payslip, pension app, or any letters from your pension provider. Not sure? Search your emails for "pension" or "retirement".</span>
                   <span id="sheet-status" class="hint" style="display:none"></span>
                 </div>
 
+                <!-- Pot value -->
                 <div class="fg">
-                  <label for="pot">Current Pot Value</label>
-                  <input type="text" id="pot" placeholder="e.g. 50,000" inputmode="numeric" autocomplete="off" oninput="formatPot(this)" style="height:38px;padding:0 12px;border:1.5px solid var(--border);border-radius:var(--r3);font-family:'Inter',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;width:100%;transition:border-color .15s">
-                </div>
-
-                <div class="fg">
-                  <label for="cage">Your Current Age</label>
-                  <input type="number" id="cage" placeholder="35" min="18" max="66" step="1">
-                </div>
-
-                <div class="fg full">
-                  <label>Monthly Contribution <span style="font-size:11px;color:var(--text-4);font-weight:400">(includes employer contribution)</span></label>
-                  <div class="contrib-toggle">
-                    <button type="button" class="ct-btn active" id="ct-pct" onclick="setContribMode('pct')">% of Salary</button>
-                    <div class="ct-divider"></div>
-                    <button type="button" class="ct-btn" id="ct-gbp" onclick="setContribMode('gbp')">Fixed £</button>
+                  <label for="pot">
+                    What is your current pension pot value?
+                    <span class="tip-icon" data-tip="This is the total amount saved in your workplace pension so far. You can find it in your pension provider's app, on their website, or on your most recent annual statement.">ⓘ</span>
+                  </label>
+                  <input type="text" id="pot" placeholder="e.g. 25,000" inputmode="numeric" autocomplete="off" oninput="formatPot(this)" style="height:38px;padding:0 12px;border:1.5px solid var(--border);border-radius:var(--r3);font-family:'Inter',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;width:100%;transition:border-color .15s">
+                  <span class="hint">The total currently saved in your workplace pension.</span>
+                  <button type="button" class="dont-know-btn" onclick="toggleDontKnow('pot-help')">Not sure where to find this?</button>
+                  <div id="pot-help" class="dont-know-panel">
+                    <strong>How to find your pension pot value:</strong>
+                    <ul>
+                      <li>Log in to your pension provider's app or website</li>
+                      <li>Check your most recent annual pension statement (usually sent by post or email)</li>
+                      <li>Search your email inbox for your provider's name</li>
+                      <li>Call your provider - they'll tell you in minutes</li>
+                    </ul>
+                    <span>Don't know your provider? Check your payslip - it's often listed there, or ask your HR team.</span>
                   </div>
-                  <div id="contrib-pct-field">
+                </div>
+
+                <!-- Age -->
+                <div class="fg">
+                  <label for="cage">Your current age</label>
+                  <input type="number" id="cage" placeholder="e.g. 38" min="18" max="66" step="1">
+                </div>
+
+                <!-- Contribution -->
+                <div class="fg full">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:6px">
+                    <label style="margin:0">
+                      What percentage of your salary goes into your pension?
+                      <span class="tip-icon" data-tip="Include both what you pay and what your employer adds. Your payslip will show your contribution, and your employer usually adds at least 3% on top.">ⓘ</span>
+                    </label>
+                    <div class="contrib-toggle-sm">
+                      <button type="button" class="ct-sm-btn" id="ct-gbp" onclick="setContribMode('gbp')">Fixed £</button>
+                      <button type="button" class="ct-sm-btn active" id="ct-pct" onclick="setContribMode('pct')">% of salary</button>
+                    </div>
+                  </div>
+                  <div id="contrib-gbp-field">
+                    <div class="ip"><input type="number" id="contrib-gbp" placeholder="e.g. 300" min="0" step="10"></div>
+                    <span class="hint">Total monthly pension contribution including your employer's. Tax relief assumed included.</span>
+                  </div>
+                  <div id="contrib-pct-field" style="display:none">
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
                       <div class="fg">
-                        <div class="is"><input type="number" id="contrib-pct-val" placeholder="8" min="0" max="100" step="0.5"></div>
-                        <span class="hint">Contribution %</span>
+                        <div class="is"><input type="number" id="contrib-pct-val" placeholder="e.g. 8" min="0" max="100" step="0.5"></div>
+                        <span class="hint">Your total contribution % (yours + employer)</span>
                       </div>
                       <div class="fg">
-                        <div class="ip"><input type="number" id="contrib-salary" placeholder="45000" min="0" step="1000"></div>
-                        <span class="hint">Annual Salary</span>
+                        <div class="ip"><input type="number" id="contrib-salary" placeholder="e.g. 35000" min="0" step="1000"></div>
+                        <span class="hint">Your annual gross salary (£)</span>
                       </div>
                     </div>
                   </div>
-                  <div id="contrib-gbp-field" style="display:none">
-                    <div class="ip"><input type="number" id="contrib-gbp" placeholder="400" min="0" step="10"></div>
-                    <span class="hint">Total monthly incl. employer. Tax relief assumed included.</span>
+                  <button type="button" class="dont-know-btn" onclick="toggleDontKnow('contrib-help')">Not sure how much goes in?</button>
+                  <div id="contrib-help" class="dont-know-panel">
+                    <strong>How to find your pension contribution:</strong>
+                    <ul>
+                      <li>Check your payslip - it shows your pension deduction each month</li>
+                      <li>Add your employer's contribution (usually at least 3% of your salary)</li>
+                      <li>If you're on auto-enrolment, the minimum total is 8% of your qualifying earnings</li>
+                    </ul>
                   </div>
                 </div>
 
                 <!-- FEE STRUCTURE -->
                 <div class="fg full" style="margin-top:4px">
                   <div class="fee-hdr">
-                    <span class="fee-hdr-label">Fee Structure</span>
-                    <span class="fee-ok" id="fee-ok">✓ Auto-filled</span>
+                    <span class="fee-hdr-label">Your pension fees</span>
+                    <span class="fee-ok" id="fee-ok"></span>
                   </div>
-                  <div class="fee-rows">
-                    <div class="fee-row">
-                      <span class="fee-row-label">Annual Management Charge</span>
-                      <div style="display:flex;align-items:center;gap:6px">
-                        <div class="amc-mode-toggle">
-                          <button type="button" class="amc-btn active" id="amc-pct-btn" onclick="setAmcMode('pct')">%</button>
-                          <button type="button" class="amc-btn" id="amc-gbp-btn" onclick="setAmcMode('gbp')">£/yr</button>
-                        </div>
-                        <div class="fee-row-input is" id="amc-pct-wrap">
+
+                  <!-- Collapsed state shown before provider selected -->
+                  <div id="fee-empty-state" class="fee-empty">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#9CA3AF" stroke-width="1.3"/><path d="M8 7v4M8 5.5v.5" stroke="#9CA3AF" stroke-width="1.3" stroke-linecap="round"/></svg>
+                    Select your provider above and we'll fill these in automatically.
+                  </div>
+
+                  <!-- Fee rows - shown after provider selected -->
+                  <div id="fee-rows-wrap" style="display:none">
+                    <div class="fee-rows">
+                      <div class="fee-row">
+                        <span class="fee-row-label">
+                          Annual fee (%)
+                          <span class="tip-icon" data-tip="The main yearly charge your provider takes - calculated as a percentage of your total pot. Most workplace pensions charge between 0.3% and 0.75%. On a £50,000 pot, 0.5% = £250 per year.">ⓘ</span>
+                        </span>
+                        <div class="fee-row-input is">
                           <input type="number" id="f-amc" placeholder="0.45" min="0" max="5" step="0.01" oninput="updateEffCost()">
                         </div>
-                        <div class="fee-row-input ip" id="amc-gbp-wrap" style="display:none">
-                          <input type="number" id="f-amc-gbp" placeholder="120" min="0" step="1" oninput="updateEffCost()">
+                      </div>
+                      <div class="fee-row">
+                        <span class="fee-row-label">
+                          Fixed yearly fee (£)
+                          <span class="tip-icon" data-tip="Some providers charge a flat fee every year regardless of pot size. This is common with SIPPs. Enter 0 if your provider doesn't charge a flat fee.">ⓘ</span>
+                        </span>
+                        <div class="fee-row-input ip">
+                          <input type="number" id="f-amc-gbp" placeholder="0" min="0" step="1" oninput="updateEffCost()">
+                        </div>
+                      </div>
+                      <div class="fee-row">
+                        <span class="fee-row-label">
+                          Investment fund fee (%)
+                          <span class="tip-icon" data-tip="Your money is invested in funds that also charge their own fee on top of the provider's fee. This is often called the OCF or TER. It's usually 0.1–0.3% for index funds.">ⓘ</span>
+                        </span>
+                        <div class="fee-row-input is">
+                          <input type="number" id="f-fund" placeholder="0.15" min="0" max="3" step="0.01" oninput="updateEffCost()">
+                        </div>
+                      </div>
+                      <div class="fee-row">
+                        <span class="fee-row-label">
+                          Fee on each payment (%)
+                          <span class="tip-icon" data-tip="A small number of providers (notably Nest) deduct a percentage from every contribution before it's invested. Most providers charge 0% here. Nest charges 1.8%.">ⓘ</span>
+                        </span>
+                        <div class="fee-row-input is">
+                          <input type="number" id="f-cc" placeholder="0.00" min="0" max="10" step="0.01" oninput="updateEffCost()">
                         </div>
                       </div>
                     </div>
-                    <div class="fee-row">
-                      <span class="fee-row-label">Fund Fee</span>
-                      <div class="fee-row-input is">
-                        <input type="number" id="f-fund" placeholder="0.15" min="0" max="3" step="0.01" oninput="updateEffCost()">
-                      </div>
-                    </div>
-                    <div class="fee-row">
-                      <span class="fee-row-label">Contribution Charge</span>
-                      <div class="fee-row-input is">
-                        <input type="number" id="f-cc" placeholder="0.00" min="0" max="10" step="0.01" oninput="updateEffCost()">
-                      </div>
-                    </div>
+                    <div class="fee-note" style="background:var(--surface);border:1px solid var(--border);color:var(--text-3);margin-top:10px">⚠ Your employer may have negotiated different rates. These are standard published figures - check your pension portal for your exact fees if you want a more precise calculation.</div>
                   </div>
-                  <div class="fee-note" style="background:var(--surface);border:1px solid var(--border);color:var(--text-3)">⚠ Some employer pensions negotiate different rates. Check your pension portal for exact figures if you want a more precise calculation.</div>
                 </div>
 
               </div>
 
-              <!-- OLD POTS -->
-              <div class="old-sec">
-                <div class="old-lbl">+ Add Another Pot</div>
+              <!-- OLD POTS - de-emphasised -->
+              <div class="old-sec" style="opacity:.8">
+                <div class="old-lbl" style="font-size:12px;color:var(--text-3);font-weight:500">Got other pension pots? <span style="font-weight:400">(optional)</span></div>
+                <div class="old-desc" style="font-size:11px;color:var(--text-4);margin-bottom:10px">Old jobs often mean old pensions. Add up to 2 more to include them in your total.</div>
                 <div id="opots"></div>
-                <button class="btn-add-pot" id="add-btn" onclick="addPot()">+ Add Another Pension Pot</button>
+                <button class="btn-add-pot" id="add-btn" onclick="addPot()">+ Add another pension pot</button>
               </div>
 
-              <!-- ASSUMPTIONS -->
-              <div class="ass-wrap">
+              <!-- ASSUMPTIONS - de-emphasised -->
+              <div class="ass-wrap" style="opacity:.75">
                 <button class="ass-toggle" id="ass-toggle" onclick="toggleAss()">
                   <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6" stroke="#9CA3AF"/><path d="M6.5 6v3.5M6.5 4.5v.5" stroke="#9CA3AF" stroke-width="1.3" stroke-linecap="round"/></svg>
-                  Calculation assumptions
+                  Calculation assumptions <span style="font-size:11px;color:var(--text-4);font-weight:400;margin-left:4px">- advanced</span>
                   <svg class="ass-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="#9CA3AF" stroke-width="1.4" stroke-linecap="round"/></svg>
                 </button>
                 <div class="ass-panel" id="ass-panel">
                   <table class="ass-table">
-                    <tr><td>Growth rate</td><td id="ass-growth-lbl">9.1%/yr — 20-year historical average for a 70/30 portfolio</td></tr>
-                    <tr><td>Contributions</td><td>Increase 2.5%/yr to reflect pay rises</td></tr>
-                    <tr><td>Inflation</td><td>2.5%/yr — values shown in today's money</td></tr>
-                    <tr><td>Tax relief</td><td>Assumed included in your contribution</td></tr>
-                    <tr><td>Retirement age</td><td id="ass-ret-lbl">67 (adjustable in assumptions panel)</td></tr>
-                    <tr><td>State pension</td><td>Not included in these projections</td></tr>
+                    <tr><td>Investment growth</td><td id="ass-growth-lbl">9.1%/yr - the 20-year average annual return of a globally diversified 70/30 portfolio (2005–2024). Historical average, not a forecast.</td></tr>
+                    <tr><td>Contributions</td><td>Fixed in today's money - no automatic annual increase applied.</td></tr>
+                    <tr><td>Inflation</td><td id="ass-inf-lbl">2% per year - the Bank of England's target rate. Used to show all values in today's money.</td></tr>
+                    <tr><td>Tax relief</td><td>Assumed already included in your monthly contribution figure.</td></tr>
+                    <tr><td>Retirement age</td><td id="ass-ret-lbl">67 - the current UK state pension age.</td></tr>
                   </table>
-                  <div style="margin-top:12px;display:flex;flex-direction:column;gap:10px">
-                    <div class="sl-row">
-                      <div class="sl-hdr"><span>Annual Growth Rate</span><span id="sl-growth-val">9.1%</span></div>
-                      <input type="range" id="sl-growth" min="3" max="15" step="0.1" value="9.1" oninput="updateSlider()">
-                    </div>
-                    <div class="sl-row">
-                      <div class="sl-hdr"><span>Retirement Age</span><span id="sl-ret-val">67</span></div>
-                      <input type="range" id="sl-ret" min="55" max="80" step="1" value="67" oninput="updateSlider()">
-                    </div>
+                  <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px">
+                    <div class="sl-row"><div class="sl-hdr"><span>Annual Growth Rate</span><span id="sl-growth-val">9.1%</span></div><input type="range" id="sl-growth" min="3" max="15" step="0.1" value="9.1" oninput="updateSlider()"></div>
+                    <div class="sl-row"><div class="sl-hdr"><span>Inflation Rate</span><span id="sl-inf-val">2.0%</span></div><input type="range" id="sl-inf" min="0" max="6" step="0.1" value="2.0" oninput="updateSlider()"></div>
+                    <div class="sl-row"><div class="sl-hdr"><span>Retirement Age</span><span id="sl-ret-val">67</span></div><input type="range" id="sl-ret" min="55" max="80" step="1" value="67" oninput="updateSlider()"></div>
                   </div>
                 </div>
               </div>
@@ -578,7 +655,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
       <h2 class="sec-title">Frequently Asked Questions</h2>
       <p class="sec-sub" style="margin-bottom:28px">Everything you need to know about pension fee impact</p>
       <div class="faq-list">
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How accurate are the calculations?</button><div class="faq-a">Our projections use a 9.1% annual growth rate (20-year historical average for a 70/30 portfolio), 2.5% annual contribution growth, and model all fee types separately. They are illustrative — your actual returns will vary. Provider fee data is sourced from IGC reports and DWP surveys.</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How accurate are the calculations?</button><div class="faq-a">Our projections use a 9.1% annual growth rate (20-year historical average for a 70/30 portfolio), 2.5% annual contribution growth, and model all fee types separately. They are illustrative - your actual returns will vary. Provider fee data is sourced from IGC reports and DWP surveys.</div></div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I compare multiple pension pots?</button><div class="faq-a">Yes. You can add up to 2 additional old pension pots. Their values are combined with your main pot for projection purposes, giving you a consolidated view of your total retirement savings and fees.</div></div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What happens after I calculate my fee impact?</button><div class="faq-a">You'll see a full comparison table showing your current provider alongside all other providers in our database, with every fee type broken out separately so you can see exactly where the differences come from.</div></div>
       </div>
@@ -613,7 +690,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
         <div class="footer-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">Disclaimer</a></li></ul></div>
       </div>
       <div class="footer-bottom">
-        <span>© 2024 illdoitlater.co.uk. All rights reserved. For information only — not financial advice. We may receive commission if you switch via our links. PensionClear is not authorised by the FCA.</span>
+        <span>© 2024 illdoitlater.co.uk. All rights reserved. For information only - not financial advice. We may receive commission if you switch via our links. PensionClear is not authorised by the FCA.</span>
         <div class="footer-socials"><a href="#">Twitter</a><a href="#">LinkedIn</a><a href="#">Facebook</a></div>
       </div>
     </div>
@@ -631,23 +708,23 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
     <div class="res-hero2">
       <div class="rh2-top">
         <div class="rh2-lbl">BEST POTENTIAL SAVING BY SWITCHING</div>
-        <div class="rh2-amt" id="rh-amt">—</div>
+        <div class="rh2-amt" id="rh-amt">-</div>
         <div class="rh2-tag">vs staying with <strong id="rh-prov">your current provider</strong></div>
       </div>
       <div class="rh2-cards">
         <div class="rh2-card">
           <div class="rh2-card-lbl">PROJECTED POT</div>
-          <div class="rh2-card-val" id="rh-pot">—</div>
+          <div class="rh2-card-val" id="rh-pot">-</div>
           <div class="rh2-card-sub" id="rh-pot-sub">at retirement</div>
         </div>
         <div class="rh2-card">
           <div class="rh2-card-lbl">EXPECTED FEES</div>
-          <div class="rh2-card-val" id="rh-fees">—</div>
+          <div class="rh2-card-val" id="rh-fees">-</div>
           <div class="rh2-card-sub">by retirement</div>
         </div>
         <div class="rh2-card">
           <div class="rh2-card-lbl">POTENTIAL SAVING</div>
-          <div class="rh2-card-val" id="rh-saving2">—</div>
+          <div class="rh2-card-val" id="rh-saving2">-</div>
           <div class="rh2-card-sub">by switching providers</div>
         </div>
       </div>
@@ -656,7 +733,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
     <!-- COMPARISON TABLE -->
     <div class="tbl-card2">
       <div class="tbl-hdr2">
-        <h3>Full comparison — fees broken out</h3>
+        <h3>Full comparison - fees broken out</h3>
         <p>Sorted by potential savings vs your current provider. Forecasted returns are illustrative only based on historical assumptions</p>
       </div>
       <div class="tbl-scroll">
@@ -682,7 +759,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
     <!-- DISCLAIMER -->
     <div class="res-banner2">
       <span style="font-size:14px;flex-shrink:0;color:var(--amber)">ℹ</span>
-      <div><strong>Illustrative only.</strong> Projections assume <span id="res-growth-lbl">9.1%</span> annual growth with 2.5% annual contribution increases. Always consult a regulated financial adviser before switching. Past performance is not a guide to future returns.</div>
+      <div><strong>Illustrative only.</strong> Projections assume <span id="res-growth-lbl">9.1%</span> annual growth, deflated at <span id="res-inf-lbl">2.0%</span> inflation to show values in today's money. Contributions are fixed in real terms. Always consult a regulated financial adviser before switching. Past performance is not a guide to future returns.</div>
     </div>
   </div>
 
@@ -724,8 +801,8 @@ const CMETA = {
 };
 
 const GROWTH_DEFAULT = 0.091;
-const CONTRIB_GROWTH = 0.025;
 let GROWTH = GROWTH_DEFAULT;
+let INFLATION = 0.02;
 let contribMode = 'pct';
 let amcMode = 'pct';
 let opCount = 0;
@@ -796,23 +873,23 @@ function resolveMonthly(){
 }
 
 function resolveAmcPct(){
-  if(amcMode==='pct')return parseFloat(document.getElementById('f-amc').value)||0;
-  const gbp=parseFloat(document.getElementById('f-amc-gbp').value)||0;
-  const pot=parseFloat(document.getElementById('pot').value)||0;
-  if(pot<=0)return 0;
-  return(gbp/pot)*100;
+  return parseFloat(document.getElementById('f-amc').value)||0;
 }
 
 function projectPot(start,monthly0,years,amcPct,flatAnnual,ccPct){
   const amcM=(amcPct/100)/12;const ccR=ccPct/100;let pot=start;
-  for(let y=0;y<years;y++){const mo=monthly0*Math.pow(1+CONTRIB_GROWTH,y);const moNet=mo*(1-ccR);
-    for(let m=0;m<12;m++){pot=pot*(1+GROWTH/12-amcM)+moNet-flatAnnual/12;if(pot<0)pot=0;}}
-  return pot;
+  const moNet=monthly0*(1-ccR);
+  for(let m=0;m<years*12;m++){
+    pot=pot*(1+GROWTH/12-amcM)+moNet-flatAnnual/12;
+    if(pot<0)pot=0;
+  }
+  // deflate to today's money
+  return pot/Math.pow(1+INFLATION,years);
 }
 function projectNoFees(start,monthly0,years){
   let pot=start;
-  for(let y=0;y<years;y++){const mo=monthly0*Math.pow(1+CONTRIB_GROWTH,y);for(let m=0;m<12;m++)pot=pot*(1+GROWTH/12)+mo;}
-  return pot;
+  for(let m=0;m<years*12;m++) pot=pot*(1+GROWTH/12)+monthly0;
+  return pot/Math.pow(1+INFLATION,years);
 }
 function calcFees(start,monthly0,years,fees){
   const amcTot=(fees.amc||0)+(fees.add||0);
@@ -834,28 +911,38 @@ function setContribMode(mode){
 
 function setAmcMode(mode){
   amcMode=mode;
-  document.getElementById('amc-pct-btn').classList.toggle('active',mode==='pct');
-  document.getElementById('amc-gbp-btn').classList.toggle('active',mode==='gbp');
-  document.getElementById('amc-pct-wrap').style.display=mode==='pct'?'':'none';
-  document.getElementById('amc-gbp-wrap').style.display=mode==='gbp'?'':'none';
   updateEffCost();
 }
 
 function toggleFeeEdit(){
-  /* fee rows are always visible — this is a placeholder for future expand/collapse */
+  /* fee rows are always visible - this is a placeholder for future expand/collapse */
 }
 
 function prefillFees(){
   const d=PFEES[document.getElementById('prov').value];
-  if(!d){document.getElementById('fee-ok').style.display='none';return;}
-  setAmcMode('pct');
+  const emptyState=document.getElementById('fee-empty-state');
+  const feeRows=document.getElementById('fee-rows-wrap');
+  if(!d){
+    if(emptyState)emptyState.style.display='flex';
+    if(feeRows)feeRows.style.display='none';
+    document.getElementById('fee-ok').style.display='none';
+    return;
+  }
   document.getElementById('f-amc').value=d.amc.toFixed(2);
+  document.getElementById('f-amc-gbp').value=d.flat||0;
   document.getElementById('f-fund').value=d.add.toFixed(2);
   document.getElementById('f-cc').value=d.cc.toFixed(2);
+  if(emptyState)emptyState.style.display='none';
+  if(feeRows)feeRows.style.display='block';
   const ok=document.getElementById('fee-ok');
   ok.style.display='inline';
-  ok.textContent=d.fund?`✓ Auto-filled for ${d.fund}`:'✓ Auto-filled';
+  ok.textContent=d.fund?`✓ Filled assuming you are invested in the ${d.fund}`:'✓ Auto-filled';
   updateEffCost();
+}
+
+function toggleDontKnow(id){
+  const panel=document.getElementById(id);
+  if(panel)panel.classList.toggle('open');
 }
 
 function updateEffCost(){
@@ -863,11 +950,11 @@ function updateEffCost(){
   const fund=parseFloat(document.getElementById('f-fund').value)||0;
   const cc=parseFloat(document.getElementById('f-cc').value)||0;
   const eff=amc+fund;
-  // sidebar elements removed — no-op if missing
+  // sidebar elements removed - no-op if missing
   const sideEff=document.getElementById('side-eff');
   const sideProj=document.getElementById('side-proj');
   const sideSave=document.getElementById('side-save');
-  if(sideEff) sideEff.textContent=eff>0?fmtPct(eff)+(cc>0?` + ${cc.toFixed(2)}% on contribs`:''):'—';
+  if(sideEff) sideEff.textContent=eff>0?fmtPct(eff)+(cc>0?` + ${cc.toFixed(2)}% on contribs`:''):'-';
   if(sideProj||sideSave){
     const pot=parsePot();
     const mo=resolveMonthly();
@@ -889,13 +976,16 @@ function updateEffCost(){
 
 function updateSlider(){
   const g=parseFloat(document.getElementById('sl-growth').value);
+  const inf=parseFloat(document.getElementById('sl-inf').value);
   const ret=parseInt(document.getElementById('sl-ret').value);
   document.getElementById('sl-growth-val').textContent=g.toFixed(1)+'%';
+  document.getElementById('sl-inf-val').textContent=inf.toFixed(1)+'%';
   document.getElementById('sl-ret-val').textContent=ret;
-  document.getElementById('ass-growth-lbl').textContent=g.toFixed(1)+'%/yr — adjusted from historical average';
-  document.getElementById('ass-ret-lbl').textContent=ret;
+  document.getElementById('ass-growth-lbl').textContent=g.toFixed(1)+'%/yr - the 20-year average annual return of a globally diversified 70/30 portfolio (2005–2024). Historical average, not a forecast.';
+  document.getElementById('ass-inf-lbl').textContent=inf.toFixed(1)+'% per year'+(inf===2.0?' - the Bank of England\'s target rate':'')+'. Used to show values in today\'s money.';
+  document.getElementById('ass-ret-lbl').textContent=ret+(ret===67?' - the current UK state pension age':'')+'. Adjustable above.';
   GROWTH=g/100;
-  updateEffCost();
+  INFLATION=inf/100;
 }
 
 function addPot(){
@@ -938,11 +1028,10 @@ function runCalc(){
   const sheetData=PFEES[pName]||{};
   const fees={
     amc: resolveAmcPct() || sheetData.amc || 0,
-    add: parseFloat(document.getElementById('f-fund').value) ?? sheetData.add ?? 0,
-    flat: sheetData.flat || 0,
-    cc:  parseFloat(document.getElementById('f-cc').value) ?? sheetData.cc ?? 0,
+    add: parseFloat(document.getElementById('f-fund').value) || sheetData.add || 0,
+    flat: parseFloat(document.getElementById('f-amc-gbp').value) || sheetData.flat || 0,
+    cc:  parseFloat(document.getElementById('f-cc').value) || sheetData.cc || 0,
   };
-  // ensure NaN-safe
   fees.amc = isNaN(fees.amc) ? (sheetData.amc||0) : fees.amc;
   fees.add = isNaN(fees.add) ? (sheetData.add||0) : fees.add;
   fees.cc  = isNaN(fees.cc)  ? (sheetData.cc||0)  : fees.cc;
@@ -952,7 +1041,7 @@ function runCalc(){
   const alts=Object.entries(PFEES).filter(([n])=>n!==pName).map(([n,pd])=>{
     const af={amc:pd.amc||0,add:pd.add||0,flat:pd.flat||0,cc:pd.cc||0};
     const{pot:ap,total:at,amcDrag:aA,flatTotal:aF,ccDrag:aC}=calcFees(totalPot,monthly0,years,af);
-    const cm=CMETA[n]||{tp:null,tpc:'—',app:false,funds:'—'};
+    const cm=CMETA[n]||{tp:null,tpc:'-',app:false,funds:'-'};
     return{name:n,amc:pd.amc,fund:pd.fund||'',altPot:ap,altTotal:at,aAmcD:aA,aFlatT:aF,aCcD:aC,saving:currTotal-at,tp:cm.tp,tpc:cm.tpc,app:cm.app,funds:cm.funds,effPct:af.amc+af.add,ccPct:af.cc};
   }).sort((a,b)=>b.saving-a.saving);
 
@@ -964,11 +1053,12 @@ function runCalc(){
   document.getElementById('rh-pot-sub').textContent=`at retirement with ${pName}`;
   document.getElementById('rh-fees').textContent=fmt(currTotal);
   document.getElementById('res-growth-lbl').textContent=(GROWTH*100).toFixed(1)+'%';
+  document.getElementById('res-inf-lbl').textContent=(INFLATION*100).toFixed(1)+'%';
 
   // Build new flat table
   const tb=document.getElementById('ctbody');tb.innerHTML='';
   const d=PFEES[pName];
-  const cm=CMETA[pName]||{tp:null,tpc:'—'};
+  const cm=CMETA[pName]||{tp:null,tpc:'-'};
 
   // Current provider row
   const cr=document.createElement('tr');cr.className='row-curr2';
