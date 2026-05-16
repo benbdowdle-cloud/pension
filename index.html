@@ -329,7 +329,23 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 .rh2-card-val{font-family:'Manrope',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#fff;margin-bottom:4px}
 .rh2-card-sub{font-size:12px;color:rgba(255,255,255,.6)}
 
-/* ══ PROVIDER LOGOS ══ */
+/* ══ PROVIDER SEARCH DROPDOWN ══ */
+.prov-search-wrap{position:relative;width:100%}
+.prov-search-input-row{display:flex;align-items:center;gap:8px;height:38px;padding:0 10px;border:1.5px solid var(--border);border-radius:var(--r3);background:#fff;transition:border-color .15s}
+.prov-search-input-row:focus-within{border-color:var(--cyan)}
+.prov-search-icon{width:14px;height:14px;color:var(--text-4);flex-shrink:0}
+.prov-search-wrap input[type="text"]{border:none;outline:none;flex:1;font-size:13px;font-family:'Inter',sans-serif;color:var(--text);background:transparent;min-width:0}
+.prov-search-wrap input[type="text"]::placeholder{color:var(--text-4)}
+.prov-clear{border:none;background:none;cursor:pointer;font-size:16px;color:var(--text-4);padding:0;line-height:1;flex-shrink:0}
+.prov-clear:hover{color:var(--text)}
+.prov-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1.5px solid var(--border);border-radius:var(--r3);box-shadow:0 8px 24px rgba(0,0,0,.1);z-index:200;max-height:260px;overflow-y:auto}
+.prov-option{padding:10px 14px;font-size:13px;color:var(--text);cursor:pointer;display:flex;align-items:center;gap:10px;transition:background .1s}
+.prov-option:hover,.prov-option.active{background:var(--cyan-pale)}
+.prov-option.manual{color:var(--cyan-dk);font-weight:500;border-top:1px solid var(--border);margin-top:4px}
+.prov-option.manual svg{flex-shrink:0}
+.prov-option-name{flex:1}
+.prov-option-type{font-size:11px;color:var(--text-4);background:var(--surface2);padding:2px 6px;border-radius:100px}
+.prov-selected-val{font-size:13px;font-weight:500;color:var(--text)}
 .prov-logo{width:36px;height:36px;border-radius:var(--r2);overflow:hidden;flex-shrink:0;background:var(--surface2);display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
 .prov-logo img{width:36px;height:36px;object-fit:contain}
 .prov-logo-init{font-size:13px;font-weight:700;color:var(--text-3)}
@@ -416,7 +432,9 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 
 .res-banner2{background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:var(--r4);padding:12px 16px;display:flex;gap:9px;font-size:12px;color:var(--amber);line-height:1.6;margin-bottom:0}
 
-/* ══ ARTICLE PAGES ══ */
+.cmp-card-note{font-size:11px;color:var(--text-4);padding:8px 20px 12px;line-height:1.5;border-top:1px solid var(--border);font-style:italic}
+.cmp-card.card-curr .cmp-card-note{border-top-color:rgba(251,191,36,.2)}
+.cmp-card.card-best .cmp-card-note{border-top-color:rgba(5,150,105,.1)}
 .article-wrap{max-width:740px;margin:0 auto;padding:28px 20px 72px}
 .article-tag{display:inline-block;background:var(--cyan-lt);color:var(--cyan-dk);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:3px 10px;border-radius:100px;margin-bottom:14px}
 .article-hero{margin-bottom:36px}
@@ -530,10 +548,17 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 
                 <!-- Provider -->
                 <div class="fg full">
-                  <label for="prov">Who provides your workplace pension?</label>
-                  <div class="sw"><select id="prov" onchange="prefillFees()">
-                    <option value="">Select a provider…</option>
-                  </select></div>
+                  <label>Who provides your workplace pension?</label>
+                  <div class="prov-search-wrap" id="prov-search-wrap">
+                    <div class="prov-search-input-row">
+                      <svg class="prov-search-icon" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                      <input type="text" id="prov-search" autocomplete="off" placeholder="Search for your provider…" oninput="filterProviders()" onfocus="openProviderDropdown()" onblur="closeProviderDropdown()" onkeydown="provKeyNav(event)">
+                      <button type="button" class="prov-clear" id="prov-clear" onclick="clearProvider()" style="display:none">×</button>
+                    </div>
+                    <div class="prov-dropdown" id="prov-dropdown" style="display:none"></div>
+                  </div>
+                  <!-- Hidden value store -->
+                  <input type="hidden" id="prov" value="">
                   <span class="hint" style="margin-top:4px">Usually shown on your payslip, pension app, or any letters from your pension provider. Not sure? Search your emails for "pension" or "retirement".</span>
                   <span id="sheet-status" class="hint" style="display:none"></span>
                 </div>
@@ -588,7 +613,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
                         <span class="hint">The legal minimum is 8% total (5% from you + 3% from your employer). If you're unsure, 8% is a safe starting point.</span>
                       </div>
                       <div class="fg">
-                        <div class="ip"><input type="number" id="contrib-salary" placeholder="e.g. 35000" min="0" step="1000"></div>
+                        <div class="ip"><input type="text" id="contrib-salary" placeholder="e.g. 35,000" inputmode="numeric" autocomplete="off" oninput="formatSalary(this)" style="height:38px;padding:0 12px 0 22px;border:1.5px solid var(--border);border-radius:var(--r3);font-family:'Inter',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;width:100%;transition:border-color .15s"></div>
                         <span class="hint">Your annual gross salary (£)</span>
                       </div>
                     </div>
@@ -947,9 +972,21 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDp0kVWlvsYRQGj-_ACzxlz9TBzT_jNXTOk-A9GslFVmlOeKmc6oRWvVHpc59XnZO5sg6Q0a3VnSrP/pub?gid=2074038390&single=true&output=csv';
 
 const PFEES_FALLBACK = {
-  "Nest":            {amc:0.30,add:0,flat:0,cc:1.80,fund:"Nest Retirement Date Fund",last_verified:"2025-04-01",source:"Nest IGC Report 2024"},
-  "Aviva":           {amc:0.45,add:0.10,flat:0,cc:0,fund:"Aviva My Future Focus",last_verified:"2025-04-01",source:"Aviva IGC Report 2024"},
-  "Legal and General":{amc:0.40,add:0.15,flat:0,cc:0,fund:"L&G Multi-Asset Fund",last_verified:"2025-04-01",source:"L&G IGC Report 2024"},
+  "Aegon":               {amc:0.40,add:0.04,flat:0,cc:0,fund:"Aegon Balanced",tiers:null,notes:""},
+  "Aviva":               {amc:0.40,add:0.10,flat:0,cc:0,fund:"Aviva My Future Focus Growth",tiers:null,notes:"Your employer may have negotiated a lower rate than the standard published fee - check your pension portal or payslip for your exact charges."},
+  "Freetrade SIPP":      {amc:0.00,add:0.17,flat:0,cc:0,fund:"MSCI $IMID",tiers:null,notes:""},
+  "Legal and General":   {amc:0.40,add:0.15,flat:0,cc:0,fund:"L&G Multi-Asset Fund",tiers:null,notes:""},
+  "Moneyfarm":           {amc:0.45,add:0.21,flat:0,cc:0,fund:"Fixed Allocation portfolio",tiers:[{"up_to":100000,"rate":0.45},{"up_to":999999999,"rate":0.25}],notes:"Fees shown are for the lower-cost Fixed Allocation portfolio. Actively managed portfolios range from 0.35% to 0.75% depending on pot size. Fund costs of approximately 0.21% apply on top of the management fee for all options."},
+  "Nest":                {amc:0.30,add:0,flat:0,cc:1.80,fund:"Nest Retirement Date Fund",tiers:null,notes:"The 1.80% fee on each payment makes Nest more expensive for active contributors but cheaper for those with a large existing pot who are no longer paying in."},
+  "NOW: Pensions":       {amc:0.30,add:0,flat:18,cc:0,fund:"Diversified Growth Fund",tiers:null,notes:""},
+  "Nutmeg":              {amc:0.45,add:0.18,flat:0,cc:0,fund:"Fixed Allocation portfolio",tiers:[{"up_to":100000,"rate":0.45},{"up_to":999999999,"rate":0.25}],notes:"Fully managed and Smart Alpha portfolios cost 0.75% up to £100,000, dropping to 0.35% above that. Fund costs of approximately 0.18% apply on top for all options. Formerly known as Nutmeg."},
+  "PensionBee":          {amc:0.50,add:0,flat:0,cc:0,fund:"Tracker Plan (State Street Balanced Index)",tiers:[{"up_to":100000,"rate":0.50},{"up_to":999999999,"rate":0.25}],notes:"Plans range from 0.50% to 0.95% depending on your choice. All fees are all-in with no separate fund charges. Fee halves on the portion of your pot over £100,000."},
+  "Royal London":        {amc:0.75,add:0,flat:0,cc:0,fund:"Governed Portfolio 4",tiers:null,notes:"Royal London fees vary between employers, check your pension portal for details."},
+  "Scottish Widows":     {amc:0.50,add:0,flat:0,cc:0,fund:"Pension Portfolio Three",tiers:null,notes:""},
+  "Smart Pension":       {amc:0.30,add:0,flat:0,cc:0,fund:"Smart Sustainable Growth Fund",tiers:null,notes:""},
+  "Standard Life":       {amc:0.45,add:0.09,flat:0,cc:0,fund:"Standard Life Sustainable Multi Asset",tiers:null,notes:""},
+  "The People's Pension":{amc:0.50,add:0,flat:6.50,cc:0,fund:"Global Investments",tiers:[{"up_to":3000,"rate":0.50},{"up_to":10000,"rate":0.45},{"up_to":25000,"rate":0.35},{"up_to":50000,"rate":0.25},{"up_to":999999999,"rate":0.20}],notes:"The People's Pension operates a 'Savings Rewards Scheme' where a fixed % is returned to you depending on how much you have invested in your pot. For the purposes of the calculation, we have deducted these savings rewards from the annual management charge."},
+  "Wealthify":           {amc:0.60,add:0.15,flat:0,cc:0,fund:"Original Plan (Wealthify managed portfolio)",tiers:[{"up_to":100000,"rate":0.60},{"up_to":999999999,"rate":0.30}],notes:"Fee drops to 0.30% on the portion over £100,000. An Ethical plan is also available at the same management fee but with higher fund costs of approximately 0.58%."},
 };
 let PFEES = {...PFEES_FALLBACK};
 
@@ -1003,30 +1040,41 @@ async function loadSheetData(){
     PFEES={};
     rows.forEach(row=>{
       const name=row['Provider'];if(!name)return;
+      let tiers=null;
+      const tiersRaw=(row['Tiers']||'').trim();
+      if(tiersRaw){try{tiers=JSON.parse(tiersRaw);}catch(e){console.warn('Bad tiers JSON for',name,e);}}
       PFEES[name]={
         amc:parseFloat(row['Annual Management Charge %'])||0,
         add:parseFloat(row['Fund Charge (%)'])||0,
         flat:parseFloat(row['Platform Fixed Charge (Annual £)'])||0,
         cc:parseFloat(row['Contribution Charge (%)'])||0,
         fund:row['Assumed Fund']||'',
+        notes:row['Notes']||'',
+        tiers:tiers,
         last_verified:row['last_verified']||'',
         source:row['source']||'',
       };
     });
-    sel.innerHTML='<option value="">Select a provider…</option>';
+    sel.innerHTML='';
     Object.keys(PFEES).forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+    buildProviderList();
     if(st){st.textContent=`✓ Live fee data loaded · ${rows.length} providers`;st.style.color='var(--green)';}
   }catch(err){
     console.warn('Sheet fetch failed, using fallback:',err.message);
-    sel.innerHTML='<option value="">Select a provider…</option>';
-    Object.keys(PFEES).forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+    buildProviderList();
     if(st){st.textContent='Using cached data';st.style.color='var(--text-4)';}
   }
 }
 
+function formatSalary(el){
+  const raw=el.value.replace(/[^0-9]/g,'');
+  el.value=raw?parseInt(raw,10).toLocaleString('en-GB'):'';
+}
+
 function resolveMonthly(){
   if(contribMode==='gbp')return parseFloat(document.getElementById('contrib-gbp').value)||0;
-  const sal=parseFloat(document.getElementById('contrib-salary').value)||0;
+  const salRaw=(document.getElementById('contrib-salary').value||'').replace(/[^0-9]/g,'');
+  const sal=parseFloat(salRaw)||0;
   const pct=parseFloat(document.getElementById('contrib-pct-val').value)||0;
   return sal*(pct/100)/12;
 }
@@ -1035,29 +1083,53 @@ function resolveAmcPct(){
   return parseFloat(document.getElementById('f-amc').value)||0;
 }
 
-function projectPot(start,monthly0,years,amcPct,flatAnnual,ccPct){
-  const amcM=(amcPct/100)/12;const ccR=ccPct/100;let pot=start;
-  const moNet=monthly0*(1-ccR);
-  for(let m=0;m<years*12;m++){
-    pot=pot*(1+GROWTH/12-amcM)+moNet-flatAnnual/12;
-    if(pot<0)pot=0;
+// ── Tiered AMC helper ──────────────────────────────────────────────
+// Applies tiers marginally (like income tax bands) to a given pot value.
+// If no tiers, falls back to flat amcPct.
+function tieredAmcAnnual(pot, amcPct, tiers){
+  if(!tiers||!tiers.length) return pot*(amcPct/100);
+  let fee=0,prev=0;
+  for(const t of tiers){
+    if(pot<=prev) break;
+    const band=Math.min(pot,t.up_to)-prev;
+    fee+=band*(t.rate/100);
+    prev=t.up_to;
+    if(pot<=t.up_to) break;
   }
-  // deflate to today's money
+  return fee;
+}
+
+// ── Core projection — month-by-month, tier recalculated each year ──
+function projectPot(start, monthly0, years, amcPct, tiers, flatAnnual, ccPct, addPct){
+  const ccR=ccPct/100;
+  const addM=(addPct/100)/12;
+  let pot=start;
+  const moNet=monthly0*(1-ccR);
+
+  for(let y=0;y<years;y++){
+    // Compute this year's tiered AMC on the pot at start of year
+    const amcAnnual=tieredAmcAnnual(pot, amcPct, tiers);
+    const amcMonthly=amcAnnual/12;
+
+    for(let m=0;m<12;m++){
+      pot=pot*(1+GROWTH/12)-amcMonthly-pot*addM+moNet-flatAnnual/12;
+      if(pot<0)pot=0;
+    }
+  }
   return pot/Math.pow(1+INFLATION,years);
 }
+
 function projectNoFees(start,monthly0,years){
   let pot=start;
   for(let m=0;m<years*12;m++) pot=pot*(1+GROWTH/12)+monthly0;
   return pot/Math.pow(1+INFLATION,years);
 }
+
 function calcFees(start,monthly0,years,fees){
-  const amcTot=(fees.amc||0)+(fees.add||0);
-  const pot=projectPot(start,monthly0,years,amcTot,fees.flat||0,fees.cc||0);
+  const tiers=fees.tiers||null;
+  const pot=projectPot(start,monthly0,years,fees.amc,tiers,fees.flat||0,fees.cc||0,fees.add||0);
   const nofee=projectNoFees(start,monthly0,years);
-  const amcDrag=Math.max(0,nofee-projectPot(start,monthly0,years,amcTot,0,0));
-  const flatTotal=(fees.flat||0)*years;
-  const ccDrag=Math.max(0,projectPot(start,monthly0,years,amcTot,fees.flat||0,0)-pot);
-  return{pot,total:Math.max(0,nofee-pot),amcDrag,flatTotal,ccDrag};
+  return{pot,total:Math.max(0,nofee-pot)};
 }
 
 function setContribMode(mode){
@@ -1077,8 +1149,125 @@ function toggleFeeEdit(){
   /* fee rows are always visible - this is a placeholder for future expand/collapse */
 }
 
+let provDropdownOpen=false;
+let provActiveIdx=-1;
+let provFilteredList=[];
+
+function buildProviderList(){
+  provFilteredList=Object.keys(PFEES);
+}
+
+function filterProviders(){
+  const q=(document.getElementById('prov-search').value||'').toLowerCase().trim();
+  const all=Object.keys(PFEES);
+  provFilteredList=q?all.filter(n=>n.toLowerCase().includes(q)):all;
+  renderDropdown(q);
+}
+
+function renderDropdown(q){
+  const dd=document.getElementById('prov-dropdown');
+  dd.innerHTML='';
+  provActiveIdx=-1;
+
+  const PERSONAL=['Moneyfarm','Nutmeg','PensionBee','Wealthify'];
+
+  provFilteredList.forEach((name,i)=>{
+    const div=document.createElement('div');
+    div.className='prov-option';
+    div.dataset.idx=i;
+    const isPersonal=PERSONAL.includes(name);
+    div.innerHTML=`<span class="prov-option-name">${highlight(name,q)}</span>${isPersonal?'<span class="prov-option-type">Personal pension</span>':''}`;
+    div.onmousedown=()=>selectProvider(name);
+    dd.appendChild(div);
+  });
+
+  // Manual entry option
+  const manual=document.createElement('div');
+  manual.className='prov-option manual';
+  manual.innerHTML=`<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span class="prov-option-name">My provider isn't listed — enter fees manually</span>`;
+  manual.onmousedown=()=>selectManual();
+  dd.appendChild(manual);
+
+  dd.style.display='block';
+  provDropdownOpen=true;
+}
+
+function highlight(name,q){
+  if(!q) return name;
+  const idx=name.toLowerCase().indexOf(q.toLowerCase());
+  if(idx<0) return name;
+  return name.slice(0,idx)+'<strong>'+name.slice(idx,idx+q.length)+'</strong>'+name.slice(idx+q.length);
+}
+
+function openProviderDropdown(){
+  filterProviders();
+}
+
+function closeProviderDropdown(){
+  setTimeout(()=>{
+    document.getElementById('prov-dropdown').style.display='none';
+    provDropdownOpen=false;
+  },150);
+}
+
+function selectProvider(name){
+  document.getElementById('prov').value=name;
+  document.getElementById('prov-search').value=name;
+  document.getElementById('prov-clear').style.display='inline';
+  document.getElementById('prov-dropdown').style.display='none';
+  prefillFees();
+}
+
+function selectManual(){
+  document.getElementById('prov').value='__manual__';
+  document.getElementById('prov-search').value='My provider (manual entry)';
+  document.getElementById('prov-clear').style.display='inline';
+  document.getElementById('prov-dropdown').style.display='none';
+  // Show fee rows blank for manual entry
+  const emptyState=document.getElementById('fee-empty-state');
+  const feeRows=document.getElementById('fee-rows-wrap');
+  if(emptyState)emptyState.style.display='none';
+  if(feeRows)feeRows.style.display='block';
+  document.getElementById('f-amc').value='';
+  document.getElementById('f-amc-gbp').value='0';
+  document.getElementById('f-fund').value='';
+  document.getElementById('f-cc').value='0';
+  const ok=document.getElementById('fee-ok');
+  ok.style.display='inline';
+  ok.textContent='Enter your fee details below — check your pension statement or provider website.';
+  updateEffCost();
+}
+
+function clearProvider(){
+  document.getElementById('prov').value='';
+  document.getElementById('prov-search').value='';
+  document.getElementById('prov-clear').style.display='none';
+  document.getElementById('prov-dropdown').style.display='none';
+  const emptyState=document.getElementById('fee-empty-state');
+  const feeRows=document.getElementById('fee-rows-wrap');
+  if(emptyState)emptyState.style.display='flex';
+  if(feeRows)feeRows.style.display='none';
+  document.getElementById('fee-ok').style.display='none';
+  document.getElementById('prov-search').focus();
+}
+
+function provKeyNav(e){
+  const items=document.querySelectorAll('#prov-dropdown .prov-option');
+  if(!items.length) return;
+  if(e.key==='ArrowDown'){e.preventDefault();provActiveIdx=Math.min(provActiveIdx+1,items.length-1);}
+  else if(e.key==='ArrowUp'){e.preventDefault();provActiveIdx=Math.max(provActiveIdx-1,0);}
+  else if(e.key==='Enter'){
+    e.preventDefault();
+    if(provActiveIdx>=0&&items[provActiveIdx]){items[provActiveIdx].onmousedown();}
+    return;
+  } else if(e.key==='Escape'){closeProviderDropdown();return;}
+  items.forEach((el,i)=>el.classList.toggle('active',i===provActiveIdx));
+  if(provActiveIdx>=0) items[provActiveIdx].scrollIntoView({block:'nearest'});
+}
+
 function prefillFees(){
-  const d=PFEES[document.getElementById('prov').value];
+  const val=document.getElementById('prov').value;
+  const d=PFEES[val];
   const emptyState=document.getElementById('fee-empty-state');
   const feeRows=document.getElementById('fee-rows-wrap');
   if(!d){
@@ -1175,7 +1364,7 @@ function runCalc(){
   const ageEl=document.getElementById('cage');
   const ret=parseInt(document.getElementById('sl-ret').value)||67;
   let ok=true;
-  if(!provEl.value){markErr(provEl,'Select a provider');ok=false;}
+  if(!provEl.value){markErr(document.getElementById('prov-search'),'Select or search for a provider');ok=false;}
   const pot=parsePot();
   const potEl=document.getElementById('pot');
   if(isNaN(pot)||pot<0){markErr(potEl,'Enter a valid pot value');ok=false;}
@@ -1184,7 +1373,9 @@ function runCalc(){
   if(ret<=age){ok=false;}
   if(!ok)return;
 
-  const pName=provEl.value,years=Math.max(1,ret-age);
+  const isManual=provEl.value==='__manual__';
+  const pName=isManual?'Your current provider':provEl.value;
+  const years=Math.max(1,ret-age);
   const monthly0=resolveMonthly();
   let totalPot=parsePot();
   for(let i=1;i<=2;i++){const v=document.getElementById('opv'+i);if(v){const raw=(v.value||'').replace(/[^0-9]/g,'');totalPot+=(parseFloat(raw)||0);}}
@@ -1199,14 +1390,14 @@ function runCalc(){
   fees.amc = isNaN(fees.amc) ? (sheetData.amc||0) : fees.amc;
   fees.add = isNaN(fees.add) ? (sheetData.add||0) : fees.add;
   fees.cc  = isNaN(fees.cc)  ? (sheetData.cc||0)  : fees.cc;
+  fees.tiers = sheetData.tiers || null;
   const effPct=fees.amc+fees.add;
-  const{pot:currPot,total:currTotal,amcDrag:cAmcD,flatTotal:cFlat,ccDrag:cCcD}=calcFees(totalPot,monthly0,years,fees);
+  const{pot:currPot,total:currTotal}=calcFees(totalPot,monthly0,years,fees);
 
   const alts=Object.entries(PFEES).filter(([n])=>n!==pName).map(([n,pd])=>{
-    const af={amc:pd.amc||0,add:pd.add||0,flat:pd.flat||0,cc:pd.cc||0};
-    const{pot:ap,total:at,amcDrag:aA,flatTotal:aF,ccDrag:aC}=calcFees(totalPot,monthly0,years,af);
-    const cm=CMETA[n]||{tp:null,tpc:'-',app:false,funds:'-'};
-    return{name:n,amc:pd.amc,fund:pd.fund||'',altPot:ap,altTotal:at,aAmcD:aA,aFlatT:aF,aCcD:aC,saving:currTotal-at,tp:cm.tp,tpc:cm.tpc,app:cm.app,funds:cm.funds,effPct:af.amc+af.add,ccPct:af.cc};
+    const af={amc:pd.amc||0,add:pd.add||0,flat:pd.flat||0,cc:pd.cc||0,tiers:pd.tiers||null};
+    const{pot:ap,total:at}=calcFees(totalPot,monthly0,years,af);
+    return{name:n,amc:pd.amc,fund:pd.fund||'',notes:pd.notes||'',altPot:ap,altTotal:at,saving:currTotal-at,effPct:af.amc+af.add,ccPct:af.cc};
   }).sort((a,b)=>b.saving-a.saving);
 
   const maxSave=Math.max(0,...alts.map(a=>a.saving));
@@ -1234,18 +1425,22 @@ function runCalc(){
     'Standard Life':'www.standardlife.co.uk',
     'The People\'s Pension':'thepeoplespension.co.uk',
     'NOW: Pensions':'www.nowpensions.com',
+    'NOW Pensions':'www.nowpensions.com',
     'Smart Pension':'www.smartpension.co.uk',
     'NatWest Cushon':'www.cushon.co.uk',
     'Freetrade':'freetrade.io',
+    'Freetrade SIPP':'freetrade.io',
     'PensionBee':'www.pensionbee.com',
     'Vanguard':'www.vanguard.co.uk',
-    'Nutmeg':'www.nutmeg.com',
+    'Nutmeg':'www.personalinvesting.jpmorgan.com',
     'Moneyfarm':'www.moneyfarm.com',
+    'Wealthify':'www.wealthify.com',
+    'Penfold':'getpenfold.com',
   };
 
   function provLogo(name){
     const domain=PROVIDER_DOMAINS[name];
-    const initials=name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+    const initials=name.replace(/[^A-Za-z ]/g,'').split(' ').filter(Boolean).map(w=>w[0]).join('').substring(0,2).toUpperCase();
     if(!domain) return `<div class="prov-logo"><span class="prov-logo-init">${initials}</span></div>`;
     return `<div class="prov-logo">
       <img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" alt="${name} logo"
@@ -1255,14 +1450,14 @@ function runCalc(){
     </div>`;
   }
 
-  function makeCard(name,fund,amcPct,addPct,flatAnn,ccPct,totalFees,projPot,saving,isCurr,isBest){
+  function makeCard(name,fund,amcPct,addPct,flatAnn,ccPct,totalFees,projPot,saving,isCurr,isBest,notes){
     const card=document.createElement('div');
-    card.className='cmp-card'+(isCurr?' card-curr':isBest?' card-best':'');
+    card.className='cmp-card'+(isCurr?' card-curr':'');
     const pctDiff=currTotal>0?Math.abs(Math.round((saving/currTotal)*100)):0;
     const pillAmt=isCurr?'':(saving>0?`-${fmt(saving)}`:saving<0?`+${fmt(Math.abs(saving))}`:'Same');
     const pillPct=isCurr?'':(saving>0?`${pctDiff}% less in fees`:saving<0?`${pctDiff}% more in fees`:'');
     const amtClass=isCurr?'base':saving>0?'pos':saving<0?'neg':'base';
-    const badges=(isCurr?`<span class="t2-bdg t2-curr">Current</span>`:'')+(isBest?`<span class="t2-bdg" style="background:#D1FAE5;color:#065F46;border:1px solid #6EE7B7">Best saving</span>`:'');
+    const badges=(isCurr?`<span class="t2-bdg t2-curr">Current</span>`:'');
     card.innerHTML=`
       <div class="cmp-card-top">
         <div style="display:flex;align-items:center;gap:12px">
@@ -1278,7 +1473,7 @@ function runCalc(){
               <button class="btn-switch outline" style="margin-top:8px" onclick="showPage('form-page')">Edit details</button>`
             :`<div class="cmp-save-amt ${amtClass}">${pillAmt}</div>
               <div class="cmp-save-pct ${amtClass}">${pillPct}</div>
-              <button class="btn-switch${isBest?' ':' '}" style="margin-top:8px">Switch</button>`
+              <button class="btn-switch" style="margin-top:8px">Switch</button>`
           }
         </div>
       </div>
@@ -1291,7 +1486,7 @@ function runCalc(){
         </div>
         <div class="cmp-fee-item">
           <div class="cmp-fee-lbl">Fixed yearly fee</div>
-          <div class="cmp-fee-val">${flatAnn>0?fmt(flatAnn):'£0'}</div>
+          <div class="cmp-fee-val">${flatAnn>0?'£'+flatAnn.toFixed(1):'£0'}</div>
         </div>
         <div class="cmp-fee-item">
           <div class="cmp-fee-lbl">Projected fees by retirement</div>
@@ -1301,15 +1496,16 @@ function runCalc(){
           <div class="cmp-fee-lbl">Projected pot at retirement</div>
           <div class="cmp-fee-val">${fmt(projPot)}</div>
         </div>
-      </div>`;
+      </div>
+      ${notes?`<div class="cmp-card-note">${notes}</div>`:''}`;
     return card;
   }
 
-  tb.appendChild(makeCard(pName,d?.fund||'',fees.amc,fees.add,fees.flat||0,fees.cc,currTotal,currPot,0,true,false));
+  tb.appendChild(makeCard(pName,d?.fund||'',fees.amc,fees.add,fees.flat||0,fees.cc,currTotal,currPot,0,true,false,d?.notes||''));
   alts.forEach((p,i)=>{
     const best=i===0&&p.saving>0;
     const sheetD=PFEES[p.name]||{};
-    tb.appendChild(makeCard(p.name,p.fund||sheetD.fund||'',p.amc,p.effPct-p.amc,sheetD.flat||0,p.ccPct,p.altTotal,p.altPot,p.saving,false,best));
+    tb.appendChild(makeCard(p.name,p.fund||sheetD.fund||'',p.amc,p.effPct-p.amc,sheetD.flat||0,p.ccPct,p.altTotal,p.altPot,p.saving,false,best,p.notes||sheetD.notes||''));
   });
 
   showPage('results-page');window.scrollTo({top:0,behavior:'smooth'});
@@ -1323,6 +1519,7 @@ function showPage(id){
 
 document.addEventListener('DOMContentLoaded',()=>{
   loadSheetData();
+  buildProviderList();
   updateSlider();
   setContribMode('pct');
 });
