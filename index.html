@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PensionClear — Discover Hidden Pension Fees</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cyan:#0EA5E9;--cyan-dk:#0284C7;--cyan-lt:#E0F2FE;
+  --navy:#0f2347;--navy-md:#1B3A6B;
+  --text:#111827;--text-2:#374151;--text-3:#6B7280;--text-4:#9CA3AF;
+  --white:#fff;--surface:#F3F6FB;--surface2:#E9EDF5;
+  --border:#E5E7EB;--border-dk:#D1D5DB;
+  --green:#059669;--green-bg:#ECFDF5;--green-txt:#065F46;
+  --red:#DC2626;--red-bg:#FEF2F2;
+  --amber:#92400E;--amber-bg:#FFFBEB;--amber-bd:#FCD34D;
+  --gold:#F0A500;--gold-lt:#ffc235;
+  --r2:4px;--r3:8px;--r4:12px;--r5:16px;--r6:24px;
+  --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
+  --sh-md:0 4px 16px rgba(0,0,0,.10);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--surface);color:var(--text);line-height:1.6;font-size:15px}
+.page{display:none}
+.page.active{display:block;animation:fi .3s ease both}
+@keyframes fi{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ NAV ══ */
+nav{background:#fff;border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:100}
+.nav-in{max-width:1160px;margin:0 auto;display:flex;align-items:center;height:60px;gap:32px}
+.nav-logo{display:flex;align-items:center;gap:8px;cursor:pointer;text-decoration:none;margin-right:auto}
+.nav-logo-icon{width:30px;height:30px;background:var(--cyan);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-icon svg{width:16px;height:16px}
+.nav-logo-txt{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--text)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:14px;color:var(--text-3);text-decoration:none;font-weight:500;transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--cyan);color:#fff;border:none;padding:9px 20px;border-radius:var(--r3);font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s;white-space:nowrap}
+.nav-cta:hover{background:var(--cyan-dk)}
+
+/* ══ HERO ══ */
+.hero{background:#fff;padding:80px 24px 72px}
+.hero-in{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-left h1{font-family:'Sora',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:700;color:var(--text);line-height:1.1;margin-bottom:16px}
+.hero-left h1 span{color:var(--cyan)}
+.hero-left p{font-size:16px;color:var(--text-2);line-height:1.7;margin-bottom:28px;max-width:440px}
+.hero-left p strong{color:var(--text)}
+.hero-btn{background:var(--cyan);color:#fff;border:none;padding:14px 28px;border-radius:var(--r3);font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:8px;transition:background .15s}
+.hero-btn:hover{background:var(--cyan-dk)}
+.hero-btn svg{width:16px;height:16px}
+.hero-right{background:var(--surface);border-radius:var(--r6);padding:28px;border:1px solid var(--border)}
+.hero-right-title{font-size:12px;color:var(--text-4);font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:.8px}
+.hero-right-pot{font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:4px}
+.hero-right-sub{font-size:12px;color:var(--text-4);margin-bottom:18px}
+.fee-bar-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.fee-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:var(--r4);gap:12px}
+.fee-bar.low{background:var(--green-bg);border:1px solid #A7F3D0}
+.fee-bar.high{background:var(--red-bg);border:1px solid #FECACA}
+.fee-bar-label{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500}
+.fee-bar-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.fee-bar.low .fee-bar-dot{background:var(--green)}
+.fee-bar.high .fee-bar-dot{background:var(--red)}
+.fee-bar.low .fee-bar-label{color:var(--green-txt)}
+.fee-bar.high .fee-bar-label{color:var(--red)}
+.fee-bar-amount{font-family:'Sora',sans-serif;font-size:17px;font-weight:700}
+.fee-bar.low .fee-bar-amount{color:var(--green-txt)}
+.fee-bar.high .fee-bar-amount{color:var(--red)}
+.hero-diff{text-align:center;padding:12px;background:var(--red-bg);border-radius:var(--r4);border:1px solid #FECACA}
+.hero-diff-num{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--red)}
+.hero-diff-lbl{font-size:11px;color:var(--red);margin-top:2px}
+.progress-bar{height:8px;border-radius:100px;margin-top:6px}
+.progress-bar.low{background:var(--green);width:80%}
+.progress-bar.high{background:var(--red);width:62%}
+
+/* ══ HOW IT WORKS ══ */
+.hiw{background:var(--surface);padding:80px 24px}
+.hiw-in{max-width:1160px;margin:0 auto;text-align:center}
+.section-title{font-family:'Sora',sans-serif;font-size:28px;font-weight:700;color:var(--text);margin-bottom:8px}
+.section-sub{font-size:15px;color:var(--text-3);margin-bottom:48px}
+.hiw-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.hiw-step{background:#fff;border-radius:var(--r5);padding:28px 24px;border:1px solid var(--border);box-shadow:var(--sh);text-align:center}
+.step-num{width:40px;height:40px;background:var(--cyan);border-radius:var(--r3);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:#fff}
+.hiw-step h3{font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px}
+.hiw-step p{font-size:13px;color:var(--text-3);line-height:1.6}
+
+/* ══ WHY FEES MATTER ══ */
+.wfm{background:#fff;padding:80px 24px}
+.wfm-in{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.wfm-left h2{font-family:'Sora',sans-serif;font-size:32px;font-weight:700;color:var(--text);margin-bottom:14px}
+.wfm-left p{font-size:15px;color:var(--text-2);line-height:1.7;margin-bottom:24px}
+.wfm-points{display:flex;flex-direction:column;gap:14px}
+.wfm-point{display:flex;align-items:flex-start;gap:12px}
+.wfm-point-icon{width:32px;height:32px;background:var(--cyan-lt);border-radius:var(--r3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.wfm-point-icon svg{width:16px;height:16px;color:var(--cyan-dk)}
+.wfm-point h4{font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px}
+.wfm-point p{font-size:13px;color:var(--text-3)}
+.wfm-right{background:var(--surface);border-radius:var(--r6);padding:28px;border:1px solid var(--border)}
+
+/* ══ CALCULATOR ══ */
+.calc-section{background:var(--surface);padding:80px 24px;scroll-margin-top:60px}
+.calc-in{max-width:1160px;margin:0 auto}
+.calc-grid{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+
+/* form card */
+.form-card{background:#fff;border-radius:var(--r5);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden}
+.form-card-hdr{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.form-step-num{width:24px;height:24px;background:var(--cyan);border-radius:var(--r2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.form-card-hdr h3{font-size:15px;font-weight:600;color:var(--text)}
+.form-card-body{padding:24px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:12px;font-weight:600;color:var(--text-2);letter-spacing:.1px}
+.fg select,.fg input[type="number"]{
+  height:40px;padding:0 12px;border:1.5px solid var(--border);border-radius:var(--r3);
+  font-family:'Inter',sans-serif;font-size:14px;color:var(--text);background:#fff;
+  outline:none;width:100%;appearance:none;-webkit-appearance:none;
+  transition:border-color .15s,box-shadow .15s}
+.fg select:focus,.fg input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(14,165,233,.12)}
+.sw{position:relative}
+.sw::after{content:'';position:absolute;right:12px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--text-3);pointer-events:none}
+.ip{position:relative}
+.ip::before{content:'£';position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-4);font-size:13px;pointer-events:none}
+.ip input{padding-left:24px!important}
+.is::after{content:'%';position:absolute;right:11px;top:50%;transform:translateY(-50%);color:var(--text-4);font-size:13px;pointer-events:none}
+.is{position:relative}
+.is input{padding-right:28px!important}
+.hint{font-size:11px;color:var(--text-4);margin-top:2px;line-height:1.4}
+input.invalid,select.invalid{border-color:#EF4444!important;box-shadow:0 0 0 3px rgba(239,68,68,.1)!important}
+.ferr{font-size:11px;color:#EF4444;margin-top:2px}
+
+/* contrib toggle */
+.contrib-toggle{display:flex;border:1.5px solid var(--border);border-radius:var(--r3);overflow:hidden;height:40px}
+.ct-btn{flex:1;background:none;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--text-3);cursor:pointer;transition:background .12s,color .12s}
+.ct-btn.active{background:var(--cyan);color:#fff}
+.ct-divider{width:1px;background:var(--border)}
+.contrib-field{margin-top:8px}
+
+/* fee breakdown */
+.fee-sec{grid-column:1/-1}
+.fee-sec-hdr{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.fee-sec-title{font-size:13px;font-weight:600;color:var(--text)}
+.fee-tag{background:var(--cyan-lt);color:var(--cyan-dk);font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;letter-spacing:.4px;text-transform:uppercase}
+.fee-ok{font-size:11px;color:var(--green);display:none}
+.fee-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 16px}
+.fee-item{display:flex;flex-direction:column;gap:3px}
+.fee-item .fee-cat{font-size:10px;font-weight:600;color:var(--text-4);text-transform:uppercase;letter-spacing:.5px}
+.fee-item label{font-size:12px;font-weight:500;color:var(--text-2)}
+.fee-item input{height:38px;padding:0 10px;border:1.5px solid var(--border);border-radius:var(--r3);font-family:'Inter',sans-serif;font-size:13px;color:var(--text);background:#fff;outline:none;width:100%;transition:border-color .15s}
+.fee-item input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(14,165,233,.12)}
+.fee-suffix{position:relative}
+.fee-suffix::after{content:'%';position:absolute;right:9px;top:50%;transform:translateY(-50%);color:var(--text-4);font-size:12px;pointer-events:none}
+.fee-suffix input{padding-right:24px!important}
+.fee-prefix{position:relative}
+.fee-prefix::before{content:'£';position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text-4);font-size:12px;pointer-events:none}
+.fee-prefix input{padding-left:20px!important}
+
+/* AMC mode toggle */
+.amc-row{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:start;padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r4)}
+.amc-toggle-wrap label{font-size:12px;font-weight:600;color:var(--text-2)}
+.amc-mode-toggle{display:flex;border:1.5px solid var(--border);border-radius:var(--r3);overflow:hidden;height:36px;width:100px}
+.amc-btn{flex:1;background:none;border:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--text-3);cursor:pointer;transition:background .12s,color .12s}
+.amc-btn.active{background:var(--cyan);color:#fff}
+.amc-input-wrap{flex:1}
+.amc-converted{display:flex;align-items:flex-end;padding-bottom:4px}
+
+.eff-bar{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--cyan-lt);border:1px solid rgba(14,165,233,.25);border-radius:var(--r4)}
+.eff-bar-lbl{font-size:12px;font-weight:600;color:var(--cyan-dk);white-space:nowrap}
+.eff-bar-val{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--navy)}
+.eff-bar-note{font-size:11.5px;color:var(--text-3);flex:1}
+.note-box{grid-column:1/-1;background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:var(--r4);padding:10px 13px;font-size:12px;color:var(--amber);line-height:1.5}
+.note-box strong{font-weight:600}
+
+/* old pots */
+.old-sec{grid-column:1/-1;border-top:1px solid var(--border);padding-top:16px;margin-top:4px}
+.old-lbl{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.old-desc{font-size:12px;color:var(--text-4);margin-bottom:10px}
+.op-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:center;margin-bottom:8px}
+.op-row select,.op-row input{height:38px;padding:0 10px;border:1.5px solid var(--border);border-radius:var(--r3);font-size:13px;color:var(--text);background:#fff;outline:none;width:100%;appearance:none;-webkit-appearance:none;font-family:'Inter',sans-serif}
+.op-row .ip{width:100%}
+.btn-add-pot{background:none;border:1.5px dashed var(--border-dk);color:var(--text-3);border-radius:var(--r3);padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.btn-add-pot:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-rm{background:none;border:1px solid var(--border);color:var(--text-4);border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.btn-rm:hover{background:#FEE2E2;color:#EF4444;border-color:#FECACA}
+
+/* assumptions */
+.assumptions-wrap{grid-column:1/-1}
+.ass-toggle{display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--border);border-radius:var(--r3);padding:10px 14px;width:100%;cursor:pointer;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:var(--text-2);text-align:left;transition:border-color .15s}
+.ass-toggle:hover{border-color:var(--cyan)}
+.ass-arrow{width:16px;height:16px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;margin-left:auto;transition:transform .2s;flex-shrink:0}
+.ass-toggle.open .ass-arrow{transform:rotate(180deg)}
+.ass-panel{display:none;background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r3) var(--r3)}
+.ass-panel.open{display:block}
+.ass-intro{font-size:12px;color:var(--text-4);padding:10px 14px 8px;border-bottom:1px solid var(--border)}
+.ass-table{width:100%;border-collapse:collapse}
+.ass-table tr{border-bottom:1px solid var(--border)}
+.ass-table tr:last-child{border-bottom:none}
+.ass-table td{padding:9px 14px;font-size:12px;vertical-align:top;line-height:1.5}
+.ass-table td:first-child{font-weight:600;color:var(--text);width:160px;white-space:nowrap}
+.ass-table td:last-child{color:var(--text-2)}
+
+.submit-row{grid-column:1/-1;margin-top:8px}
+.btn-calc{background:var(--cyan);color:#fff;border:none;height:46px;padding:0 32px;border-radius:var(--r3);font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .15s,transform .12s;width:100%;justify-content:center}
+.btn-calc:hover{background:var(--cyan-dk);transform:translateY(-1px)}
+.btn-calc svg{width:16px;height:16px}
+
+/* sidebar panel */
+.side-panel{display:flex;flex-direction:column;gap:16px;position:sticky;top:76px}
+.side-card{background:#fff;border-radius:var(--r5);border:1px solid var(--border);box-shadow:var(--sh);padding:20px}
+.side-card-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--text-4);margin-bottom:12px}
+.eff-big{font-family:'Sora',sans-serif;font-size:38px;font-weight:700;color:var(--cyan);line-height:1;margin-bottom:2px}
+.eff-big-lbl{font-size:12px;color:var(--text-3)}
+.side-divider{height:1px;background:var(--border);margin:14px 0}
+.proj-label{font-size:12px;color:var(--text-3);margin-bottom:3px}
+.proj-val{font-family:'Sora',sans-serif;font-size:24px;font-weight:700;color:var(--text)}
+.potential-save{background:var(--green-bg);border:1px solid #A7F3D0;border-radius:var(--r4);padding:12px 14px;margin-top:12px}
+.ps-lbl{font-size:11px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.ps-val{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--green-txt)}
+.assumptions-side{display:flex;flex-direction:column;gap:10px}
+.ass-row{display:flex;align-items:center;justify-content:space-between}
+.ass-row-label{font-size:12px;color:var(--text-3)}
+.ass-slider{width:100%;margin:4px 0;accent-color:var(--cyan)}
+.ass-val{font-size:12px;font-weight:600;color:var(--cyan);min-width:36px;text-align:right}
+
+/* ══ FAQ ══ */
+.faq{background:#fff;padding:80px 24px}
+.faq-in{max-width:760px;margin:0 auto;text-align:center}
+.faq-in .section-sub{margin-bottom:36px}
+.faq-list{text-align:left;display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:first-child{border-top:1px solid var(--border)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:16px 0;cursor:pointer;gap:12px;font-size:14px;font-weight:500;color:var(--text);background:none;border:none;width:100%;text-align:left;font-family:'Inter',sans-serif}
+.faq-q:hover{color:var(--cyan)}
+.faq-icon{width:20px;height:20px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,transform .2s}
+.faq-item.open .faq-icon{background:var(--cyan-lt);transform:rotate(45deg)}
+.faq-a{display:none;font-size:13px;color:var(--text-2);line-height:1.7;padding-bottom:14px}
+.faq-item.open .faq-a{display:block}
+
+/* ══ CTA BANNER ══ */
+.cta-banner{background:linear-gradient(135deg,var(--cyan-dk),var(--cyan));padding:64px 24px;text-align:center}
+.cta-banner h2{font-family:'Sora',sans-serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:#fff;margin-bottom:10px;line-height:1.2}
+.cta-banner p{font-size:15px;color:rgba(255,255,255,.8);margin-bottom:28px}
+.cta-banner-btn{background:#fff;color:var(--cyan-dk);border:none;padding:14px 28px;border-radius:var(--r3);font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s}
+.cta-banner-btn:hover{opacity:.9}
+
+/* ══ FOOTER ══ */
+.footer{background:var(--navy);padding:48px 24px 32px}
+.footer-in{max-width:1160px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand .footer-logo{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.footer-logo-icon{width:28px;height:28px;background:var(--cyan);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.footer-logo-txt{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:#fff}
+.footer-brand p{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;max-width:220px}
+.footer-col h4{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.7px;margin-bottom:12px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.footer-col a{font-size:13px;color:rgba(255,255,255,.45);text-decoration:none;transition:color .15s}
+.footer-col a:hover{color:rgba(255,255,255,.8)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;font-size:11.5px;color:rgba(255,255,255,.3);line-height:1.7}
+
+/* ══ RESULTS PAGE ══ */
+.res-hero{background:var(--navy);border-radius:var(--r5);padding:32px 36px;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.rh-lbl{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:4px}
+.rh-amt{font-family:'Sora',sans-serif;font-size:clamp(36px,6vw,56px);font-weight:700;color:var(--gold);line-height:1;margin-bottom:5px}
+.rh-tag{font-size:14px;color:rgba(255,255,255,.65);font-weight:300}
+.rh-tag strong{color:#fff;font-weight:600}
+.rh-mets{display:flex;gap:10px;flex-wrap:wrap}
+.rh-m{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:var(--r4);padding:12px 16px;text-align:center;min-width:110px}
+.rh-m-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:rgba(255,255,255,.4);margin-bottom:3px}
+.rh-m-val{font-family:'Sora',sans-serif;font-size:18px;font-weight:600;color:#fff}
+.rh-m-sub{font-size:10px;color:rgba(255,255,255,.3);margin-top:1px}
+.results-main{max-width:1160px;margin:0 auto;padding:36px 24px 72px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:none;border:1px solid var(--border);color:var(--text-3);border-radius:var(--r3);padding:7px 14px;font-family:'Inter',sans-serif;font-size:12px;font-weight:500;cursor:pointer;margin-bottom:20px;transition:all .15s}
+.back-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.results-wrap{padding:0 24px}
+
+/* fee breakdown card */
+.fbc-card{background:#fff;border-radius:var(--r5);border:1px solid var(--border);box-shadow:var(--sh);padding:22px 24px 26px;margin-bottom:20px}
+.fbc-card h3{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:3px;color:var(--text)}
+.fbc-card .sub{font-size:12px;color:var(--text-4);margin-bottom:16px}
+.fbc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px}
+.fbc-it{background:var(--surface);border-radius:var(--r4);padding:12px 13px;border:1px solid var(--border)}
+.fbc-it.hl{background:var(--cyan-lt);border-color:rgba(14,165,233,.25)}
+.fbc-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-4);margin-bottom:2px}
+.fbc-val{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--text)}
+.fbc-note{font-size:11px;color:var(--text-4);margin-top:2px}
+
+/* comparison table */
+.tbl-card{background:#fff;border-radius:var(--r5);border:1px solid var(--border);box-shadow:var(--sh);overflow:hidden;margin-bottom:20px}
+.tbl-hdr{padding:16px 22px 13px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.tbl-hdr h3{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--text)}
+.tbl-hdr p{font-size:12px;color:var(--text-4)}
+.tbl-scroll{overflow-x:auto}
+.ctbl{width:100%;border-collapse:collapse;min-width:960px}
+.ctbl thead tr{background:var(--navy)}
+.ctbl thead th{padding:10px 12px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:rgba(255,255,255,.5);white-space:nowrap}
+.ctbl thead th.th-grp{border-left:1px solid rgba(255,255,255,.1)}
+.ctbl thead th:first-child{color:rgba(255,255,255,.9)}
+.ctbl thead tr.fee-subhdr th{background:var(--surface);font-size:10px;color:var(--text-4);padding:5px 12px;letter-spacing:.4px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.ctbl thead tr.fee-subhdr th.sub-grp{border-left:1px solid var(--border)}
+.ctbl tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+.ctbl tbody tr:last-child{border-bottom:none}
+.ctbl tbody tr:hover{background:var(--surface)}
+.ctbl tbody tr.row-curr{background:#FFFBEB}
+.ctbl tbody tr.row-curr:hover{background:#FEF3C7}
+.ctbl tbody tr.row-best{background:var(--green-bg)}
+.ctbl tbody tr.row-best:hover{background:#D1FAE5}
+.ctbl td{padding:12px 12px;font-size:13px;vertical-align:middle}
+.ctbl td.fee-col{border-left:1px solid var(--border);font-size:12px}
+.cprov{display:flex;align-items:center;gap:6px}
+.pname{font-weight:600;color:var(--text);font-size:13px;white-space:nowrap}
+.ptype{font-size:11px;color:var(--text-4);margin-top:1px}
+.bdg{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;white-space:nowrap}
+.bc{background:#FEF3C7;color:#92400E;border:1px solid #FCD34D}
+.bb{background:#D1FAE5;color:#065F46;border:1px solid #6EE7B7}
+.amc-cell{font-weight:600;font-size:13px;color:var(--navy)}
+.fees-curr{color:var(--red);font-weight:600}
+.fees-alt{font-weight:500}
+.fee-nil{color:var(--text-4);font-size:12px}
+.pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:100px;font-size:12px;font-weight:600;white-space:nowrap}
+.pp{background:var(--green-bg);color:var(--green)}
+.pn{background:var(--red-bg);color:var(--red)}
+.pz{background:var(--surface2);color:var(--text-4)}
+.tp-wrap{display:flex;flex-direction:column;gap:1px}
+.tp-row{display:flex;align-items:center;gap:3px}
+.tp-num{font-size:12px;font-weight:600;color:var(--text)}
+.tp-ct{font-size:11px;color:var(--text-4)}
+.app-y{color:var(--green);font-weight:600;font-size:13px}
+.app-n{color:var(--text-4);font-size:13px}
+.cta-a{display:inline-block;background:var(--cyan);color:#fff;text-decoration:none;padding:6px 12px;border-radius:var(--r2);font-size:12px;font-weight:600;white-space:nowrap}
+.cta-a:hover{background:var(--cyan-dk)}
+.cta-gold{background:var(--gold);color:var(--navy)}
+.cta-gold:hover{background:var(--gold-lt)}
+.cta-curr{font-size:11px;color:var(--text-4);font-style:italic}
+.res-banner{background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:var(--r4);padding:11px 14px;display:flex;gap:9px;font-size:12px;color:var(--amber);line-height:1.5}
+.res-banner strong{font-weight:600}
+
+@media(max-width:900px){
+  .hero-in,.wfm-in{grid-template-columns:1fr}
+  .calc-grid{grid-template-columns:1fr}
+  .side-panel{position:static}
+  .hero-right,.wfm-right{display:none}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .hiw-steps{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr}
+  .fee-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .footer-top{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-in">
+    <div class="nav-logo" onclick="showPage('form-page');window.scrollTo({top:0})">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 20 20" fill="none" width="16" height="16">
+          <path d="M10 2L3 7v6c0 3.3 3 6 7 6s7-2.7 7-6V7L10 2z" fill="#fff"/>
+          <path d="M7 11l2 2 4-4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".4"/>
+        </svg>
+      </div>
+      <span class="nav-logo-txt">PensionClear</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hiw">How it works</a></li>
+      <li><a href="#why">Benefits</a></li>
+      <li><a href="#calc-section">Calculator</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('calc-section').scrollIntoView({behavior:'smooth'})">Get Started Free</button>
+  </div>
+</nav>
+
+<!-- ═══════════ PAGE 1 ═══════════ -->
+<div id="form-page" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-in">
+      <div class="hero-left">
+        <h1>Discover hidden<br><span>pension fees</span></h1>
+        <p>UK pension holders lose an average of <strong>£27,000</strong> to hidden fees over their lifetime. Find out what you're really paying in under 2 minutes.</p>
+        <button class="hero-btn" onclick="document.getElementById('calc-section').scrollIntoView({behavior:'smooth'})">
+          Start Free Comparison
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="hero-right">
+        <div class="hero-right-title">Example comparison</div>
+        <div class="hero-right-pot">£100,000</div>
+        <div class="hero-right-sub">Starting Pot · Over 20 years</div>
+        <div class="fee-bar-wrap">
+          <div class="fee-bar low">
+            <div class="fee-bar-label"><span class="fee-bar-dot"></span>Low Fees (0.5%)</div>
+            <div>
+              <div class="fee-bar-amount">£242k</div>
+              <div class="progress-bar low"></div>
+            </div>
+          </div>
+          <div style="text-align:center;color:var(--text-4);font-size:18px;margin:-4px 0">↓</div>
+          <div class="fee-bar high">
+            <div class="fee-bar-label"><span class="fee-bar-dot"></span>High Fees (1.5%)</div>
+            <div>
+              <div class="fee-bar-amount">£189k</div>
+              <div class="progress-bar high"></div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-diff">
+          <div class="hero-diff-num">-£53,000</div>
+          <div class="hero-diff-lbl">Lost to higher fees over 20 years</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="hiw" id="hiw">
+    <div class="hiw-in">
+      <h2 class="section-title">How PensionClear Works</h2>
+      <p class="section-sub">Three simple steps to uncover your true pension costs</p>
+      <div class="hiw-steps">
+        <div class="hiw-step">
+          <div class="step-num">1</div>
+          <h3>Enter Your Details</h3>
+          <p>Tell us about your current pension pot, provider, and contributions. Add multiple pots if you have them.</p>
+        </div>
+        <div class="hiw-step">
+          <div class="step-num">2</div>
+          <h3>See Lifetime Fee Projection</h3>
+          <p>Our calculator reveals your projected pot at retirement and expected fees across all six charge types.</p>
+        </div>
+        <div class="hiw-step">
+          <div class="step-num">3</div>
+          <h3>Compare &amp; Save</h3>
+          <p>Compare lower-cost alternatives and see your potential lifetime savings broken down fee by fee.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY FEES MATTER -->
+  <section class="wfm" id="why">
+    <div class="wfm-in">
+      <div class="wfm-left">
+        <h2>Why fees matter</h2>
+        <p>A 1% difference in annual fees can cost you over <strong>£50,000</strong> by retirement. Most UK pension holders have no idea what they're actually paying.</p>
+        <div class="wfm-points">
+          <div class="wfm-point">
+            <div class="wfm-point-icon">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5L10 10" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h4>Transparency First</h4>
+              <p>See exactly what you're paying in plain English, not buried in fine print.</p>
+            </div>
+          </div>
+          <div class="wfm-point">
+            <div class="wfm-point-icon">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path d="M2 12l4-4 3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <h4>Accurate Projections</h4>
+              <p>Industry-standard calculations show real impact on your retirement pot.</p>
+            </div>
+          </div>
+          <div class="wfm-point">
+            <div class="wfm-point-icon">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16"><path d="M8 2a6 6 0 100 12A6 6 0 008 2zM8 6v2l1.5 1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <h4>No Hidden Agenda</h4>
+              <p>We're not paid by providers. Your best interest is our only priority.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wfm-right">
+        <div style="font-size:12px;color:var(--text-4);margin-bottom:6px;font-weight:500;text-transform:uppercase;letter-spacing:.6px">£100k pot · 20 years · 9.1% growth</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="background:var(--green-bg);border:1px solid #A7F3D0;border-radius:var(--r4);padding:14px 16px">
+            <div style="font-size:12px;color:var(--green);font-weight:500;margin-bottom:4px">0.30% total fees (low cost)</div>
+            <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--green-txt)">£594k</div>
+            <div style="height:8px;background:var(--green);border-radius:100px;margin-top:8px;width:90%"></div>
+          </div>
+          <div style="background:var(--red-bg);border:1px solid #FECACA;border-radius:var(--r4);padding:14px 16px">
+            <div style="font-size:12px;color:var(--red);font-weight:500;margin-bottom:4px">1.25% total fees (high cost)</div>
+            <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--red)">£498k</div>
+            <div style="height:8px;background:var(--red);border-radius:100px;margin-top:8px;width:75%"></div>
+          </div>
+          <div style="background:var(--navy);border-radius:var(--r4);padding:12px 16px;text-align:center">
+            <div style="font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--gold)">-£96,000</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">difference in pot size at retirement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALCULATOR -->
+  <section class="calc-section" id="calc-section">
+    <div class="calc-in">
+      <div style="text-align:center;margin-bottom:36px">
+        <h2 class="section-title">Calculate Your True Costs</h2>
+        <p class="section-sub" style="margin-bottom:0">Enter your pension details below to see what you're really paying</p>
+      </div>
+      <div class="calc-grid">
+
+        <!-- LEFT: FORM -->
+        <div>
+          <div class="form-card">
+            <div class="form-card-hdr">
+              <div class="form-step-num">1</div>
+              <h3>Pension Pot Details</h3>
+            </div>
+            <div class="form-card-body">
+              <div class="fgrid">
+
+                <div class="fg">
+                  <label for="prov">Current Provider</label>
+                  <div class="sw"><select id="prov" onchange="prefillFees()">
+                    <option value="">Loading providers…</option>
+                  </select></div>
+                  <span id="sheet-status" class="hint" style="margin-top:4px">Loading live fee data…</span>
+                </div>
+
+                <div class="fg">
+                  <label for="pot">Current Pot Value</label>
+                  <div class="ip"><input type="number" id="pot" placeholder="50000" min="0" step="100"></div>
+                </div>
+
+                <div class="fg" style="grid-column:1/-1">
+                  <label>Monthly Contribution</label>
+                  <div class="contrib-toggle">
+                    <button type="button" class="ct-btn active" id="ct-gbp" onclick="setContribMode('gbp')">£ Fixed amount</button>
+                    <div class="ct-divider"></div>
+                    <button type="button" class="ct-btn" id="ct-pct" onclick="setContribMode('pct')">% of salary</button>
+                  </div>
+                  <div class="contrib-field" id="contrib-gbp-field">
+                    <div class="ip"><input type="number" id="contrib-gbp" placeholder="300" min="0" step="10"></div>
+                    <span class="hint">Total monthly incl. employer contribution. Tax relief assumed included.</span>
+                  </div>
+                  <div class="contrib-field" id="contrib-pct-field" style="display:none">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                      <div><div class="ip" style="margin-bottom:4px"><input type="number" id="contrib-salary" placeholder="45000" min="0" step="1000" style="padding-left:24px"></div><span class="hint">Annual gross salary (£)</span></div>
+                      <div><div class="is" style="margin-bottom:4px"><input type="number" id="contrib-pct-val" placeholder="10" min="0" max="100" step="0.5"></div><span class="hint">Total % (employee + employer)</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="fg">
+                  <label for="cage">Your Current Age</label>
+                  <input type="number" id="cage" placeholder="35" min="18" max="66" step="1">
+                </div>
+
+                <!-- Fee Breakdown -->
+                <div class="fee-sec">
+                  <div class="fee-sec-hdr">
+                    <span class="fee-sec-title">Fee Breakdown</span>
+                    <span class="fee-tag">Auto-filled</span>
+                    <span class="fee-ok" id="fee-ok">&#10003; Pre-filled</span>
+                  </div>
+                  <div class="note-box" style="margin-bottom:12px"><strong>Fees may vary.</strong> These are standard published rates. Your actual fees may differ — check your pension statement or override below.</div>
+                  <div class="fee-grid" style="grid-template-columns:1fr 1fr 1fr">
+
+                    <!-- AMC with £/% toggle -->
+                    <div class="fee-item amc-item" style="grid-column:1/-1">
+                      <span class="fee-cat">Annual management charge</span>
+                      <div class="amc-row">
+                        <div class="amc-toggle-wrap">
+                          <label style="margin-bottom:5px;display:block">Annual Management Charge</label>
+                          <div class="amc-mode-toggle">
+                            <button type="button" class="amc-btn active" id="amc-pct-btn" onclick="setAmcMode('pct')">%</button>
+                            <button type="button" class="amc-btn" id="amc-gbp-btn" onclick="setAmcMode('gbp')">£/yr</button>
+                          </div>
+                        </div>
+                        <div class="amc-input-wrap">
+                          <div id="amc-pct-field">
+                            <div class="fee-suffix"><input type="number" id="f-amc" placeholder="0.45" min="0" max="5" step="0.01" oninput="updateEffCost()"></div>
+                            <span class="hint">Percentage of your pot deducted each year</span>
+                          </div>
+                          <div id="amc-gbp-field" style="display:none">
+                            <div class="fee-prefix"><input type="number" id="f-amc-gbp" placeholder="120" min="0" step="1" oninput="updateEffCost()"></div>
+                            <span class="hint">Fixed £ amount charged per year — we'll convert to % using your pot value</span>
+                          </div>
+                        </div>
+                        <div class="amc-converted" id="amc-converted" style="display:none">
+                          <span class="hint" style="color:var(--cyan-dk)">≈ <span id="amc-converted-val">—</span> of your pot</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Fund fee -->
+                    <div class="fee-item">
+                      <span class="fee-cat">Fund costs</span>
+                      <label for="f-fund">Fund Fee</label>
+                      <div class="fee-suffix"><input type="number" id="f-fund" placeholder="0.15" min="0" max="3" step="0.01" oninput="updateEffCost()"></div>
+                      <span class="hint">Ongoing charges figure (OCF) for your fund, on top of the AMC</span>
+                    </div>
+
+                    <!-- Contribution charge -->
+                    <div class="fee-item">
+                      <span class="fee-cat">Contribution charge</span>
+                      <label for="f-cc">Contribution Charge</label>
+                      <div class="fee-suffix"><input type="number" id="f-cc" placeholder="0.00" min="0" max="10" step="0.01" oninput="updateEffCost()"></div>
+                      <span class="hint">% deducted from each contribution before investment (Nest: 1.8%)</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Old pots -->
+                <div class="old-sec">
+                  <div class="old-lbl">Add Another Pension Pot</div>
+                  <div class="old-desc">Combine up to 2 old pots into your projection.</div>
+                  <div id="opots"></div>
+                  <button class="btn-add-pot" id="add-btn" onclick="addPot()">+ Add Another Pension Pot</button>
+                </div>
+
+                <!-- Assumptions -->
+                <div class="assumptions-wrap">
+                  <button class="ass-toggle" id="ass-toggle" onclick="toggleAss()">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#9CA3AF"/><path d="M7 6v4M7 4.5v.5" stroke="#9CA3AF" stroke-width="1.4" stroke-linecap="round"/></svg>
+                    Find out the assumptions this estimate is based on
+                    <span class="ass-arrow"><svg viewBox="0 0 10 6" fill="none" width="10" height="6"><path d="M1 1l4 4 4-4" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                  </button>
+                  <div class="ass-panel" id="ass-panel">
+                    <p class="ass-intro">This calculator is based on assumptions — values are for illustrative purposes only.</p>
+                    <table class="ass-table">
+                      <tr><td>Investment growth</td><td>9.1%/yr — 20-year historical average for a 70/30 equity/bond portfolio (2005–2024).</td></tr>
+                      <tr><td>Monthly contributions</td><td>Increase by 2.5% a year to reflect annual pay rises.</td></tr>
+                      <tr><td>Inflation</td><td>2.5%/yr. Values shown in today's money.</td></tr>
+                      <tr><td>Tax relief</td><td>Assumed already included in your contribution figure.</td></tr>
+                      <tr><td>Pension charges</td><td>All six charge types deducted as entered.</td></tr>
+                      <tr><td>State pension</td><td>Not included in these projections.</td></tr>
+                      <tr><td>Flat fee</td><td>Divided by 12 and deducted monthly. Cannot legally apply to pots ≤ £100.</td></tr>
+                      <tr><td>Alternative providers</td><td>Standard published AMCs. Transaction costs estimated at 0.05%/yr.</td></tr>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="submit-row">
+                  <button class="btn-calc" onclick="runCalc()">
+                    Calculate My Fees
+                    <svg viewBox="0 0 16 16" fill="none" width="16" height="16"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: SIDEBAR -->
+        <div class="side-panel">
+          <div class="side-card">
+            <div class="side-card-title">Estimated Effective Cost</div>
+            <div class="eff-big" id="side-eff">—</div>
+            <div class="eff-big-lbl">Combined annual impact on your pension</div>
+            <div class="side-divider"></div>
+            <div class="proj-label">10-Year Fee Projection</div>
+            <div class="proj-val" id="side-proj">—</div>
+            <div class="potential-save" id="side-save" style="display:none">
+              <div class="ps-lbl">Potential savings available</div>
+              <div class="ps-val" id="side-save-val">—</div>
+            </div>
+          </div>
+
+          <div class="side-card">
+            <div class="side-card-title">Calculation Assumptions</div>
+            <div class="assumptions-side">
+              <div>
+                <div class="ass-row"><span class="ass-row-label">Annual Growth Rate</span><span class="ass-val" id="sl-growth-val">9.1%</span></div>
+                <input type="range" class="ass-slider" id="sl-growth" min="3" max="15" step="0.1" value="9.1" oninput="updateSlider()">
+              </div>
+              <div>
+                <div class="ass-row"><span class="ass-row-label">Inflation Rate</span><span class="ass-val" id="sl-inf-val">2.5%</span></div>
+                <input type="range" class="ass-slider" id="sl-inf" min="0" max="6" step="0.1" value="2.5" oninput="updateSlider()">
+              </div>
+              <div>
+                <div class="ass-row"><span class="ass-row-label">Retirement Age</span><span class="ass-val" id="sl-ret-val">67</span></div>
+                <input type="range" class="ass-slider" id="sl-ret" min="55" max="80" step="1" value="67" oninput="updateSlider()">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /calc-grid -->
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="faq-in">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-sub">Everything you need to know about pension fees</p>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Is PensionClear really free?
+            <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" width="10" height="10"><path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a">Yes, completely free. We may receive a referral commission from providers if you switch via our links, at no additional cost to you. This never influences our fee calculations or rankings.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How accurate are the calculations?
+            <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" width="10" height="10"><path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a">Our projections use a 9.1% annual growth rate (the 20-year historical average for a 70/30 portfolio), 2.5% annual contribution growth, and model all six fee types separately. They are illustrative — your actual returns will vary. Provider fee data is sourced from IGC reports and DWP surveys.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Can I compare multiple pension pots?
+            <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" width="10" height="10"><path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a">Yes. You can add up to 2 additional old pension pots in the calculator. Their values are combined with your main pot for projection purposes, giving you a consolidated view of your total retirement savings and fees.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What happens after I calculate my fees?
+            <span class="faq-icon"><svg viewBox="0 0 10 10" fill="none" width="10" height="10"><path d="M5 2v6M2 5h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a">You'll see a full comparison table showing your current provider alongside four lower-cost alternatives (PensionBee, Vanguard, Nutmeg, and Moneyfarm), with every fee type broken out separately so you can see exactly where the savings come from.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <h2>Ready to take control of your<br>pension fees?</h2>
+    <p>Join 50,000+ UK savers who've discovered their true pension costs</p>
+    <button class="cta-banner-btn" onclick="document.getElementById('calc-section').scrollIntoView({behavior:'smooth'})">Start Your Free Check Now</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-in">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-icon"><svg viewBox="0 0 20 20" fill="none" width="16" height="16"><path d="M10 2L3 7v6c0 3.3 3 6 7 6s7-2.7 7-6V7L10 2z" fill="#fff"/></svg></div>
+            <span class="footer-logo-txt">PensionClear</span>
+          </div>
+          <p>Transparent pension fee comparison for UK savers.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#">How it Works</a></li>
+            <li><a href="#">Fee Calculator</a></li>
+            <li><a href="#">Providers</a></li>
+            <li><a href="#">Methodology</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+            <li><a href="#">Disclaimer</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        For information only — not financial advice. We may receive commission if you switch via our links, at no cost to you. Provider fee data sourced from IGC reports, DWP Pension Charges Survey 2020, and Corporate Adviser CAPAdata 2025. Growth assumption of 9.1%/yr is the 2005–2024 historical average for a 70/30 portfolio and is not a forecast. PensionClear is not authorised by the FCA.
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /form-page -->
+
+<!-- ═══════════ PAGE 2 · RESULTS ═══════════ -->
+<div id="results-page" class="page">
+  <div class="results-wrap">
+    <div class="results-main">
+      <button class="back-btn" onclick="showPage('form-page')">&#8592; Edit my details</button>
+
+      <div class="res-hero">
+        <div>
+          <div class="rh-lbl">Best potential saving by switching</div>
+          <div class="rh-amt" id="rh-amt">—</div>
+          <div class="rh-tag">vs staying with <strong id="rh-prov">your current provider</strong></div>
+        </div>
+        <div class="rh-mets">
+          <div class="rh-m"><div class="rh-m-lbl">Projected pot</div><div class="rh-m-val" id="rh-pot">—</div><div class="rh-m-sub">at retirement</div></div>
+          <div class="rh-m"><div class="rh-m-lbl">Total fees (current)</div><div class="rh-m-val" id="rh-fees">—</div><div class="rh-m-sub">by retirement</div></div>
+          <div class="rh-m"><div class="rh-m-lbl">Effective drag</div><div class="rh-m-val" id="rh-eff">—</div><div class="rh-m-sub">total %/yr</div></div>
+          <div class="rh-m"><div class="rh-m-lbl">Years to go</div><div class="rh-m-val" id="rh-yrs">—</div><div class="rh-m-sub">to retirement</div></div>
+        </div>
+      </div>
+
+      <div class="fbc-card">
+        <h3>How your fees break down</h3>
+        <p class="sub">All charges for <span id="fbc-prov">your current provider</span> as entered. Charges compound — small differences matter greatly over decades.</p>
+        <div class="fbc-grid" id="fbc-grid"></div>
+      </div>
+
+      <div class="tbl-card">
+        <div class="tbl-hdr">
+          <h3>Full comparison — fees broken out</h3>
+          <p>Sorted by saving vs current. Growth at 9.1%/yr with 2.5% annual contribution uplift.</p>
+        </div>
+        <div class="tbl-scroll">
+          <table class="ctbl">
+            <thead>
+              <tr>
+                <th rowspan="2">Provider</th>
+                <th rowspan="2">AMC</th>
+                <th class="th-grp" colspan="4">Fees by retirement</th>
+                <th rowspan="2">Projected pot</th>
+                <th rowspan="2">Saving vs current</th>
+                <th rowspan="2">Trustpilot</th>
+                <th rowspan="2">App</th>
+                <th rowspan="2">Funds</th>
+                <th rowspan="2"></th>
+              </tr>
+              <tr class="fee-subhdr">
+                <th class="sub-grp">AMC drag</th>
+                <th>Flat fees</th>
+                <th>Contrib. charge</th>
+                <th>Total fees</th>
+              </tr>
+            </thead>
+            <tbody id="ctbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="res-banner">
+        <span style="font-size:14px;flex-shrink:0;margin-top:1px">&#9432;</span>
+        <div><strong>Illustrative only.</strong> Projections assume 9.1% annual growth (20-yr 70/30 portfolio average) with 2.5% annual contribution increases. Alternative providers' AMCs are standard published rates. Always consult a regulated financial adviser before switching. Past performance is not a guide to future returns.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══ GOOGLE SHEETS DATA SOURCE ══ */
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDp0kVWlvsYRQGj-_ACzxlz9TBzT_jNXTOk-A9GslFVmlOeKmc6oRWvVHpc59XnZO5sg6Q0a3VnSrP/pub?gid=2074038390&single=true&output=csv';
+
+/* ══ FALLBACK DATA (used if sheet fetch fails) ══ */
+const PFEES_FALLBACK = {
+  "Nest":          {amc:0.30,add:0,flat:0,cc:1.80,fund:"Nest Retirement Date Fund",note:"~0.50% lifetime incl. contribution charge",source:"Nest IGC Report 2024"},
+  "Aviva":         {amc:0.45,add:0.10,flat:0,cc:0,fund:"Aviva My Future Focus",note:"0.29–0.75% employer-negotiated",source:"Aviva IGC Report 2024"},
+  "Legal and General":{amc:0.40,add:0.15,flat:0,cc:0,fund:"L&G Multi-Asset Fund",note:"0.30–0.50% most schemes",source:"L&G IGC Report 2024"},
+};
+
+/* Live data — populated from sheet on load */
+let PFEES = {...PFEES_FALLBACK};
+
+/* ══ FIXED ALTERNATIVES (comparison providers) ══ */
+const ALTS=[
+  {name:"PensionBee",amc:0.50,url:"https://www.pensionbee.com", tp:4.6,tpc:"11,000+",app:true, funds:"6 plans"},
+  {name:"Vanguard",  amc:0.15,url:"https://www.vanguard.co.uk",tp:4.4,tpc:"3,500+", app:true, funds:"75+ funds"},
+  {name:"Nutmeg",    amc:0.45,url:"https://www.nutmeg.com",     tp:4.2,tpc:"2,000+", app:true, funds:"5 portfolios"},
+  {name:"Moneyfarm", amc:0.35,url:"https://www.moneyfarm.com",  tp:4.5,tpc:"3,000+", app:true, funds:"7 portfolios"},
+];
+const CMETA={
+  "Nest":             {tp:3.8,tpc:"5,000+", app:true, funds:"7 funds"},
+  "Aviva":            {tp:4.1,tpc:"12,000+",app:true, funds:"300+ funds"},
+  "Legal and General":{tp:3.9,tpc:"4,000+", app:false,funds:"150+ funds"},
+};
+
+/* ══ CSV PARSER ══ */
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  return lines.slice(1).filter(l => l.trim()).map(line => {
+    // Handle quoted fields with commas inside
+    const cols = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else { cur += ch; }
+    }
+    cols.push(cur.trim());
+    const row = {};
+    headers.forEach((h, i) => row[h] = (cols[i] || '').replace(/^"|"$/g, '').trim());
+    return row;
+  });
+}
+
+/* ══ LOAD SHEET AND POPULATE DROPDOWN ══ */
+async function loadSheetData() {
+  const sel = document.getElementById('prov');
+  const statusEl = document.getElementById('sheet-status');
+
+  try {
+    const res = await fetch(SHEET_CSV_URL);
+    if (!res.ok) throw new Error('Network response not ok');
+    const text = await res.text();
+    const rows = parseCSV(text);
+
+    if (!rows.length) throw new Error('Empty sheet');
+
+    // Build PFEES from sheet rows
+    // Columns: Provider, Assumed Fund, Annual Management Charge %, Platform Fixed Charge (Annual £), Contribution Charge (%), Fund Charge (%), last_verified, source
+    PFEES = {};
+    rows.forEach(row => {
+      const name = row['Provider'];
+      if (!name) return;
+      const amc   = parseFloat(row['Annual Management Charge %']) || 0;
+      const flat  = parseFloat(row['Platform Fixed Charge (Annual £)']) || 0;
+      const cc    = parseFloat(row['Contribution Charge (%)']) || 0;
+      const fund  = parseFloat(row['Fund Charge (%)']) || 0;
+      PFEES[name] = {
+        amc,
+        add: fund,
+        flat,
+        cc,
+        fund: row['Assumed Fund'] || '',
+        last_verified: row['last_verified'] || '',
+        source: row['source'] || '',
+        note: `AMC ${amc.toFixed(2)}% + Fund ${fund.toFixed(2)}%`,
+      };
+    });
+
+    // Rebuild dropdown from sheet data
+    sel.innerHTML = '<option value="">Select a provider…</option>';
+    Object.keys(PFEES).forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      sel.appendChild(opt);
+    });
+
+    if (statusEl) {
+      statusEl.textContent = `✓ Fees loaded live — last verified ${rows[0]?.last_verified || ''}`;
+      statusEl.style.color = 'var(--green)';
+    }
+    console.log('Sheet loaded:', Object.keys(PFEES).length, 'providers');
+
+  } catch (err) {
+    console.warn('Sheet fetch failed, using fallback data:', err.message);
+    // Fallback: populate dropdown from hardcoded data
+    sel.innerHTML = '<option value="">Select a provider…</option>';
+    Object.keys(PFEES).forEach(name => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      sel.appendChild(opt);
+    });
+    if (statusEl) {
+      statusEl.textContent = 'Using cached fee data — live data unavailable';
+      statusEl.style.color = 'var(--text-4)';
+    }
+  }
+}
+
+/* ══ CONSTANTS ══ */
+const GROWTH_DEFAULT = 0.091;
+const CONTRIB_GROWTH = 0.025;
+let GROWTH = GROWTH_DEFAULT;
+
+let contribMode='gbp', opCount=0;
+
+function fmt(n){return'£'+Math.round(n).toLocaleString('en-GB')}
+function fmtPct(n){return parseFloat(n).toFixed(2)+'%'}
+function stars(s){let h='';for(let i=1;i<=5;i++){const c=s>=i?'#00b67a':s>=i-.5?'#73d8b0':'#ccc';h+=`<span style="color:${c};font-size:12px">&#9733;</span>`;}return h;}
+
+function resolveMonthly(){
+  if(contribMode==='gbp') return parseFloat(document.getElementById('contrib-gbp').value)||0;
+  const sal=parseFloat(document.getElementById('contrib-salary').value)||0;
+  const pct=parseFloat(document.getElementById('contrib-pct-val').value)||0;
+  return sal*(pct/100)/12;
+}
+
+function projectPot(start,monthly0,years,amcPct,flatAnnual,ccPct){
+  const amcM=(amcPct/100)/12;
+  const ccR=ccPct/100;
+  let pot=start;
+  for(let y=0;y<years;y++){
+    const mo=monthly0*Math.pow(1+CONTRIB_GROWTH,y);
+    const moNet=mo*(1-ccR);
+    for(let m=0;m<12;m++){
+      pot=pot*(1+GROWTH/12-amcM)+moNet-flatAnnual/12;
+      if(pot<0)pot=0;
+    }
+  }
+  return pot;
+}
+function projectNoFees(start,monthly0,years){
+  let pot=start;
+  for(let y=0;y<years;y++){
+    const mo=monthly0*Math.pow(1+CONTRIB_GROWTH,y);
+    for(let m=0;m<12;m++) pot=pot*(1+GROWTH/12)+mo;
+  }
+  return pot;
+}
+function calcFees(start,monthly0,years,fees){
+  const amcTot=(fees.amc||0)+(fees.add||0)+(fees.perf||0)+(fees.tx||0);
+  const pot=projectPot(start,monthly0,years,amcTot,fees.flat||0,fees.cc||0);
+  const nofee=projectNoFees(start,monthly0,years);
+  const amcDrag=Math.max(0,nofee-projectPot(start,monthly0,years,amcTot,0,0));
+  const flatTotal=(fees.flat||0)*years;
+  const ccDrag=Math.max(0,projectPot(start,monthly0,years,amcTot,fees.flat||0,0)-pot);
+  return{pot,total:Math.max(0,nofee-pot),amcDrag,flatTotal,ccDrag};
+}
+
+function setContribMode(mode){
+  contribMode=mode;
+  document.getElementById('ct-gbp').classList.toggle('active',mode==='gbp');
+  document.getElementById('ct-pct').classList.toggle('active',mode==='pct');
+  document.getElementById('contrib-gbp-field').style.display=mode==='gbp'?'':'none';
+  document.getElementById('contrib-pct-field').style.display=mode==='pct'?'':'none';
+}
+
+let amcMode = 'pct'; // 'pct' or 'gbp'
+
+function setAmcMode(mode) {
+  amcMode = mode;
+  document.getElementById('amc-pct-btn').classList.toggle('active', mode === 'pct');
+  document.getElementById('amc-gbp-btn').classList.toggle('active', mode === 'gbp');
+  document.getElementById('amc-pct-field').style.display = mode === 'pct' ? '' : 'none';
+  document.getElementById('amc-gbp-field').style.display = mode === 'gbp' ? '' : 'none';
+  updateEffCost();
+}
+
+/* Resolve AMC to % regardless of input mode */
+function resolveAmcPct() {
+  if (amcMode === 'pct') {
+    return parseFloat(document.getElementById('f-amc').value) || 0;
+  } else {
+    const gbpVal = parseFloat(document.getElementById('f-amc-gbp').value) || 0;
+    const pot = parseFloat(document.getElementById('pot').value) || 0;
+    if (pot <= 0) return 0;
+    return (gbpVal / pot) * 100;
+  }
+}
+
+function prefillFees(){
+  const d = PFEES[document.getElementById('prov').value];
+  if (!d) { document.getElementById('fee-ok').style.display = 'none'; return; }
+  // Always prefill in % mode
+  setAmcMode('pct');
+  document.getElementById('f-amc').value = d.amc.toFixed(2);
+  document.getElementById('f-fund').value = d.add.toFixed(2);
+  document.getElementById('f-cc').value = d.cc.toFixed(2);
+  const okEl = document.getElementById('fee-ok');
+  okEl.style.display = 'inline';
+  // Show assumed fund name and source if available
+  okEl.textContent = d.fund
+    ? `✓ Pre-filled for ${d.fund}${d.last_verified ? ' · verified ' + d.last_verified : ''}`
+    : '✓ Pre-filled';
+  updateEffCost();
+}
+
+function updateEffCost(){
+  const amc = resolveAmcPct();
+  const fund = parseFloat(document.getElementById('f-fund').value) || 0;
+  const cc = parseFloat(document.getElementById('f-cc').value) || 0;
+  const eff = amc + fund;
+
+  // Show AMC conversion hint when in £ mode
+  const convEl = document.getElementById('amc-converted');
+  if (amcMode === 'gbp' && amc > 0) {
+    convEl.style.display = '';
+    document.getElementById('amc-converted-val').textContent = amc.toFixed(2) + '%';
+  } else {
+    convEl.style.display = 'none';
+  }
+
+  const e = document.getElementById('side-eff');
+  if (eff > 0 || cc > 0) {
+    e.textContent = fmtPct(eff) + (cc > 0 ? ` + ${cc.toFixed(2)}% on contribs` : '');
+    const pot = parseFloat(document.getElementById('pot').value) || 0;
+    const mo = resolveMonthly();
+    const fees = { amc, add: fund, perf: 0, tx: 0, flat: 0, cc };
+    const r = calcFees(pot, mo, 10, fees);
+    document.getElementById('side-proj').textContent = fmt(r.total);
+    const vfees = { amc: 0.15, add: 0, perf: 0, tx: 0, flat: 0, cc: 0 };
+    const age = parseInt(document.getElementById('cage').value) || 35;
+    const retAge = parseInt(document.getElementById('sl-ret').value) || 67;
+    const yrs = Math.max(1, retAge - age);
+    const cur = calcFees(pot, mo, yrs, fees);
+    const van = calcFees(pot, mo, yrs, vfees);
+    const sav = Math.max(0, cur.total - van.total);
+    const saveEl = document.getElementById('side-save');
+    if (sav > 0) { saveEl.style.display = 'block'; document.getElementById('side-save-val').textContent = fmt(sav); }
+    else saveEl.style.display = 'none';
+  } else {
+    e.textContent = '—';
+    document.getElementById('side-proj').textContent = '—';
+    document.getElementById('side-save').style.display = 'none';
+  }
+}
+
+function updateSlider(){
+  const g=parseFloat(document.getElementById('sl-growth').value);
+  const inf=parseFloat(document.getElementById('sl-inf').value);
+  const ret=parseInt(document.getElementById('sl-ret').value);
+  document.getElementById('sl-growth-val').textContent=g.toFixed(1)+'%';
+  document.getElementById('sl-inf-val').textContent=inf.toFixed(1)+'%';
+  document.getElementById('sl-ret-val').textContent=ret;
+  GROWTH=g/100;
+  updateEffCost();
+}
+
+function addPot(){
+  if(opCount>=2)return;opCount++;
+  const c=document.getElementById('opots');
+  const r=document.createElement('div');r.className='op-row';r.id='op'+opCount;
+  const ps=Object.keys(PFEES).concat(['Other']);
+  r.innerHTML=`<div style="position:relative"><select style="height:38px;padding:0 10px;border:1.5px solid var(--border);border-radius:var(--r3);font-family:'Inter',sans-serif;font-size:13px;width:100%;appearance:none;-webkit-appearance:none;background:#fff;color:var(--text);outline:none"><option>Provider…</option>${ps.map(p=>`<option>${p}</option>`).join('')}</select><span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--text-3);width:0;height:0"></span></div><div class="ip" style="position:relative;width:100%"><input type="number" id="opv${opCount}" placeholder="Pot value" min="0" step="100" style="height:38px;padding:0 10px 0 24px;border:1.5px solid var(--border);border-radius:var(--r3);font-size:13px;width:100%;outline:none;background:#fff;color:var(--text);font-family:'Inter',sans-serif"></div><button class="btn-rm" onclick="rmPot(${opCount})">&#215;</button>`;
+  c.appendChild(r);
+  if(opCount>=2)document.getElementById('add-btn').style.display='none';
+}
+function rmPot(id){const el=document.getElementById('op'+id);if(el)el.remove();opCount--;document.getElementById('add-btn').style.display='';}
+
+function toggleAss(){
+  const t=document.getElementById('ass-toggle');
+  const p=document.getElementById('ass-panel');
+  t.classList.toggle('open');p.classList.toggle('open');
+}
+
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  item.classList.toggle('open');
+}
+
+function clearErr(){document.querySelectorAll('.invalid').forEach(e=>e.classList.remove('invalid'));document.querySelectorAll('.ferr').forEach(e=>e.remove());}
+function markErr(el,msg){el.classList.add('invalid');const d=document.createElement('div');d.className='ferr';d.textContent=msg;const g=el.closest('.fg')||el.closest('.fee-item')||el.parentElement;const ex=g.querySelector('.ferr');if(ex)ex.remove();g.appendChild(d);}
+
+function runCalc(){
+  clearErr();
+  const provEl=document.getElementById('prov');
+  const potEl=document.getElementById('pot');
+  const ageEl=document.getElementById('cage');
+  const retEl=document.getElementById('sl-ret');
+  let ok=true;
+  if(!provEl.value){markErr(provEl,'Select a provider');ok=false;}
+  const pot=parseFloat(potEl.value);
+  if(isNaN(pot)||pot<0){markErr(potEl,'Enter a valid pot value');ok=false;}
+  const age=parseInt(ageEl.value);
+  const ret=parseInt(retEl.value)||67;
+  if(isNaN(age)||age<18||age>66){markErr(ageEl,'Enter age 18–66');ok=false;}
+  if(ret<=age){ok=false;}
+  if(!ok)return;
+
+  const pName=provEl.value,years=Math.max(1,ret-age);
+  const monthly0=resolveMonthly();
+  let totalPot=pot;
+  for(let i=1;i<=2;i++){const v=document.getElementById('opv'+i);if(v)totalPot+=(parseFloat(v.value)||0);}
+
+  const sheetData = PFEES[pName] || {};
+  const fees={
+    amc: resolveAmcPct(),
+    add: parseFloat(document.getElementById('f-fund').value)||0,
+    perf: 0,
+    tx: 0,
+    flat: sheetData.flat || 0,
+    cc: parseFloat(document.getElementById('f-cc').value)||0,
+  };
+  const effPct=fees.amc+fees.add+fees.perf+fees.tx;
+  const{pot:currPot,total:currTotal,amcDrag:cAmcD,flatTotal:cFlat,ccDrag:cCcD}=calcFees(totalPot,monthly0,years,fees);
+
+  // Build comparison from ALL other providers in PFEES (sheet data)
+  // Exclude the currently selected provider
+  const alts = Object.entries(PFEES)
+    .filter(([name]) => name !== pName)
+    .map(([name, pd]) => {
+      const af = {
+        amc: pd.amc || 0,
+        add: pd.add || 0,
+        perf: 0,
+        tx: 0,
+        flat: pd.flat || 0,
+        cc: pd.cc || 0,
+      };
+      const {pot:ap, total:at, amcDrag:aA, flatTotal:aF, ccDrag:aC} = calcFees(totalPot, monthly0, years, af);
+      const cm = CMETA[name] || {tp:null, tpc:'—', app:false, funds:'—'};
+      return {
+        name,
+        amc: pd.amc,
+        fund: pd.fund || '',
+        last_verified: pd.last_verified || '',
+        source: pd.source || '',
+        altPot: ap,
+        altTotal: at,
+        aAmcD: aA,
+        aFlatT: aF,
+        aCcD: aC,
+        saving: currTotal - at,
+        tp: cm.tp,
+        tpc: cm.tpc,
+        app: cm.app,
+        funds: cm.funds,
+        effPct: af.amc + af.add,
+        ccPct: af.cc,
+        flatAnnual: af.flat,
+      };
+    })
+    .sort((a, b) => b.saving - a.saving);
+
+  const maxSave=Math.max(0,...alts.map(a=>a.saving));
+  document.getElementById('rh-amt').textContent=fmt(maxSave);
+  document.getElementById('rh-prov').textContent=pName;
+  document.getElementById('rh-pot').textContent=fmt(currPot);
+  document.getElementById('rh-fees').textContent=fmt(currTotal);
+  document.getElementById('rh-eff').textContent=fmtPct(effPct);
+  document.getElementById('rh-yrs').textContent=years;
+
+  document.getElementById('fbc-prov').textContent=pName;
+  const fbcG=document.getElementById('fbc-grid');fbcG.innerHTML='';
+  const d=PFEES[pName];
+  if(d && d.fund){
+    const note=document.createElement('div');
+    note.style.cssText='grid-column:1/-1;font-size:12px;color:var(--text-2);background:var(--surface);border-radius:var(--r3);padding:8px 12px;border:1px solid var(--border)';
+    note.innerHTML=`<strong style="color:var(--navy)">${pName} — ${d.fund}</strong>${d.last_verified?' · verified '+d.last_verified:''}${d.source?' · source: '+d.source:''}`;
+    fbcG.appendChild(note);
+  }
+  [{l:'Total annual drag',v:fmtPct(effPct),n:'% removed from fund annually',hl:true},{l:'AMC cost (£)',v:fmt(cAmcD),n:'Compounded opportunity cost',hl:true},{l:'Flat fees',v:cFlat>0?fmt(cFlat):'None',n:`£${fees.flat}/yr × ${years} years`},{l:'Contribution charge',v:cCcD>0?fmt(cCcD):'None',n:`${fees.cc.toFixed(2)}% per payment`},{l:'Total fees by retirement',v:fmt(currTotal),n:`All charges · ${years} years`,hl:true},{l:'Projected pot',v:fmt(currPot),n:'After all fees at '+GROWTH*100+'% growth',hl:true}].forEach(it=>{
+    const el=document.createElement('div');el.className='fbc-it'+(it.hl?' hl':'');
+    el.innerHTML=`<div class="fbc-lbl">${it.l}</div><div class="fbc-val">${it.v}</div><div class="fbc-note">${it.n}</div>`;
+    fbcG.appendChild(el);
+  });
+
+  const tb=document.getElementById('ctbody');tb.innerHTML='';
+  const cm=CMETA[pName]||{tp:null,tpc:'—',app:false,funds:'—'};
+  const cr=document.createElement('tr');cr.className='row-curr';
+  cr.innerHTML=`
+    <td>
+      <div class="cprov"><span class="pname">${pName}</span><span class="bdg bc">Current</span></div>
+      <div class="ptype">${d?.fund||''}</div>
+    </td>
+    <td class="amc-cell">${fmtPct(fees.amc)}${fees.add>0?`<div style="font-size:11px;color:var(--text-4);font-weight:400">+${fmtPct(fees.add)} fund fee</div>`:''}${fees.cc>0?`<div style="font-size:11px;color:var(--text-4);font-weight:400">+${fmtPct(fees.cc)} on contribs</div>`:''}</td>
+    <td class="fee-col fees-curr">${fmt(cAmcD)}</td>
+    <td class="fee-col">${cFlat>0?fmt(cFlat):'<span class="fee-nil">—</span>'}</td>
+    <td class="fee-col">${cCcD>0?fmt(cCcD):'<span class="fee-nil">—</span>'}</td>
+    <td class="fee-col fees-curr">${fmt(currTotal)}</td>
+    <td>${fmt(currPot)}</td>
+    <td><span class="pill pz">Baseline</span></td>
+    <td><div class="tp-wrap"><div class="tp-row">${stars(cm.tp||0)}<span class="tp-num">${cm.tp?cm.tp.toFixed(1):'—'}</span></div><span class="tp-ct">${cm.tpc} reviews</span></div></td>
+    <td>${cm.app?'<span class="app-y">&#10003; Yes</span>':'<span class="app-n">No</span>'}</td>
+    <td style="font-size:12px">${cm.funds}</td>
+    <td class="cta-curr">Your provider</td>
+  `;
+  tb.appendChild(cr);
+
+  alts.forEach((p,i)=>{
+    const best=i===0&&p.saving>0;
+    const pc=p.saving>0?'pp':p.saving<0?'pn':'pz';
+    const pt=p.saving>0?`Save ${fmt(p.saving)}`:p.saving<0?`+${fmt(Math.abs(p.saving))} more`:'Same';
+    const row=document.createElement('tr');if(best)row.className='row-best';
+    row.innerHTML=`
+      <td>
+        <div class="cprov"><span class="pname">${p.name}</span>${best?'<span class="bdg bb">Best saving</span>':''}</div>
+        <div class="ptype">${p.fund||''}</div>
+      </td>
+      <td class="amc-cell">${fmtPct(p.amc)}${p.effPct-p.amc>0?`<div style="font-size:11px;color:var(--text-4);font-weight:400">+${fmtPct(p.effPct-p.amc)} fund fee</div>`:''}${p.ccPct>0?`<div style="font-size:11px;color:var(--text-4);font-weight:400">+${fmtPct(p.ccPct)} on contribs</div>`:''}</td>
+      <td class="fee-col">${fmt(p.aAmcD)}</td>
+      <td class="fee-col">${p.aFlatT>0?fmt(p.aFlatT):'<span class="fee-nil">—</span>'}</td>
+      <td class="fee-col">${p.aCcD>0?fmt(p.aCcD):'<span class="fee-nil">—</span>'}</td>
+      <td class="fee-col fees-alt">${fmt(p.altTotal)}</td>
+      <td>${fmt(p.altPot)}</td>
+      <td><span class="pill ${pc}">${pt}</span></td>
+      <td><div class="tp-wrap"><div class="tp-row">${stars(p.tp||0)}<span class="tp-num">${p.tp?p.tp.toFixed(1):'—'}</span></div><span class="tp-ct">${p.tpc} reviews</span></div></td>
+      <td>${p.app?'<span class="app-y">&#10003; Yes</span>':'<span class="app-n">No</span>'}</td>
+      <td style="font-size:12px">${p.funds}</td>
+      <td><span class="cta-curr" style="font-size:11px;color:var(--text-4)">Add switch link</span></td>
+    `;
+    tb.appendChild(row);
+  });
+
+  showPage('results-page');window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ══ INIT — load sheet data on page load ══ */
+document.addEventListener('DOMContentLoaded', () => {
+  loadSheetData();
+  updateSlider();
+});
+</script>
+</body>
+</html>
