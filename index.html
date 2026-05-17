@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>">
 <title>illdoitlater - See What Fees Really Cost You</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
@@ -367,7 +368,7 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 .cmp-save-pct{font-size:12px;font-weight:500;margin-top:1px}
 .cmp-save-pct.pos{color:var(--green)}
 .cmp-save-pct.neg{color:var(--red)}
-.cmp-card-fees{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--border);padding:12px 20px;background:rgba(0,0,0,.015)}
+.cmp-card-fees{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid var(--border);padding:12px 20px;background:rgba(0,0,0,.015)}
 .cmp-card.card-curr .cmp-card-fees{background:rgba(251,191,36,.04)}
 .cmp-card.card-best .cmp-card-fees{background:rgba(5,150,105,.03)}
 .cmp-fee-item{padding:0 12px 0 0}
@@ -1510,12 +1511,14 @@ function runCalc(){
         <div class="cmp-fee-item">
           <div class="cmp-fee-lbl">Annual fee</div>
           <div class="cmp-fee-val">${fmtPct(amcPct)}</div>
-          ${addPct>0?`<div class="cmp-fee-sub">+${fmtPct(addPct)} fund fee</div>`:''}
-          ${ccPct>0?`<div class="cmp-fee-sub">+${fmtPct(ccPct)} on payments</div>`:''}
         </div>
         <div class="cmp-fee-item">
-          <div class="cmp-fee-lbl">Fixed yearly fee</div>
-          <div class="cmp-fee-val">${flatAnn>0?'£'+flatAnn.toFixed(1):'£0'}</div>
+          <div class="cmp-fee-lbl">Fund fee</div>
+          <div class="cmp-fee-val">${fmtPct(addPct)}</div>
+        </div>
+        <div class="cmp-fee-item">
+          <div class="cmp-fee-lbl">Contribution fee</div>
+          <div class="cmp-fee-val">${fmtPct(ccPct)}</div>
         </div>
         <div class="cmp-fee-item">
           <div class="cmp-fee-lbl">Projected fees by retirement</div>
