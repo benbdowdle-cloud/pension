@@ -706,13 +706,14 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
                 <div class="ass-panel" id="ass-panel">
                   <table class="ass-table">
                     <tr><td>Investment growth</td><td id="ass-growth-lbl">How much we assume your pension investments grow each year. The default of 9.1% is based on the 20-year average annual return of a globally diversified balanced portfolio between 2005 and 2024. This is a historical average only and is not a guarantee of future returns.</td></tr>
-                    <tr><td>Contributions</td><td>We assume you keep contributing the same amount throughout your working life and do not assume your contributions increase over time. If your salary grows, your actual pot will likely be higher than shown here - but the fee savings between providers will be proportionally similar.</td></tr>
+                    <tr><td>Contribution growth</td><td id="ass-cg-lbl">How much we assume you'll increase your contributions each year. The default of 2% matches inflation, so your contributions stay flat in today's money. Set this to wage growth (~3-4%) to model a rising career, or 0% to keep contributions fixed in nominal terms.</td></tr>
                     <tr><td>Inflation</td><td id="ass-inf-lbl">We use inflation to show your final pot in today's money, so the figures feel meaningful rather than inflated. The default of 2% is the Bank of England's official inflation target.</td></tr>
                     <tr><td>Tax relief</td><td>The government adds tax relief to your pension contributions. Basic rate taxpayers receive 20% added automatically. We assume this is already included in the monthly contribution figure you entered above.</td></tr>
                     <tr><td>Retirement age</td><td id="ass-ret-lbl">The age we project your pension pot to. This defaults to 67, which is the current UK state pension age. You can adjust this using the slider below.</td></tr>
                   </table>
                   <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px">
                     <div class="sl-row"><div class="sl-hdr"><span>Annual Growth Rate</span><span id="sl-growth-val">9.1%</span></div><input type="range" id="sl-growth" min="3" max="15" step="0.1" value="9.1" oninput="updateSlider()"></div>
+                    <div class="sl-row"><div class="sl-hdr"><span>Contribution Growth Rate</span><span id="sl-cg-val">2.0%</span></div><input type="range" id="sl-cg" min="0" max="6" step="0.1" value="2.0" oninput="updateSlider()"></div>
                     <div class="sl-row"><div class="sl-hdr"><span>Inflation Rate</span><span id="sl-inf-val">2.0%</span></div><input type="range" id="sl-inf" min="0" max="6" step="0.1" value="2.0" oninput="updateSlider()"></div>
                     <div class="sl-row"><div class="sl-hdr"><span>Retirement Age</span><span id="sl-ret-val">67</span></div><input type="range" id="sl-ret" min="55" max="80" step="1" value="67" oninput="updateSlider()"></div>
                   </div>
@@ -1019,6 +1020,7 @@ const CMETA = {
 const GROWTH_DEFAULT = 0.091;
 let GROWTH = GROWTH_DEFAULT;
 let INFLATION = 0.02;
+let CONTRIB_GROWTH = 0.02;
 let contribMode = 'pct';
 let amcMode = 'pct';
 let opCount = 0;
@@ -1119,19 +1121,21 @@ function tieredAmcAnnual(pot, amcPct, tiers){
   return fee;
 }
 
-// ── Core projection — month-by-month, tier recalculated each year ──
-function projectPot(start, monthly0, years, amcPct, tiers, flatAnnual, ccPct, addPct){
-  const ccR=ccPct/100;
-  const addM=(addPct/100)/12;
+// ── Core projection — month-by-month, AMC recalculated each month, contributions uprated annually ──
+function runProjection(start, monthly0, years, fees){
+  const amcPct=fees.amc||0;
+  const tiers=fees.tiers||null;
+  const flatAnnual=fees.flat||0;
+  const ccR=(fees.cc||0)/100;
+  const addM=((fees.add||0)/100)/12;
   let pot=start;
-  const moNet=monthly0*(1-ccR);
 
   for(let y=0;y<years;y++){
-    // Compute this year's tiered AMC on the pot at start of year
-    const amcAnnual=tieredAmcAnnual(pot, amcPct, tiers);
-    const amcMonthly=amcAnnual/12;
+    const yearMonthly=monthly0*Math.pow(1+CONTRIB_GROWTH,y);
+    const moNet=yearMonthly*(1-ccR);
 
     for(let m=0;m<12;m++){
+      const amcMonthly=tieredAmcAnnual(pot, amcPct, tiers)/12;
       pot=pot*(1+GROWTH/12)-amcMonthly-pot*addM+moNet-flatAnnual/12;
       if(pot<0)pot=0;
     }
@@ -1139,16 +1143,11 @@ function projectPot(start, monthly0, years, amcPct, tiers, flatAnnual, ccPct, ad
   return pot/Math.pow(1+INFLATION,years);
 }
 
-function projectNoFees(start,monthly0,years){
-  let pot=start;
-  for(let m=0;m<years*12;m++) pot=pot*(1+GROWTH/12)+monthly0;
-  return pot/Math.pow(1+INFLATION,years);
-}
+const NO_FEES={amc:0,tiers:null,flat:0,cc:0,add:0};
 
 function calcFees(start,monthly0,years,fees){
-  const tiers=fees.tiers||null;
-  const pot=projectPot(start,monthly0,years,fees.amc,tiers,fees.flat||0,fees.cc||0,fees.add||0);
-  const nofee=projectNoFees(start,monthly0,years);
+  const pot=runProjection(start,monthly0,years,fees);
+  const nofee=runProjection(start,monthly0,years,NO_FEES);
   return{pot,total:Math.max(0,nofee-pot)};
 }
 
@@ -1344,15 +1343,19 @@ function updateEffCost(){
 
 function updateSlider(){
   const g=parseFloat(document.getElementById('sl-growth').value);
+  const cg=parseFloat(document.getElementById('sl-cg').value);
   const inf=parseFloat(document.getElementById('sl-inf').value);
   const ret=parseInt(document.getElementById('sl-ret').value);
   document.getElementById('sl-growth-val').textContent=g.toFixed(1)+'%';
+  document.getElementById('sl-cg-val').textContent=cg.toFixed(1)+'%';
   document.getElementById('sl-inf-val').textContent=inf.toFixed(1)+'%';
   document.getElementById('sl-ret-val').textContent=ret;
   document.getElementById('ass-growth-lbl').textContent='How much we assume your pension investments grow each year. The current setting of '+g.toFixed(1)+'% is based on long-term historical averages. This is not a guarantee of future returns.';
+  document.getElementById('ass-cg-lbl').textContent='How much we assume you\'ll increase your contributions each year. The current setting of '+cg.toFixed(1)+'%'+(cg===inf?' matches inflation, so your contributions stay flat in today\'s money':'')+'. Set this to wage growth (~3-4%) to model a rising career, or 0% to keep contributions fixed in nominal terms.';
   document.getElementById('ass-inf-lbl').textContent='We use inflation to show your final pot in today\'s money. The current setting of '+inf.toFixed(1)+'%'+(inf===2.0?' is the Bank of England\'s official inflation target':'')+'.';
   document.getElementById('ass-ret-lbl').textContent='The age we project your pension pot to. Currently set to '+ret+(ret===67?', the current UK state pension age':'')+'. You can adjust this using the slider below.';
   GROWTH=g/100;
+  CONTRIB_GROWTH=cg/100;
   INFLATION=inf/100;
 }
 
