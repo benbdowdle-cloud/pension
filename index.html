@@ -1076,6 +1076,7 @@ async function loadSheetData(){
         tiers:tiers,
         last_verified:row['last_verified']||'',
         source:row['source']||'',
+        url:(row['url']||'').trim(),
       };
     });
     sel.innerHTML='';
@@ -1474,7 +1475,7 @@ function runCalc(){
     </div>`;
   }
 
-  function makeCard(name,fund,amcPct,addPct,flatAnn,ccPct,totalFees,projPot,saving,isCurr,isBest,notes){
+  function makeCard(name,fund,amcPct,addPct,flatAnn,ccPct,totalFees,projPot,saving,isCurr,isBest,notes,url){
     const card=document.createElement('div');
     card.className='cmp-card'+(isCurr?' card-curr':'');
     const pctDiff=currTotal>0?Math.abs(Math.round((saving/currTotal)*100)):0;
@@ -1482,6 +1483,10 @@ function runCalc(){
     const pillPct=isCurr?'':(saving>0?`${pctDiff}% less lost to fees`:saving<0?`${pctDiff}% more lost to fees`:'');
     const amtClass=isCurr?'base':saving>0?'pos':saving<0?'neg':'base';
     const badges=(isCurr?`<span class="t2-bdg t2-curr">Current</span>`:'');
+    const validUrl=/^https?:\/\//i.test(url||'')?String(url).replace(/&/g,'&amp;').replace(/"/g,'&quot;'):'';
+    const switchBtn=validUrl
+      ?`<a class="btn-switch" href="${validUrl}" target="_blank" rel="noopener noreferrer" style="margin-top:8px;text-decoration:none;display:inline-block;text-align:center">Switch</a>`
+      :`<button class="btn-switch" type="button" style="margin-top:8px">Switch</button>`;
     card.innerHTML=`
       <div class="cmp-card-top">
         <div style="display:flex;align-items:center;gap:12px">
@@ -1497,7 +1502,7 @@ function runCalc(){
               <button class="btn-switch outline" style="margin-top:8px" onclick="showPage('form-page')">Edit details</button>`
             :`<div class="cmp-save-amt ${amtClass}">${pillAmt}</div>
               <div class="cmp-save-pct ${amtClass}">${pillPct}</div>
-              <button class="btn-switch" style="margin-top:8px">Switch</button>`
+              ${switchBtn}`
           }
         </div>
       </div>
@@ -1525,11 +1530,11 @@ function runCalc(){
     return card;
   }
 
-  tb.appendChild(makeCard(pName,d?.fund||'',fees.amc,fees.add,fees.flat||0,fees.cc,currTotal,currPot,0,true,false,d?.notes||''));
+  tb.appendChild(makeCard(pName,d?.fund||'',fees.amc,fees.add,fees.flat||0,fees.cc,currTotal,currPot,0,true,false,d?.notes||'',d?.url||''));
   alts.forEach((p,i)=>{
     const best=i===0&&p.saving>0;
     const sheetD=PFEES[p.name]||{};
-    tb.appendChild(makeCard(p.name,p.fund||sheetD.fund||'',p.amc,p.effPct-p.amc,sheetD.flat||0,p.ccPct,p.altTotal,p.altPot,p.saving,false,best,p.notes||sheetD.notes||''));
+    tb.appendChild(makeCard(p.name,p.fund||sheetD.fund||'',p.amc,p.effPct-p.amc,sheetD.flat||0,p.ccPct,p.altTotal,p.altPot,p.saving,false,best,p.notes||sheetD.notes||'',sheetD.url||''));
   });
 
   showPage('results-page');window.scrollTo({top:0,behavior:'smooth'});
