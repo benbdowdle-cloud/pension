@@ -30,6 +30,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+html,body{overflow-x:hidden}
 body{font-family:'Inter',sans-serif;background:var(--surface);color:var(--text);line-height:1.6;font-size:15px}
 .page{display:none}
 .page.active{display:block;animation:fi .3s ease both}
@@ -490,6 +491,16 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
   .calc-wrap{padding:16px 12px 40px}
   .fc-body{padding:14px}
   .fee-row{grid-template-columns:1fr auto}
+  .nav-links{display:none}
+  .nav-in{gap:12px;justify-content:space-between}
+  .nav-cta{padding:8px 14px;font-size:12px}
+  .fee-hdr{flex-direction:column;align-items:flex-start;gap:4px}
+}
+@media(max-width:600px){
+  /* Prevent iOS Safari from zooming on focus: form fields must be >=16px */
+  .ip input,.is input,#pot,#age,#contrib-gbp,#contrib-pct-val,#contrib-sal,
+  .fee-row-input input,.op-row select,.op-row input,.prov-search-wrap input[type="text"],
+  input[type="text"],input[type="number"],input[type="email"],select,textarea{font-size:16px}
 }
 </style>
 </head>
