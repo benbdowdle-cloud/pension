@@ -994,6 +994,10 @@ input[type=range]{width:100%;accent-color:var(--cyan);height:4px}
 /* ══ SHEET ══ */
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDp0kVWlvsYRQGj-_ACzxlz9TBzT_jNXTOk-A9GslFVmlOeKmc6oRWvVHpc59XnZO5sg6Q0a3VnSrP/pub?gid=2074038390&single=true&output=csv';
 
+/* Apps Script Web App URL for anonymous calculator-run logging. Leave empty
+   to disable. No PII is ever sent; all financial figures rounded to £1,000. */
+const ANALYTICS_SHEET_URL = '';
+
 const PFEES_FALLBACK = {
   "Aegon":               {amc:0.40,add:0.04,flat:0,cc:0,fund:"Aegon Balanced",tiers:null,notes:""},
   "Aviva":               {amc:0.40,add:0.10,flat:0,cc:0,fund:"Aviva My Future Focus Growth",tiers:null,notes:"Your employer may have negotiated a lower rate than the standard published fee - check your pension portal or payslip for your exact charges."},
@@ -1384,6 +1388,43 @@ function toggleFaq(btn){btn.closest('.faq-item').classList.toggle('open');}
 function clearErr(){document.querySelectorAll('.invalid').forEach(e=>e.classList.remove('invalid'));document.querySelectorAll('.ferr').forEach(e=>e.remove());}
 function markErr(el,msg){el.classList.add('invalid');const d=document.createElement('div');d.className='ferr';d.textContent=msg;const g=el.closest('.fg')||el.parentElement;const ex=g.querySelector('.ferr');if(ex)ex.remove();g.appendChild(d);}
 
+function logCalculatorRun(d){
+  if(typeof gtag==='function'){
+    try{
+      gtag('event','calculator_run',{
+        provider:d.provider,
+        age:d.age,
+        pot_size:d.pot_size,
+        salary:d.salary,
+        contribution_rate:d.contribution_rate,
+        retirement_age:d.retirement_age,
+        years_to_retirement:d.years_to_retirement,
+      });
+    }catch(e){}
+  }
+  if(ANALYTICS_SHEET_URL){
+    try{
+      fetch(ANALYTICS_SHEET_URL,{
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify({
+          timestamp:new Date().toISOString(),
+          provider:d.provider,
+          age:d.age,
+          pot_size:d.pot_size,
+          salary:d.salary,
+          contribution_rate:d.contribution_rate,
+          retirement_age:d.retirement_age,
+          projected_pot:d.projected_pot,
+          projected_fees:d.projected_fees,
+        }),
+        keepalive:true,
+      }).catch(()=>{});
+    }catch(e){}
+  }
+}
+
 function runCalc(){
   clearErr();
   const provEl=document.getElementById('prov');
@@ -1435,6 +1476,25 @@ function runCalc(){
   document.getElementById('rh-fees').textContent=fmt(currTotal);
   document.getElementById('res-growth-lbl').textContent=(GROWTH*100).toFixed(1)+'%';
   document.getElementById('res-inf-lbl').textContent=(INFLATION*100).toFixed(1)+'%';
+
+  // Anonymous logging (background, fire-and-forget, never blocks rendering)
+  try{
+    const round1k=n=>Math.round((Number(n)||0)/1000)*1000;
+    const salRaw=(document.getElementById('contrib-salary').value||'').replace(/[^0-9]/g,'');
+    const salary=parseFloat(salRaw)||0;
+    const contribPct=contribMode==='pct'?(parseFloat(document.getElementById('contrib-pct-val').value)||0):0;
+    logCalculatorRun({
+      provider:pName,
+      age:age,
+      pot_size:round1k(totalPot),
+      salary:round1k(salary),
+      contribution_rate:contribPct,
+      retirement_age:ret,
+      years_to_retirement:years,
+      projected_pot:round1k(currPot),
+      projected_fees:round1k(currTotal),
+    });
+  }catch(e){}
 
   // Build comparison cards
   const tb=document.getElementById('ctbody');tb.innerHTML='';
